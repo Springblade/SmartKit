@@ -1,0 +1,68 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+.nyc_output/
+test-results/
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# drizzle ORM
+/drizzle/
+*.db
+*.db-shm
+*.db-wal
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# vercel
+.vercel/
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+._*
+Thumbs.db
+*.pem
+
+# docker data
+.docker/
+/docker/data/
+/docker/volumes/
+
+# build caches
+.turbo/
+.swc/

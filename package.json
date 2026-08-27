@@ -1,0 +1,61 @@
+{
+  "name": "smartkit",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "check-types": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push",
+    "db:backfill-journal": "tsx scripts/backfill-drizzle-journal.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "pretest:billing": "tsx scripts/ensure-server-only-shim.ts",
+    "test:billing": "tsx scripts/test-billing-scenarios.ts",
+    "test:sepay": "tsx scripts/test-sepay.ts",
+    "test:sepay-qr-url": "tsx scripts/test-sepay-qr-url.ts"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-auth": "^1.6.25",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "lucide-react": "^1.31.0",
+    "nanoid": "^6.0.0",
+    "next": "16.2.12",
+    "next-themes": "^0.4.6",
+    "pg": "^8.22.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-email": "6.9.1",
+    "resend": "^6.18.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.25",
+    "@biomejs/biome": "2.5.6",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/node": "^26",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.22.4",
+    "typescript": "5.7.3"
+  }
+}
