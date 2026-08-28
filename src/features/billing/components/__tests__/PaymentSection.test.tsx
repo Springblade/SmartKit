@@ -1,5 +1,5 @@
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@/tests/utils';
-import { describe, it, expect, vi } from 'vitest';
 import { PaymentSection } from '../PaymentSection';
 
 // Mock Next.js router
@@ -25,11 +25,11 @@ vi.mock('../../hooks/usePaymentPolling', () => ({
 
 // Mock actions
 vi.mock('../../actions/generate-payment-qr', () => ({
-  generatePaymentQRAction: vi.fn(() => 
-    Promise.resolve({ 
-      success: true, 
-      qrUrl: 'https://example.com/qr.png' 
-    })
+  generatePaymentQRAction: vi.fn(() =>
+    Promise.resolve({
+      success: true,
+      qrUrl: 'https://example.com/qr.png',
+    }),
   ),
 }));
 
@@ -57,9 +57,11 @@ describe('PaymentSection', () => {
 
     expect(screen.getByText('Thông tin thanh toán')).toBeInTheDocument();
     expect(screen.getByText('Basic Plan')).toBeInTheDocument();
-    expect(screen.getByText((content, element) => {
-      return element?.textContent === '100.000 VND';
-    })).toBeInTheDocument();
+    expect(
+      screen.getByText((_content, element) => {
+        return element?.textContent === '100.000 VND';
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Payment for Basic Plan')).toBeInTheDocument();
     expect(screen.getByText('ORD123')).toBeInTheDocument();
   });

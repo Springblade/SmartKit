@@ -1,6 +1,6 @@
+import { desc, eq } from 'drizzle-orm';
 import { ArrowLeft, ReceiptText } from 'lucide-react';
 import Link from 'next/link';
-import { desc, eq } from 'drizzle-orm';
 import { db } from '@/database/db';
 import { orders } from '@/database/schema';
 import { requireAuth } from '@/features/auth/lib/auth';
@@ -27,7 +27,9 @@ export default async function BillingHistoryPage() {
         <div className="flex flex-col items-center justify-center rounded-xl border bg-card p-12 text-center">
           <ReceiptText className="h-12 w-12 text-muted-foreground/50" />
           <h3 className="mt-4 text-lg font-medium">Chưa có giao dịch nào</h3>
-          <p className="mt-1 text-sm text-muted-foreground">Các giao dịch của bạn sẽ xuất hiện ở đây sau khi bạn mua gói dịch vụ</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Các giao dịch của bạn sẽ xuất hiện ở đây sau khi bạn mua gói dịch vụ
+          </p>
           <Link
             href="/dashboard/billing"
             className="mt-6 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"

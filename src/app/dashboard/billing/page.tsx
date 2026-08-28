@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { db } from '@/database/db';

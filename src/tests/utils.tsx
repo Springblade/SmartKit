@@ -1,5 +1,5 @@
-import { render, RenderOptions } from '@testing-library/react';
-import { ReactElement } from 'react';
+import { type RenderOptions, render } from '@testing-library/react';
+import type { ReactElement } from 'react';
 
 // Add providers here if needed (e.g., ThemeProvider, QueryClientProvider)
 function customRender(ui: ReactElement, options?: RenderOptions) {

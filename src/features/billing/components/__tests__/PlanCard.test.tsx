@@ -1,15 +1,16 @@
+import { describe, expect, it } from 'vitest';
 import { render, screen } from '@/tests/utils';
-import { describe, it, expect } from 'vitest';
 import { PlanCard } from '../PlanCard';
 
 const mockPlan = {
   id: 'plan-basic',
   name: 'Basic Plan',
-  priceVnd: 100000,
+  priceVnd: '100000',
   features: ['Feature 1', 'Feature 2', 'Feature 3'],
   stripePriceId: null,
   stripeProductId: null,
   durationDays: 30,
+  isActive: true,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -30,7 +31,7 @@ describe('PlanCard', () => {
     render(<PlanCard plan={mockPlan} isCurrentPlan={true} />);
 
     expect(screen.getAllByText('Current Plan')).toHaveLength(2);
-    
+
     const button = screen.getByRole('link', { name: /current plan/i });
     expect(button).toHaveAttribute('aria-disabled', 'true');
   });

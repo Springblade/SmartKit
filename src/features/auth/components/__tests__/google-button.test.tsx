@@ -1,5 +1,5 @@
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@/tests/utils';
-import { describe, it, expect, vi } from 'vitest';
 import { GoogleButton } from '../google-button';
 
 // Mock Next.js modules
@@ -21,9 +21,9 @@ describe('GoogleButton', () => {
     process.env.NEXT_PUBLIC_GOOGLE_ENABLED = 'false';
 
     const { container } = render(<GoogleButton mode="sign-in" />);
-    
+
     expect(container.firstChild).toBeNull();
-    
+
     process.env.NEXT_PUBLIC_GOOGLE_ENABLED = originalEnv;
   });
 
@@ -32,9 +32,9 @@ describe('GoogleButton', () => {
     process.env.NEXT_PUBLIC_GOOGLE_ENABLED = 'true';
 
     render(<GoogleButton mode="sign-in" />);
-    
+
     expect(screen.getByRole('button', { name: /đăng nhập với google/i })).toBeInTheDocument();
-    
+
     process.env.NEXT_PUBLIC_GOOGLE_ENABLED = originalEnv;
   });
 });
