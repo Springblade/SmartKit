@@ -55,7 +55,7 @@ export function GoogleButton({ mode }: GoogleButtonProps) {
           fill="#EA4335"
         />
       </svg>
-      {mode === 'sign-in' ? 'Đăng nhập với Google' : 'Đăng ký với Google'}
+      {mode === 'sign-in' ? 'Sign in with Google' : 'Sign up with Google'}
     </button>
   );
 }

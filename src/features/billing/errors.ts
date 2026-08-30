@@ -19,31 +19,32 @@ export type BillingErrorCode =
   | 'ORDER_FAILED'
   | 'SIMULATION_FAILED';
 
-const VIETNAMESE_MESSAGES: Record<BillingErrorCode, string> = {
-  UNAUTHORIZED: 'Bạn cần đăng nhập để tiếp tục.',
-  PLAN_NOT_FOUND: 'Không tìm thấy gói này.',
-  PLAN_INACTIVE: 'Gói này hiện không khả dụng.',
-  ALREADY_PURCHASED: 'Bạn đã sở hữu gói này rồi.',
-  ORDER_PENDING_EXISTS: 'Bạn đã có đơn đang chờ cho gói này. Vui lòng hoàn tất hoặc hủy trước khi tạo đơn mới.',
-  ORDER_NOT_FOUND_OR_NOT_PENDING: 'Không tìm thấy đơn hoặc đơn không ở trạng thái chờ.',
-  SEPAY_NOT_CONFIGURED: 'SePay chưa được cấu hình. Vui lòng liên hệ quản trị viên.',
-  ORDER_NOT_FOUND: 'Không tìm thấy đơn hàng.',
-  ORDER_NOT_PENDING: 'Đơn hàng không ở trạng thái chờ thanh toán.',
-  ORDER_FAILED: 'Không thể tạo đơn hàng.',
-  SIMULATION_FAILED: 'Mô phỏng thanh toán thất bại.',
+const ENGLISH_MESSAGES: Record<BillingErrorCode, string> = {
+  UNAUTHORIZED: 'You need to sign in to continue.',
+  PLAN_NOT_FOUND: 'This plan could not be found.',
+  PLAN_INACTIVE: 'This plan is currently unavailable.',
+  ALREADY_PURCHASED: 'You already own this plan.',
+  ORDER_PENDING_EXISTS:
+    'You already have a pending order for this plan. Please complete or cancel it before creating a new one.',
+  ORDER_NOT_FOUND_OR_NOT_PENDING: 'Order not found or not in pending status.',
+  SEPAY_NOT_CONFIGURED: 'SePay is not configured. Please contact the administrator.',
+  ORDER_NOT_FOUND: 'Order not found.',
+  ORDER_NOT_PENDING: 'Order is not in pending payment status.',
+  ORDER_FAILED: 'Could not create the order.',
+  SIMULATION_FAILED: 'Payment simulation failed.',
 };
 
 export class BillingError extends Error {
   readonly code: BillingErrorCode;
 
   constructor(code: BillingErrorCode, message?: string) {
-    super(message ?? VIETNAMESE_MESSAGES[code]);
+    super(message ?? ENGLISH_MESSAGES[code]);
     this.name = 'BillingError';
     this.code = code;
   }
 
-  /** Localized Vietnamese message suitable for end users. */
+  /** Localized English message suitable for end users. */
   get userMessage(): string {
-    return VIETNAMESE_MESSAGES[this.code];
+    return ENGLISH_MESSAGES[this.code];
   }
 }

@@ -8,4 +8,4 @@ export {
   requireAuth,
 } from './auth';
 export { sendEmail } from './email';
-export { checkRole, ROLES } from './permissions';
+export { ROLES } from './permissions';

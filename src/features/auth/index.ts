@@ -5,7 +5,6 @@ export { ResetPasswordEmail, VerificationEmail, WelcomeEmail } from './emails';
 export {
   auth,
   authConfig,
-  checkRole,
   getSession,
   isAdmin,
   requireAdmin,

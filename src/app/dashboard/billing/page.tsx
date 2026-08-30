@@ -5,9 +5,23 @@ import { db } from '@/database/db';
 import { orders, plans } from '@/database/schema';
 import { requireAuth } from '@/features/auth/lib/auth';
 import { createOrder } from '@/features/billing/actions/create-order';
+import { OrderStatusBadge } from '@/features/billing/components/OrderStatusBadge';
 import { PaymentSection } from '@/features/billing/components/PaymentSection';
 import { PlanCard } from '@/features/billing/components/PlanCard';
 import { BillingError } from '@/features/billing/errors';
+
+const STRINGS = {
+  pageTitle: 'Billing',
+  pageSubtitle: 'Manage your subscription and payments',
+  currentPlanTitle: 'Current Plan',
+  transactionHistoryLink: 'Transaction history',
+  backLink: '← Back',
+  errors: {
+    planNotFound: 'Plan not found',
+    alreadyOwned: 'You already have this plan',
+    genericFallback: 'Unable to create the order right now. Please try again later.',
+  },
+} as const;
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
@@ -45,9 +59,9 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
       // Find the selected plan
       selectedPlan = allPlans.find((p) => p.id === selectedPlanId);
       if (!selectedPlan) {
-        orderError = 'Plan not found';
+        orderError = STRINGS.errors.planNotFound;
       } else if (currentOrder?.planId === selectedPlanId && currentOrder?.status === 'completed') {
-        orderError = 'You already have this plan';
+        orderError = STRINGS.errors.alreadyOwned;
       } else {
         // Create order (will throw if pending order already exists)
         const result = await createOrder(selectedPlanId);
@@ -73,7 +87,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
       if (error instanceof BillingError) {
         orderError = error.userMessage;
       } else {
-        orderError = 'Không thể tạo đơn hàng lúc này. Vui lòng thử lại sau.';
+        orderError = STRINGS.errors.genericFallback;
       }
     }
   }
@@ -81,8 +95,8 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Billing</h2>
-        <p className="text-muted-foreground">Quản lý gói dịch vụ và thanh toán</p>
+        <h2 className="text-2xl font-bold tracking-tight">{STRINGS.pageTitle}</h2>
+        <p className="text-muted-foreground">{STRINGS.pageSubtitle}</p>
       </div>
 
       {/* Error Message */}
@@ -93,7 +107,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
             href="/dashboard/billing"
             className="mt-2 inline-block text-sm font-medium text-red-600 hover:underline dark:text-red-400"
           >
-            ← Quay lại
+            {STRINGS.backLink}
           </Link>
         </div>
       )}
@@ -121,26 +135,12 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
       {/* Current Plan */}
       {currentOrder && !pendingOrder && (
         <div className="rounded-xl border bg-card p-6">
-          <h3 className="text-lg font-semibold">Gói hiện tại</h3>
+          <h3 className="text-lg font-semibold">{STRINGS.currentPlanTitle}</h3>
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-3">
                 <p className="text-xl font-bold">{currentOrder.plan.name}</p>
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                    currentOrder.status === 'completed'
-                      ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200'
-                      : currentOrder.status === 'pending'
-                        ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200'
-                        : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
-                  }`}
-                >
-                  {currentOrder.status === 'completed'
-                    ? 'Active'
-                    : currentOrder.status === 'pending'
-                      ? 'Pending'
-                      : currentOrder.status}
-                </span>
+                <OrderStatusBadge status={currentOrder.status} />
               </div>
               <p className="text-sm text-muted-foreground">
                 {Number(currentOrder.plan.priceVnd).toLocaleString('vi-VN')} VND
@@ -179,7 +179,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
           href="/dashboard/billing/history"
           className="rounded-lg border bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
-          Lịch sử giao dịch
+          {STRINGS.transactionHistoryLink}
         </Link>
       </div>
     </div>

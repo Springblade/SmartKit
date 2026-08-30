@@ -1,7 +1,13 @@
-import { desc, eq } from 'drizzle-orm';
+import { desc, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
 import { session as sessionTable, user } from '@/database/schema';
 import { requireAdmin } from '@/features/auth/lib/auth';
+
+const STRINGS = {
+  pageTitle: 'User Management',
+  pageSubtitle: (adminEmail: string) => `View and manage user accounts (Admin: ${adminEmail})`,
+  totalUsers: (count: number) => `Total users: ${count}`,
+} as const;
 
 export default async function AdminUsersPage() {
   const currentSession = await requireAdmin();
@@ -11,23 +17,28 @@ export default async function AdminUsersPage() {
     orderBy: [desc(user.createdAt)],
   });
 
-  // Get session count for each user
-  const usersWithSessionCount = await Promise.all(
-    allUsers.map(async (u) => {
-      const sessions = await db.query.session.findMany({
-        where: eq(sessionTable.userId, u.id),
-      });
-      return { ...u, sessionCount: sessions.length };
-    }),
-  );
+  // Get session counts per user in a single query
+  const sessionCounts = await db
+    .select({
+      userId: sessionTable.userId,
+      count: sql<number>`count(*)::int`,
+    })
+    .from(sessionTable)
+    .groupBy(sessionTable.userId);
+
+  const sessionCountMap = new Map(sessionCounts.map((r) => [r.userId, r.count]));
+
+  // Attach session count to each user
+  const usersWithSessionCount = allUsers.map((u) => ({
+    ...u,
+    sessionCount: sessionCountMap.get(u.id) ?? 0,
+  }));
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Quản lý người dùng</h2>
-        <p className="text-zinc-500 dark:text-zinc-400">
-          Xem và quản lý tài khoản người dùng (Admin: {currentSession.user.email})
-        </p>
+        <h2 className="text-2xl font-bold tracking-tight">{STRINGS.pageTitle}</h2>
+        <p className="text-zinc-500 dark:text-zinc-400">{STRINGS.pageSubtitle(currentSession.user.email)}</p>
       </div>
 
       <div className="rounded-lg border">
@@ -73,7 +84,7 @@ export default async function AdminUsersPage() {
         </table>
       </div>
 
-      <div className="text-sm text-zinc-500">Tổng số người dùng: {allUsers.length}</div>
+      <div className="text-sm text-zinc-500">{STRINGS.totalUsers(allUsers.length)}</div>
     </div>
   );
 }

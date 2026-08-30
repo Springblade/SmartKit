@@ -5,6 +5,25 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { authClient } from '@/features/auth/client';
 
+const STRINGS = {
+  emailLabel: 'New Password',
+  confirmPasswordLabel: 'Confirm Password',
+  submitButton: 'Reset Password',
+  submittingButton: 'Resetting...',
+  hasAccount: 'Already have an account?',
+  signIn: 'Sign In',
+  pageTitle: 'Reset Password',
+  loading: 'Loading...',
+  errors: {
+    passwordsDoNotMatch: 'Passwords do not match',
+    tooShort: 'Password must be at least 8 characters',
+    generic: 'Something went wrong',
+  },
+  invalidLinkTitle: 'Invalid Link',
+  invalidLinkBody: 'This reset link is invalid or has expired.',
+  requestNewLink: 'Request a new link',
+} as const;
+
 function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,11 +37,11 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <div className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Link không hợp lệ</h1>
-        <p className="text-gray-600">Link reset không hợp lệ hoặc đã hết hạn.</p>
+        <h1 className="text-2xl font-bold">{STRINGS.invalidLinkTitle}</h1>
+        <p className="text-gray-600">{STRINGS.invalidLinkBody}</p>
         <p className="text-center text-sm">
           <Link href="/auth/forgot-password" className="text-blue-600 hover:underline">
-            Yêu cầu link mới
+            {STRINGS.requestNewLink}
           </Link>
         </p>
       </div>
@@ -33,12 +52,12 @@ function ResetPasswordForm() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setError('Mật khẩu không khớp');
+      setError(STRINGS.errors.passwordsDoNotMatch);
       return;
     }
 
     if (password.length < 8) {
-      setError('Mật khẩu phải có ít nhất 8 ký tự');
+      setError(STRINGS.errors.tooShort);
       return;
     }
 
@@ -51,7 +70,7 @@ function ResetPasswordForm() {
     });
 
     if (result.error) {
-      setError(result.error.message || 'Có lỗi xảy ra');
+      setError(result.error.message || STRINGS.errors.generic);
       setLoading(false);
       return;
     }
@@ -61,12 +80,12 @@ function ResetPasswordForm() {
 
   return (
     <div className="w-full max-w-sm space-y-4">
-      <h1 className="text-2xl font-bold">Đặt lại mật khẩu</h1>
+      <h1 className="text-2xl font-bold">{STRINGS.pageTitle}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="password" className="block text-sm font-medium">
-            Mật khẩu mới
+            {STRINGS.emailLabel}
           </label>
           <input
             id="password"
@@ -82,7 +101,7 @@ function ResetPasswordForm() {
 
         <div>
           <label htmlFor="confirmPassword" className="block text-sm font-medium">
-            Xác nhận mật khẩu
+            {STRINGS.confirmPasswordLabel}
           </label>
           <input
             id="confirmPassword"
@@ -103,13 +122,13 @@ function ResetPasswordForm() {
           disabled={loading}
           className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
         >
-          {loading ? 'Đang xử lý...' : 'Đặt lại mật khẩu'}
+          {loading ? STRINGS.submittingButton : STRINGS.submitButton}
         </button>
       </form>
 
       <p className="text-center text-sm">
         <Link href="/auth/sign-in" className="text-blue-600 hover:underline">
-          Quay lại đăng nhập
+          {STRINGS.hasAccount} {STRINGS.signIn}
         </Link>
       </p>
     </div>
@@ -119,7 +138,7 @@ function ResetPasswordForm() {
 export default function ResetPasswordPage() {
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <Suspense fallback={<div className="text-center">Đang tải...</div>}>
+      <Suspense fallback={<div className="text-center">{STRINGS.loading}</div>}>
         <ResetPasswordForm />
       </Suspense>
     </main>

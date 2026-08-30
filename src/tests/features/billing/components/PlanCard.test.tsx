@@ -1,18 +1,14 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@/tests/utils';
-import { PlanCard } from '../PlanCard';
+import { describe, expect, it } from 'vitest';
+import { PlanCard } from '@/features/billing/components/PlanCard';
 
 const mockPlan = {
   id: 'plan-basic',
   name: 'Basic Plan',
   priceVnd: '100000',
-  features: ['Feature 1', 'Feature 2', 'Feature 3'],
-  stripePriceId: null,
-  stripeProductId: null,
-  durationDays: 30,
   isActive: true,
+  features: ['Feature 1', 'Feature 2', 'Feature 3'],
   createdAt: new Date(),
-  updatedAt: new Date(),
 };
 
 describe('PlanCard', () => {

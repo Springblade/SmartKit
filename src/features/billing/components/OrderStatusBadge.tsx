@@ -1,12 +1,19 @@
 import { Badge, type BadgeVariant } from '@/components/ui';
 
+const STRINGS = {
+  paid: 'Paid',
+  pending: 'Pending',
+  expired: 'Expired',
+  cancelled: 'Cancelled',
+} as const;
+
 export type OrderStatus = 'pending' | 'completed' | 'expired' | 'cancelled';
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
-  completed: 'Đã thanh toán',
-  pending: 'Đang chờ',
-  expired: 'Hết hạn',
-  cancelled: 'Đã hủy',
+  completed: STRINGS.paid,
+  pending: STRINGS.pending,
+  expired: STRINGS.expired,
+  cancelled: STRINGS.cancelled,
 };
 
 const STATUS_VARIANT: Record<OrderStatus, BadgeVariant> = {

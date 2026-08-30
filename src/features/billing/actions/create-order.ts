@@ -4,12 +4,11 @@ import { and, eq } from 'drizzle-orm';
 import { db } from '@/database/db';
 import { orders, plans } from '@/database/schema';
 import { getSession } from '@/features/auth/lib/auth';
+import { ORDER_TTL_MINUTES } from '../config';
 import { hasUserPurchasedPlan } from '../entitlements';
 import { BillingError } from '../errors';
 import { getDatabaseErrorCode, getDatabaseErrorConstraint, isPendingOrderConflict } from '../order-errors';
 import { generatePaymentContent } from '../payment-content';
-
-const ORDER_TTL_MINUTES = 15;
 
 export async function createOrder(planId: string) {
   const session = await getSession();

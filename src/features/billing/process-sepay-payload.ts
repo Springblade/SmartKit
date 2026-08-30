@@ -8,30 +8,21 @@
  *      so the loser of a webhook/cron race returns `already_processed`.
  *   3. Hand off to `processOrderCompletion` for the actual order flip.
  *
- * The webhook route does NOT use this helper because it has additional
- * signature-rejection audit codes (`REJECTED_BAD_SIGNATURE`,
- * `REJECTED_EXPIRED_TIMESTAMP`) that must survive even when the payload
- * itself is unparseable. The cron route has no signature caveat, so this
- * helper covers its full surface.
+ * The webhook route validates signatures first, then delegates here with the
+ * original parsed payload and raw body for accurate audit rows.
  */
 import 'server-only';
 import { extractOrderCode } from './payment-content';
 import { recordPaymentTransaction } from './payment-transactions';
-import { processOrderCompletion } from './process-order-completion';
+import { type CompletionResult, processOrderCompletion } from './process-order-completion';
 import type { SepayWebhookPayload } from './types';
 
 export type ProcessSepayPayloadResult =
-  | { status: 'completed' }
+  | CompletionResult
   | { status: 'already_processed' }
   | {
       status: 'ignored';
-      reason:
-        | 'no_transaction_id'
-        | 'outbound'
-        | 'no_order_code'
-        | 'order_not_found'
-        | 'order_not_pending'
-        | 'amount_mismatch';
+      reason: 'no_transaction_id' | 'outbound' | 'no_order_code';
     };
 
 interface ProcessSepayPayloadInput {
@@ -41,12 +32,20 @@ interface ProcessSepayPayloadInput {
   content: string;
 }
 
-export async function processSepayPayload(input: ProcessSepayPayloadInput): Promise<ProcessSepayPayloadResult> {
+interface ProcessSepayPayloadOptions {
+  /** Full parsed webhook payload for audit rows. Cron omits this. */
+  auditPayload?: SepayWebhookPayload;
+  /** Original request body for audit rows. Defaults to JSON.stringify(input). */
+  rawBody?: string;
+}
+
+export async function processSepayPayload(
+  input: ProcessSepayPayloadInput,
+  options?: ProcessSepayPayloadOptions,
+): Promise<ProcessSepayPayloadResult> {
   const { id, transferType, transferAmount, content } = input;
 
-  // Cron polls fetch `SepayWebhookPayload`-shaped rows but only id/amount/content/
-  // transferType are needed. Build a minimal payload for the audit row.
-  const auditPayload: SepayWebhookPayload = {
+  const auditPayload: SepayWebhookPayload = options?.auditPayload ?? {
     id,
     gateway: '',
     transactionDate: '',
@@ -57,7 +56,7 @@ export async function processSepayPayload(input: ProcessSepayPayloadInput): Prom
     reference: '',
     description: '',
   };
-  const rawBody = JSON.stringify(input);
+  const rawBody = options?.rawBody ?? JSON.stringify(input);
 
   if (id === null) {
     await recordPaymentTransaction({ payload: auditPayload, rawBody });
@@ -80,14 +79,9 @@ export async function processSepayPayload(input: ProcessSepayPayloadInput): Prom
     return { status: 'already_processed' };
   }
 
-  const result = await processOrderCompletion({
+  return processOrderCompletion({
     sepayTransactionId: id,
     transferAmount,
     orderCode,
   });
-
-  if (result.status === 'completed') {
-    return { status: 'completed' };
-  }
-  return { status: 'ignored', reason: result.reason };
 }

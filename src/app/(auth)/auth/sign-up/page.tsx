@@ -5,6 +5,25 @@ import { useState } from 'react';
 import { signUp } from '@/features/auth/client';
 import { GoogleButton } from '@/features/auth/components';
 
+const STRINGS = {
+  pageTitle: 'Sign Up',
+  nameLabel: 'Full Name',
+  emailLabel: 'Email',
+  passwordLabel: 'Password (minimum 8 characters)',
+  submitButton: 'Sign Up',
+  submittingButton: 'Signing up...',
+  hasAccount: 'Already have an account?',
+  signIn: 'Sign In',
+  errors: {
+    failed: 'Sign up failed',
+  },
+  successTitle: 'Check your email',
+  successBodyP1: 'We sent a verification email to',
+  successBodyP2: 'Click the link in the email to verify your account.',
+  successBodyP3: "If you don't receive the email, check your spam folder or wait 5 minutes and try again.",
+  backToSignIn: 'Back to sign in',
+} as const;
+
 export default function SignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +44,7 @@ export default function SignUpPage() {
     });
 
     if (error) {
-      setError(error.message || 'Đăng ký thất bại');
+      setError(error.message || STRINGS.errors.failed);
       setLoading(false);
       return;
     }
@@ -38,17 +57,15 @@ export default function SignUpPage() {
     return (
       <main className="flex min-h-screen items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
-          <h1 className="text-2xl font-bold">Kiểm tra email</h1>
+          <h1 className="text-2xl font-bold">{STRINGS.successTitle}</h1>
           <p className="text-gray-600">
-            Chúng tôi đã gửi email xác thực tới <strong>{email}</strong>.
+            {STRINGS.successBodyP1} <strong>{email}</strong>.
           </p>
-          <p className="text-sm text-gray-500">Vui lòng click link trong email để xác thực tài khoản.</p>
-          <p className="text-sm text-gray-400">
-            Nếu không nhận được email, vui lòng kiểm tra thư mục spam hoặc chờ 5 phút rồi thử lại.
-          </p>
+          <p className="text-sm text-gray-500">{STRINGS.successBodyP2}</p>
+          <p className="text-sm text-gray-400">{STRINGS.successBodyP3}</p>
           <p className="text-center text-sm">
             <Link href="/auth/sign-in" className="text-blue-600 hover:underline">
-              Quay lại đăng nhập
+              {STRINGS.backToSignIn}
             </Link>
           </p>
         </div>
@@ -59,12 +76,12 @@ export default function SignUpPage() {
   return (
     <main className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Đăng ký</h1>
+        <h1 className="text-2xl font-bold">{STRINGS.pageTitle}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-sm font-medium">
-              Họ và tên
+              {STRINGS.nameLabel}
             </label>
             <input
               id="name"
@@ -79,7 +96,7 @@ export default function SignUpPage() {
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium">
-              Email
+              {STRINGS.emailLabel}
             </label>
             <input
               id="email"
@@ -94,7 +111,7 @@ export default function SignUpPage() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium">
-              Mật khẩu (tối thiểu 8 ký tự)
+              {STRINGS.passwordLabel}
             </label>
             <input
               id="password"
@@ -115,7 +132,7 @@ export default function SignUpPage() {
             disabled={loading}
             className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
           >
-            {loading ? 'Đang xử lý...' : 'Đăng ký'}
+            {loading ? STRINGS.submittingButton : STRINGS.submitButton}
           </button>
         </form>
 
@@ -123,9 +140,9 @@ export default function SignUpPage() {
         <GoogleButton mode="sign-up" />
 
         <p className="text-center text-sm">
-          Đã có tài khoản?{' '}
+          {STRINGS.hasAccount}{' '}
           <Link href="/auth/sign-in" className="text-blue-600 hover:underline">
-            Đăng nhập
+            {STRINGS.signIn}
           </Link>
         </p>
       </div>

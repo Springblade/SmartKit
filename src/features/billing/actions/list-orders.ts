@@ -17,7 +17,7 @@ export async function listOrders(params?: z.infer<typeof ListOrdersParamsSchema>
 
   const whereClause = parsed.status ? eq(orders.status, parsed.status) : undefined;
 
-  const result = await db.query.orders.findMany({
+  const ordersList = await db.query.orders.findMany({
     where: whereClause,
     with: {
       plan: true,
@@ -33,5 +33,5 @@ export async function listOrders(params?: z.infer<typeof ListOrdersParamsSchema>
     limit: parsed.limit,
   });
 
-  return result;
+  return ordersList;
 }

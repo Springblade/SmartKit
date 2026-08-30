@@ -6,6 +6,29 @@ import { Suspense, useState } from 'react';
 import { authClient, signIn } from '@/features/auth/client';
 import { GoogleButton } from '@/features/auth/components';
 
+const STRINGS = {
+  pageTitle: 'Sign In',
+  emailLabel: 'Email',
+  passwordLabel: 'Password',
+  submitButton: 'Sign In',
+  submittingButton: 'Signing in...',
+  forgotPassword: 'Forgot password?',
+  noAccount: "Don't have an account?",
+  signUp: 'Sign Up',
+  resetSuccessTitle: 'Password Reset',
+  resetSuccessBody: 'Your password has been reset. Sign in with your new password.',
+  emailNotVerified: 'Email not verified? Click below to resend the verification link.',
+  resendButtonSending: 'Sending...',
+  resendButtonSent: 'Verification email sent',
+  resendButtonDefault: 'Resend verification email',
+  errors: {
+    unverified: 'Your email has not been verified. Check your inbox and click the verification link.',
+    failed: 'Sign in failed',
+    resendFailed: 'Could not resend the email. Please try again later.',
+  },
+  loading: 'Loading...',
+} as const;
+
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -31,9 +54,9 @@ function SignInForm() {
         onError: (ctx) => {
           if (ctx.error.status === 403) {
             setNeedsVerification(true);
-            setError('Email chưa được xác minh. Vui lòng kiểm tra hộp thư và bấm vào link xác minh.');
+            setError(STRINGS.errors.unverified);
           } else {
-            setError(ctx.error.message || 'Đăng nhập thất bại');
+            setError(ctx.error.message || STRINGS.errors.failed);
           }
           setLoading(false);
         },
@@ -54,7 +77,7 @@ function SignInForm() {
     });
     if (resendError) {
       setResendStatus('error');
-      setError(resendError.message || 'Không gửi lại được email. Vui lòng thử lại sau.');
+      setError(resendError.message || STRINGS.errors.resendFailed);
     } else {
       setResendStatus('sent');
     }
@@ -64,14 +87,12 @@ function SignInForm() {
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
         {showResetSuccess && (
-          <div className="rounded-md bg-green-50 p-3 text-sm text-green-700">
-            Mật khẩu đã được đặt lại thành công. Vui lòng đăng nhập bằng mật khẩu mới.
-          </div>
+          <div className="rounded-md bg-green-50 p-3 text-sm text-green-700">{STRINGS.resetSuccessBody}</div>
         )}
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium">
-            Email
+            {STRINGS.emailLabel}
           </label>
           <input
             id="email"
@@ -86,7 +107,7 @@ function SignInForm() {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium">
-            Mật khẩu
+            {STRINGS.passwordLabel}
           </label>
           <input
             id="password"
@@ -103,9 +124,7 @@ function SignInForm() {
 
         {needsVerification && (
           <div className="space-y-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm">
-            <p className="text-amber-800">
-              Email chưa xác minh? Hãy bấm nút bên dưới để chúng tôi gửi lại link xác minh.
-            </p>
+            <p className="text-amber-800">{STRINGS.emailNotVerified}</p>
             <button
               type="button"
               onClick={handleResendVerification}
@@ -113,10 +132,10 @@ function SignInForm() {
               className="rounded-md bg-amber-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-700 disabled:opacity-50"
             >
               {resendStatus === 'sending'
-                ? 'Đang gửi...'
+                ? STRINGS.resendButtonSending
                 : resendStatus === 'sent'
-                  ? 'Đã gửi lại email xác minh'
-                  : 'Gửi lại email xác minh'}
+                  ? STRINGS.resendButtonSent
+                  : STRINGS.resendButtonDefault}
             </button>
           </div>
         )}
@@ -126,7 +145,7 @@ function SignInForm() {
           disabled={loading}
           className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
         >
-          {loading ? 'Đang xử lý...' : 'Đăng nhập'}
+          {loading ? STRINGS.submittingButton : STRINGS.submitButton}
         </button>
       </form>
 
@@ -135,14 +154,14 @@ function SignInForm() {
 
       <p className="text-center text-sm">
         <Link href="/auth/forgot-password" className="text-blue-600 hover:underline">
-          Quên mật khẩu?
+          {STRINGS.forgotPassword}
         </Link>
       </p>
 
       <p className="text-center text-sm">
-        Chưa có tài khoản?{' '}
+        {STRINGS.noAccount}{' '}
         <Link href="/auth/sign-up" className="text-blue-600 hover:underline">
-          Đăng ký
+          {STRINGS.signUp}
         </Link>
       </p>
     </>
@@ -153,11 +172,11 @@ export default function SignInPage() {
   return (
     <main className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Đăng nhập</h1>
+        <h1 className="text-2xl font-bold">{STRINGS.pageTitle}</h1>
         <Suspense
           fallback={
             <div role="status" aria-live="polite" className="text-center">
-              Đang tải...
+              {STRINGS.loading}
             </div>
           }
         >

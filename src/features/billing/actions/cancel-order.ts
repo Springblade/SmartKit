@@ -15,17 +15,17 @@ export async function cancelOrder(orderId: string) {
   const session = await getSession();
   if (!session) throw new BillingError('UNAUTHORIZED');
 
-  const result = await db
+  const cancelledOrder = await db
     .update(orders)
     .set({ status: 'cancelled' })
     .where(and(eq(orders.id, orderId), eq(orders.userId, session.user.id), eq(orders.status, 'pending')))
     .returning({ id: orders.id });
 
-  if (!result[0]) {
+  if (!cancelledOrder[0]) {
     throw new BillingError('ORDER_NOT_FOUND_OR_NOT_PENDING');
   }
 
   revalidatePath('/dashboard/billing');
   revalidatePath('/dashboard/billing/history');
-  return { orderId: result[0].id };
+  return { orderId: cancelledOrder[0].id };
 }

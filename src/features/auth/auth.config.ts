@@ -29,7 +29,7 @@ export const authConfig: BetterAuthOptions = {
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: 'Reset mật khẩu SmartKit',
+        subject: 'Reset your SmartKit password',
         react: ResetPasswordEmail({ name: user.name ?? user.email, resetUrl: url }),
       }).catch((err) => {
         console.warn('[auth] Reset password email failed:', err);
@@ -43,7 +43,7 @@ export const authConfig: BetterAuthOptions = {
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: 'Verify email SmartKit',
+        subject: 'Verify your SmartKit email',
         react: VerificationEmail({ name: user.name ?? user.email, verificationUrl: url }),
       }).catch((err) => {
         console.warn('[auth] Verification email failed:', err);
@@ -52,7 +52,7 @@ export const authConfig: BetterAuthOptions = {
     afterEmailVerification: async (user) => {
       void sendEmail({
         to: user.email,
-        subject: 'Chào mừng đến SmartKit',
+        subject: 'Welcome to SmartKit',
         react: WelcomeEmail({ name: user.name ?? user.email }),
       }).catch((err) => {
         console.warn('[auth] Welcome email failed:', err);

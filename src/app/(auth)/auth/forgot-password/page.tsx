@@ -4,6 +4,22 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { authClient } from '@/features/auth/client';
 
+const STRINGS = {
+  pageTitle: 'Forgot Password',
+  emailLabel: 'Email',
+  submitButton: 'Send Reset Link',
+  submittingButton: 'Sending...',
+  hasAccount: 'Already have an account?',
+  signIn: 'Sign In',
+  errors: {
+    generic: 'Something went wrong',
+  },
+  successTitle: 'Check your email',
+  successBody: 'We sent a password reset link to',
+  successHint: 'Check your inbox (including spam). The link expires in 1 hour.',
+  backToSignIn: 'Back to sign in',
+} as const;
+
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -21,7 +37,7 @@ export default function ForgotPasswordPage() {
     });
 
     if (result.error) {
-      setError(result.error.message || 'Có lỗi xảy ra');
+      setError(result.error.message || STRINGS.errors.generic);
       setLoading(false);
       return;
     }
@@ -34,14 +50,14 @@ export default function ForgotPasswordPage() {
     return (
       <main className="flex min-h-screen items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
-          <h1 className="text-2xl font-bold">Kiểm tra email</h1>
+          <h1 className="text-2xl font-bold">{STRINGS.successTitle}</h1>
           <p className="text-gray-600">
-            Chúng tôi đã gửi link reset mật khẩu tới <strong>{email}</strong>.
+            {STRINGS.successBody} <strong>{email}</strong>.
           </p>
-          <p className="text-sm text-gray-500">Vui lòng kiểm tra hộp thư (kể cả spam). Link hết hạn sau 1 giờ.</p>
+          <p className="text-sm text-gray-500">{STRINGS.successHint}</p>
           <p className="text-center text-sm">
             <Link href="/auth/sign-in" className="text-blue-600 hover:underline">
-              Quay lại đăng nhập
+              {STRINGS.backToSignIn}
             </Link>
           </p>
         </div>
@@ -52,12 +68,12 @@ export default function ForgotPasswordPage() {
   return (
     <main className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Quên mật khẩu</h1>
+        <h1 className="text-2xl font-bold">{STRINGS.pageTitle}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium">
-              Email
+              {STRINGS.emailLabel}
             </label>
             <input
               id="email"
@@ -76,14 +92,14 @@ export default function ForgotPasswordPage() {
             disabled={loading}
             className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
           >
-            {loading ? 'Đang xử lý...' : 'Gửi link reset'}
+            {loading ? STRINGS.submittingButton : STRINGS.submitButton}
           </button>
         </form>
 
         <p className="text-center text-sm">
-          Đã có tài khoản?{' '}
+          {STRINGS.hasAccount}{' '}
           <Link href="/auth/sign-in" className="text-blue-600 hover:underline">
-            Đăng nhập
+            {STRINGS.signIn}
           </Link>
         </p>
       </div>

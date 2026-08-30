@@ -1,5 +1,18 @@
 import { requireAuth } from '@/features/auth/lib/auth';
 
+const STRINGS = {
+  greeting: (name: string | null | undefined) => `Hello, ${name ?? 'User'}!`,
+  welcomeBack: 'Welcome back to SmartKit',
+  cards: {
+    account: { title: 'Account', description: 'Manage your profile and security' },
+    billing: { title: 'Billing', description: 'View and manage your subscription' },
+    users: { title: 'Users', description: 'Manage user accounts' },
+  },
+  quickActionsTitle: 'Quick Actions',
+  updateProfile: 'Update profile',
+  viewPlans: 'View plans',
+} as const;
+
 export default async function DashboardPage() {
   const session = await requireAuth();
   const user = session.user as { name?: string | null; role?: string | null };
@@ -7,32 +20,44 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Xin chào, {user.name ?? 'User'}!</h2>
-        <p className="text-muted-foreground">Chào mừng bạn quay trở lại SmartKit</p>
+        <h2 className="text-2xl font-bold tracking-tight">{STRINGS.greeting(user.name)}</h2>
+        <p className="text-muted-foreground">{STRINGS.welcomeBack}</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card title="Tài khoản" description="Quản lý thông tin cá nhân và bảo mật" href="/dashboard/settings" />
-        <Card title="Thanh toán" description="Xem và quản lý gói dịch vụ của bạn" href="/dashboard/billing" />
+        <Card
+          title={STRINGS.cards.account.title}
+          description={STRINGS.cards.account.description}
+          href="/dashboard/settings"
+        />
+        <Card
+          title={STRINGS.cards.billing.title}
+          description={STRINGS.cards.billing.description}
+          href="/dashboard/billing"
+        />
         {user.role === 'admin' && (
-          <Card title="Người dùng" description="Quản lý tài khoản người dùng" href="/dashboard/admin/users" />
+          <Card
+            title={STRINGS.cards.users.title}
+            description={STRINGS.cards.users.description}
+            href="/dashboard/admin/users"
+          />
         )}
       </div>
 
       <div className="rounded-lg border bg-card p-6">
-        <h3 className="text-lg font-semibold">Quick Actions</h3>
+        <h3 className="text-lg font-semibold">{STRINGS.quickActionsTitle}</h3>
         <div className="mt-4 flex flex-wrap gap-3">
           <a
             href="/dashboard/settings"
             className="rounded-lg border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
           >
-            Cập nhật profile
+            {STRINGS.updateProfile}
           </a>
           <a
             href="/dashboard/billing"
             className="rounded-lg border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
           >
-            Xem gói dịch vụ
+            {STRINGS.viewPlans}
           </a>
         </div>
       </div>

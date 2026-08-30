@@ -16,9 +16,8 @@ import { nanoid } from 'nanoid';
 import { type NextRequest, NextResponse } from 'next/server';
 import { db } from '@/database/db';
 import { paymentTransactions } from '@/database/schema';
-import { extractOrderCode, parseSepayWebhookPayload, verifySepaySignature } from '@/features/billing';
-import { recordPaymentTransaction } from '@/features/billing/payment-transactions';
-import { processOrderCompletion } from '@/features/billing/process-order-completion';
+import { parseSepayWebhookPayload, verifySepaySignature } from '@/features/billing';
+import { processSepayPayload } from '@/features/billing/process-sepay-payload';
 
 export const runtime = 'nodejs';
 
@@ -74,34 +73,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
   }
 
-  if (payload.id === null) {
-    // SePay occasionally sends `id: null` — we have no transaction key
-    // to dedupe on, so capture the audit row and bail out of business logic.
-    await recordPaymentTransaction({ payload, rawBody });
-    return NextResponse.json({ status: 'ignored', reason: 'no_transaction_id' });
-  }
-
-  if (payload.transferType !== 'in') {
-    await recordPaymentTransaction({ payload, rawBody });
-    return NextResponse.json({ status: 'ignored', reason: 'outbound' });
-  }
-
-  const orderCode = extractOrderCode(payload.content);
-  if (!orderCode) {
-    await recordPaymentTransaction({ payload, rawBody });
-    return NextResponse.json({ status: 'ignored', reason: 'no_order_code' });
-  }
-
-  const { recorded } = await recordPaymentTransaction({ payload, rawBody }, { skipOnConflict: true });
-  if (!recorded) {
-    return NextResponse.json({ status: 'already_processed' });
-  }
-
-  const result = await processOrderCompletion({
-    sepayTransactionId: payload.id,
-    transferAmount: payload.transferAmount,
-    orderCode,
-  });
+  const result = await processSepayPayload(
+    {
+      id: payload.id,
+      transferType: payload.transferType,
+      transferAmount: payload.transferAmount,
+      content: payload.content,
+    },
+    { auditPayload: payload, rawBody },
+  );
 
   return NextResponse.json(result);
 }

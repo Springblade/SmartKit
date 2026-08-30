@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { checkOrderStatus } from '../actions/check-order-status';
+import { POLL_INTERVAL_MS } from '../config';
 
 interface OrderStatus {
   id: string;
@@ -16,8 +17,6 @@ interface UsePaymentPollingResult {
   error: string | null;
   refetch: () => Promise<void>;
 }
-
-const POLL_INTERVAL_MS = 5000;
 
 export function usePaymentPolling(orderId: string): UsePaymentPollingResult {
   const [orderStatus, setOrderStatus] = useState<OrderStatus | null>(null);

@@ -13,6 +13,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { listSepayTransactions } from '@/features/billing';
 import { cancelExpiredOrders } from '@/features/billing/cancel-expired-orders';
+import { POLLING_LOOKBACK_MINUTES } from '@/features/billing/config';
 import { processSepayPayload } from '@/features/billing/process-sepay-payload';
 import { env } from '@/lib/env';
 
@@ -23,7 +24,6 @@ export const dynamic = 'force-dynamic';
 // (`YYYY-MM-DD`). Query today's window, then narrow to the last
 // `POLLING_LOOKBACK_MINUTES` minutes in memory — cheaper than
 // re-fetching every minute and safe under MVP volume.
-const POLLING_LOOKBACK_MINUTES = 10;
 
 function verifyCronSecret(request: NextRequest): { ok: true } | { ok: false; reason: string } {
   // Production must have CRON_SECRET to prevent unauthorized cron triggers.

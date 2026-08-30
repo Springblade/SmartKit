@@ -1,8 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@/tests/utils';
-import { PaymentSection } from '../PaymentSection';
+import { describe, expect, it, vi } from 'vitest';
+import { PaymentSection } from '@/features/billing/components/PaymentSection';
 
-// Mock Next.js router
 const mockPush = vi.fn();
 const mockRefresh = vi.fn();
 
@@ -13,8 +12,7 @@ vi.mock('next/navigation', () => ({
   }),
 }));
 
-// Mock the payment polling hook
-vi.mock('../../hooks/usePaymentPolling', () => ({
+vi.mock('@/features/billing/hooks/usePaymentPolling', () => ({
   usePaymentPolling: () => ({
     orderStatus: null,
     isLoading: false,
@@ -23,17 +21,22 @@ vi.mock('../../hooks/usePaymentPolling', () => ({
   }),
 }));
 
-// Mock actions
-vi.mock('../../actions/generate-payment-qr', () => ({
-  generatePaymentQRAction: vi.fn(() =>
-    Promise.resolve({
-      success: true,
-      qrUrl: 'https://example.com/qr.png',
-    }),
-  ),
+vi.mock('@/features/billing/hooks/usePaymentQR', () => ({
+  usePaymentQR: () => ({
+    qrUrl: null,
+    qrError: null,
+    isGenerating: true,
+  }),
 }));
 
-vi.mock('../../actions/cancel-order', () => ({
+vi.mock('@/features/billing/hooks/useOrderTimer', () => ({
+  useOrderTimer: () => ({
+    timeLeft: '14:59',
+    isExpired: false,
+  }),
+}));
+
+vi.mock('@/features/billing/actions/cancel-order', () => ({
   cancelOrder: vi.fn(() => Promise.resolve()),
 }));
 
@@ -42,7 +45,7 @@ const mockOrder = {
   code: 'ORD123',
   content: 'Payment for Basic Plan',
   amountVnd: 100000,
-  expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(), // 15 minutes from now
+  expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
 };
 
 const mockPlan = {
@@ -52,16 +55,12 @@ const mockPlan = {
 };
 
 describe('PaymentSection', () => {
-  it('renders payment details correctly', async () => {
+  it('renders payment details correctly', () => {
     render(<PaymentSection order={mockOrder} plan={mockPlan} />);
 
-    expect(screen.getByText('Thông tin thanh toán')).toBeInTheDocument();
+    expect(screen.getByText('Payment Information')).toBeInTheDocument();
     expect(screen.getByText('Basic Plan')).toBeInTheDocument();
-    expect(
-      screen.getByText((_content, element) => {
-        return element?.textContent === '100.000 VND';
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByText('100.000 VND')).toBeInTheDocument();
     expect(screen.getByText('Payment for Basic Plan')).toBeInTheDocument();
     expect(screen.getByText('ORD123')).toBeInTheDocument();
   });
@@ -69,7 +68,6 @@ describe('PaymentSection', () => {
   it('displays QR code loading state initially', () => {
     render(<PaymentSection order={mockOrder} plan={mockPlan} />);
 
-    // Should show loading spinner for QR code
-    expect(screen.getByLabelText('Đang tạo mã QR')).toBeInTheDocument();
+    expect(screen.getByLabelText('Generating QR code...')).toBeInTheDocument();
   });
 });
