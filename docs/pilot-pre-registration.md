@@ -361,7 +361,7 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 
 | Date | Section | Old text | New text | Reason | Runs already completed under old text |
 |---|---|---|---|---|---|
-| | | | | | |
+| 2026-09-02 | §11 footer (Document hash) | `5c8f756b7b3d0b96429d08a7b0c282a92127f9b22387b924b2a2344f20ccee88` | `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139` | Hash recorded at lock did not match `sha256sum` of file at commit `0ac4b35`. No runs had been executed under the old hash. | None |
 
 ---
 
@@ -369,4 +369,4 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 
 - Prompt SHA-256 (§4): `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
 - Lock date: 2026-09-02T05:23:00Z
-- Document hash: `5c8f756b7b3d0b96429d08a7b0c282a92127f9b22387b924b2a2344f20ccee88`
+- Document hash: `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139`

@@ -963,6 +963,7 @@ unchecked box blocks the pilot from starting.
 - [x] SHA256 of the prompt string is in the pre-registration: `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
 - [x] Run-order schedule has a documented seed and 5 rows (seed=42, see §5 Table).
 - [x] Author lock is signed and dated: `2026-09-02T05:23:00Z` (git tag `pre-reg-lock-20260902`, commit `0ac4b35`).
+- [x] Tag-object SHA updated 2026-09-02 (post-A7-fix re-tag): tag dereferences to commit `0ac4b35`; tag-object SHA recorded in tag message body.
 
 ### 15.2 Condition A (SmartKit)
 
