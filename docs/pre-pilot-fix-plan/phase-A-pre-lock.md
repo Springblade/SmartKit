@@ -182,15 +182,15 @@ slices_done: []
 **Description.** Fill the `LOCK_DATE_UTC` placeholder at `pilot-pre-registration.md:4` with today's date. Add a final-line SHA-256 of the exact prompt template string from §4 in §11 footer. Tag the commit `pre-reg-lock-<YYYYMMDD>` and record the tag in c2-direction §15 (Pre-execution verification).
 
 **Acceptance criteria:**
-- [ ] Line 4 of pre-registration shows `LOCK_DATE_UTC: <today ISO date>`
-- [ ] SHA-256 of the exact prompt string from §4 appears in §11 footer
-- [ ] Git tag exists locally: `git tag -l "pre-reg-lock-*"` shows one entry
-- [ ] c2-direction §15 has a "Pre-registration lock tag" line with the tag name
+- [x] Line 4 of pre-registration shows `LOCK_DATE_UTC: <today ISO date>`
+- [x] SHA-256 of the exact prompt string from §4 appears in §11 footer
+- [x] Git tag exists locally: `git tag -l "pre-reg-lock-*"` shows one entry
+- [x] c2-direction §15 has a "Pre-registration lock tag" line with the tag name
 
 **Verification:**
-- [ ] `git rev-parse pre-reg-lock-<date>` returns a commit hash
-- [ ] `shasum -a 256 docs/pilot-pre-registration.md` recorded in §11
-- [ ] `git diff pre-reg-lock-$(date +%Y%m%d)..HEAD -- docs/pilot-pre-registration.md` is empty after lock (any future edit must amend the tag)
+- [x] `git rev-parse pre-reg-lock-<date>` returns a commit hash (0ac4b35)
+- [x] `shasum -a 256 docs/pilot-pre-registration.md` recorded in §11
+- [x] `git diff pre-reg-lock-$(date +%Y%m%d)..HEAD -- docs/pilot-pre-registration.md` is empty after lock (any future edit must amend the tag)
 
 **Dependencies:** A0, A2, A3, A4, A5, A6 (everything that touched the pre-reg)
 **Files likely touched:** `docs/pilot-pre-registration.md`, `docs/c2-direction.md`
@@ -200,11 +200,11 @@ slices_done: []
 
 ## Checkpoint A: Pre-Lock Complete
 
-- [ ] All 8 tasks A0–A7 marked done in `tasks.md`
-- [ ] `pre-reg-lock-<date>` tag exists locally
-- [ ] AGENTS.md vs pre-registration is consistent on test path and naming
-- [ ] `score-flag.ts` JSON schema matches pre-registration §13.3
-- [ ] Smoke tests pass: `pnpm tsx scripts/score-flag.ts --help` exits 0; `cd SmartKit && pnpm check-types` exits 0; `shasum -a 256 docs/pilot-pre-registration.md` matches §11 footer
+- [x] All 8 tasks A0–A7 marked done in `tasks.md`
+- [x] `pre-reg-lock-<date>` tag exists locally (pre-reg-lock-20260902)
+- [x] AGENTS.md vs pre-registration is consistent on test path and naming
+- [x] `score-flag.ts` JSON schema matches pre-registration §13.3
+- [x] Smoke tests pass: `pnpm tsx scripts/score-flag.ts --help` exits 0; `cd SmartKit && pnpm check-types` exits 0; `shasum -a 256 docs/pilot-pre-registration.md` matches §11 footer
 - [ ] No AI session has been run yet (gate still ahead)
 
 When all boxes are checked, the pilot can start. Move to Phase B for thesis-level fixes.
