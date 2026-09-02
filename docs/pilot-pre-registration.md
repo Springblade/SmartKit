@@ -370,3 +370,8 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 - Prompt SHA-256 (§4): `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
 - Lock date: 2026-09-02T05:23:00Z
 - Document hash: `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139`
+
+_Note: this hash is the SHA-256 of the file as committed at `0ac4b35`
+(lock-time snapshot). Subsequent amendments change the working-tree SHA;
+the §11 amendment-log rows above are the source of truth for the
+post-lock content chain._
