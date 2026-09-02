@@ -632,6 +632,15 @@ These were settled in discussion but not yet executed:
 - [ ] Rebuild `main.pdf` and verify no broken `\parencite` keys
 - [ ] Decide whether Condition B gets implemented as a sibling directory
       (e.g. `smartkit-baseline/`) or as a temporary branch
+
+### ADR-1: Sibling directory for baseline
+
+**Context.** Condition B (baseline) requires a separate Next.js project structure without AGENTS.md or `.cursor/rules/` present. Three options were considered: (1) subfolder inside SmartKit, (2) git worktree, (3) sibling directory at thesis root.
+
+**Decision.** Implement Condition B as a sibling directory `smartkit-baseline/` at the same level as `SmartKit/`.
+
+**Consequences.** This prevents AGENTS.md and `.cursor/rules/` from leaking into the baseline environment, allows independent `pnpm install` for each condition, and keeps git histories separate. Trade-off: requires explicit path handling in scripts that reference both conditions.
+
 - [ ] Write `docs/pilot-pre-registration.md` (§11) and commit before first run
 - [ ] Build `scripts/setup-condition-b.ts` (§12) and verify
 - [ ] Build `scripts/score-flag.ts` (§13) and verify against synthetic run
@@ -820,19 +829,25 @@ pnpm tsx scripts/score-flag.ts \
 
 ### 13.3 Output schema
 
+// Source of truth: SmartKit/scripts/score-flag.ts `scoreStructural()` lines 161–246.
+// `path_match` ∈ {0, 0.5, 1} and `feature_complete` ∈ {0, 0.5, 0.7, 0.9, 1} per lines 197–236.
+// `score` = round((path_match + feature_complete) * 2.5) per line 243.
+
 ```jsonc
 {
   "run_id": "cond-a-run-03",
   "tooling_snapshot": { /* copied from pre-registration */ },
   "automated": {
     "structural_integrity": {
+      "is_enabled_file": "features/flags/lib/is-enabled.ts",
+      "has_is_enabled_export": true,
       "uses_server_only_import": true,
-      "lives_in_features_flags_lib": true,
-      "no_use_client_in_util": true,
-      "score": 4
+      "has_use_client_in_util": false,
+      "path_match": 1,
+      "feature_complete": 1,
+      "score": 5
     },
     "type_contract_safety": {
-      "tsc_noemit_exit_code": 0,
       "tsc_error_count": 0,
       "any_count": 0,
       "ts_ignore_count": 0,
