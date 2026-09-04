@@ -2,7 +2,7 @@
 
 > **Status:** Locked before first AI session run.
 > **Lock date:** 2026-09-02T05:23:00Z
-> **Last revised:** _(post-data revisions only allowed under §7)_
+> **Last revised:** 2026-09-02 (post-A5 amendment per §7 — added §12 JSON output schema)
 
 This document pre-registers the C2 pilot study. Everything here is fixed
 before any AI session is opened against the pilot feature. Post-data
@@ -321,6 +321,32 @@ snapshot is recorded at the first run in the format `cursor-ai/<model>/
 versions. Cross-tool / cross-version replication is explicitly future
 work; it is not in scope for this thesis.
 
+### 8.1 Recorded snapshot
+
+- **AI tool:** Cursor AI 3.17.19 (commit `ae3a2b7231dd56194447fe4570dfdc61640b1e90`, arch `x64`)
+- **Model selection:** Auto mode (Cursor routes per request — see "Auto-mode semantics" below)
+- **Temperature:** Default (Cursor's chat default; not user-settable in Auto mode)
+- **MCP servers enabled:** `context7` (`https://mcp.context7.com/mcp`), `firecrawl` (`npx firecrawl-mcp`)
+- **First planned run date:** TBD (target within D-11..D-9 window per `c2-direction.md` §14.1)
+
+**Auto-mode semantics.** The pilot uses Cursor's **Auto mode**, which
+does not fix the model at session start. Cursor routes each request
+to a model it selects. The pre-registration format string in §8
+above is therefore amended to `cursor-ai/auto/<yyyy-mm-dd>` for the
+**tool snapshot** (Cursor version + commit + MCP servers + date), and
+**not** a single model name. The actual model(s) used in each run are
+recorded as `cursor_actual_model` in the run log (§10) from the
+`model` field Cursor surfaces in chat metadata, when available.
+
+This is a spec-vs-reality reconciliation, not a relaxation of the
+snapshot limitation. The same cross-tool / cross-version caveat in
+§8 applies, **plus** an additional within-tool caveat: under Auto
+mode, each request may use a different underlying model even within
+a single pilot run. Cross-request model variance is recorded in
+§10 alongside per-run scoring, so a reader can inspect whether
+Auto-mode routing produced within-run variance that might affect the
+DP verdict.
+
 ---
 
 ## 9. References cited in this pre-registration
@@ -362,6 +388,34 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 | Date | Section | Old text | New text | Reason | Runs already completed under old text |
 |---|---|---|---|---|---|
 | 2026-09-02 | §11 footer (Document hash) | `5c8f756b7b3d0b96429d08a7b0c282a92127f9b22387b924b2a2344f20ccee88` | `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139` | Hash recorded at lock did not match `sha256sum` of file at commit `0ac4b35`. No runs had been executed under the old hash. | None |
+| 2026-09-02 | §12 (new section) | _(added)_ | Full §12 JSON output schema block | Document `path_match` / `feature_complete` split from `score-flag.ts` to keep pre-reg aligned with scoring script. No runs had been executed under the new schema; no scoring rule changed. | None |
+| 2026-09-02 | §11 footer (Document hash) | `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139` | `b11a9460acd5f0fca6a33ffaf30367e260f537f4c504363dc6ab9725beefe1ee` | Hash recomputed after §12 was added. No runs had been executed under the prior hash. | None |
+| 2026-09-02 | §11 footer (Document hash) | `b11a9460acd5f0fca6a33ffaf30367e260f537f4c504363dc6ab9725beefe1ee` | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` | Hash recomputed after footer was updated to record the new hash. No runs had been executed under the prior hash. | None |
+| 2026-09-04 | §8 (Snapshot limitation) | Single-model framing: `cursor-ai/<model>/<yyyy-mm-dd>` | Auto-mode framing: `cursor-ai/auto/<yyyy-mm-dd>` + new §8.1 "Recorded snapshot" with concrete Cursor version + commit + MCP servers. Format amended to capture the **tool snapshot** rather than a single model name. | Spec-vs-reality reconciliation: the pilot uses Cursor Auto mode, which does not fix the model at session start. The cross-tool / cross-version caveat in §8 is preserved, plus a new within-tool caveat for Auto mode. No scoring rule changed; §10 run log gains a new `cursor_actual_model` field for each run. | None |
+| 2026-09-04 | §11 footer (Document hash) | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | **SHA inconsistency reconciliation.** The `ca9eb4b3…` value recorded in the prior §11 footer is the **lock-time commit-attestation hash** (manually transcribed at lock 2026-09-02T05:23:00Z from the tag `pre-reg-lock-20260902`). The `bd32d752c…` value is the **recomputed content hash** of the same file at the same commit (`git show 0ac4b35:docs/pilot-pre-registration.md \| sha256sum`). The discrepancy is now recorded: **`ca9eb4b3…` is the canonical reference for "this is the document that was locked"; `bd32d752c…` is the canonical reference for "this is the recomputed content hash of the locked commit".** Both will appear in the final thesis appendix cross-verification table. No runs had been executed under either hash. | None |
+| 2026-09-04 | §11 footer (Document hash) | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | Hash recomputed after §8.1 amendment was inserted. No runs had been executed under the prior hash. | None |
+
+---
+
+## 12. JSON output schema (post-A5 amendment)
+
+The scoring script `SmartKit/scripts/score-flag.ts` emits a JSON object
+per run with the following keys. The two scoring dimensions are split
+to remove the "found but wrong location" conflation noted in
+`c2-direction.md` §13.5.
+
+| Key              | Type   | Domain     | Rubric |
+|------------------|--------|------------|--------|
+| `path_match`     | number | {0, 0.5, 1}| 0 = file in `app/` or root `lib/` (Severe); 0.5 = in `features/` but wrong subfolder (Partial); 1 = at `features/flags/lib/is-enabled.ts` (Correct) |
+| `feature_complete` | number | {0, 0.5, 0.7, 0.9, 1} | 0 = no `isEnabled` export; 0.5 = has export but uses `'use client'`; 0.7 = has export, no `server-only`; 0.9 = has export + `server-only` + barrel but barrel omits `isEnabled` re-export; 1 = has export + `server-only` + barrel re-exports `isEnabled` |
+| `score`          | number | {0..5}     | `round((path_match + feature_complete) * 2.5)` — overall 0–5 cell score |
+| `is_enabled_file`| string | path or `"(not found)"` | relative path of detected utility |
+| `has_is_enabled_export` | bool | — | whether the file exports a named or default `isEnabled` |
+| `uses_server_only_import` | bool | — | whether the file imports `server-only` |
+| `has_use_client_in_util`  | bool | — | whether the utility has `'use client'` (anti-pattern) |
+| `failure_reason` | string \| undefined | — | set when no `isEnabled` found |
+
+The 0–5 cell score reported to the rubric is `details["score"]`.
 
 ---
 
@@ -369,9 +423,19 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 
 - Prompt SHA-256 (§4): `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
 - Lock date: 2026-09-02T05:23:00Z
-- Document hash: `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139`
+- Lock-time commit-attestation hash: `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e`
+  (manually transcribed at lock from the `pre-reg-lock-20260902` tag message body; preserved for cross-verification of the document-as-locked reference)
+- Recomputed content hash of locked commit: `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f`
+  (`git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`; canonical "content hash of the locked commit")
+- Current working-tree hash: `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b`
+  (after §8.1 amendment on 2026-09-04)
 
-_Note: this hash is the SHA-256 of the file as committed at `0ac4b35`
-(lock-time snapshot). Subsequent amendments change the working-tree SHA;
-the §11 amendment-log rows above are the source of truth for the
-post-lock content chain._
+_Note: this document uses **two canonical references** for the locked
+state. The lock-time commit-attestation hash `ca9eb4b3…` identifies
+"this is the document that was locked at 2026-09-02T05:23:00Z" via
+the `pre-reg-lock-20260902` tag. The recomputed content hash
+`bd32d752c…` identifies "this is the SHA-256 of the file content at
+the locked commit". The two differ because the lock-time value was
+manually transcribed at the moment of locking, before the §11
+amendment-log was filled in. Both are preserved; the amendment log
+above is the source of truth for all subsequent changes._
