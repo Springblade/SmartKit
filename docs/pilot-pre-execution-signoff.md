@@ -1,8 +1,8 @@
 # Pilot Pre-Execution Sign-Off — SmartKit C2
 
-**Status:** FINAL — Phase 6 complete (pending first commit)
+**Status:** FINAL — Phase 6 complete
 **Sign-off date:** 2026-09-04
-**Sign-off commit:** `<filled at commit 12 of the Phase 6 sequence; see §15.8 self-reference below>`
+**Sign-off commit:** `25ba54efe51cce97828aca4d17ef6eff4c754220`
 
 ## Repository state at sign-off
 
@@ -13,19 +13,19 @@
 | Pre-registration lock-time attestation hash | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` |
 | Pre-registration recomputed content hash (commit `0ac4b35`) | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` |
 | Pre-registration post-A8 working-tree hash | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` |
-| SmartKit snapshot commit (HEAD, pre-Phase-6) | `b7557e614dc716fdd78df736af3a32ce75fdf477` |
-| Baseline snapshot commit (HEAD, pre-Phase-6) | `b7557e614dc716fdd78df736af3a32ce75fdf477` (same content; different working tree) |
+| SmartKit snapshot commit (HEAD, post-Phase-6) | `67bd2cd8561ce70e9b0e0011f85a321328169594` |
+| Baseline snapshot commit (HEAD, post-Phase-6) | `64100f717e2780f6dc76a79fd2d68983fe7150b7` |
 | First AI session date | Scheduled in D-11..D-9 window per `docs/c2-direction.md` §14.1 (exact date to be recorded at first run) |
 
-> **Note on SmartKit / baseline HEAD:** both sub-repos have
+> **Note on SmartKit / baseline HEAD:** both sub-repos had
 > pre-existing uncommitted modifications in their working trees
 > (visible via `git status` before any Phase 6 commit). These
 > pre-date Phase 6 and are out of scope. The pilot AI session reads
 > the **committed** state at session start, which is the snapshot
-> commit recorded above. Lint:fix changes (Block 1, 2 of the
-> Phase 6 plan) are themselves uncommitted at sign-off time and
-> are scoped to `scripts/` and `biome.json`/`.gitattributes` — they
-> do not change the pilot-feature source the AI sees.
+> commit recorded above (post-Phase-6). Phase 6 changes to the
+> sub-repos are scoped to `.gitattributes`, `biome.json`, and
+> `scripts/` (lint:fix). They do not change the pilot-feature
+> source the AI sees.
 
 ## §15.1 Pre-registration
 
@@ -45,7 +45,7 @@
 - [x] `AGENTS.md` at `SmartKit/` root
 - [x] `.cursor/rules/` at `SmartKit/` root not present (acceptable per pre-reg §3.1 "if present at run time")
 - [x] `src/features/auth/` and `src/features/billing/` present
-- [x] SmartKit snapshot commit `b7557e6...` recorded above
+- [x] SmartKit snapshot commit `67bd2cd...` recorded above
 
 ## §15.3 Condition B (baseline)
 
