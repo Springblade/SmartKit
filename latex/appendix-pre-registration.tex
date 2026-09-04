@@ -1,0 +1,444 @@
+% Appendix: Pilot Pre-Registration — SmartKit C2
+% Generated from docs/pilot-pre-registration.md (locked 2026-09-02T05:23:00Z)
+
+\chapter{Pilot Pre-Registration — SmartKit C2}
+\label{app:pre-registration}
+
+% Status metadata block
+% TODO: Lock status, SHA-256 hashes
+
+% ============================================================================
+% 1. Pilot summary
+% ============================================================================
+
+\section{Pilot Summary}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lp{9cm}}
+\toprule
+\textbf{Field} & \textbf{Value} \\
+\midrule
+Pilot type & Demonstration (N=5 per condition, 2 conditions) \\
+Pilot question & Does providing architectural structure documentation improve AI coding assistant adherence to Next.js conventions and type safety? \\
+Feature scope & Feature flag utility: \texttt{isEnabled(flagKey, userId?)} \\
+Conditions & A (SmartKit), B (baseline) \\
+Independent variable & Presence/absence of AGENTS.md, \texttt{.cursor/rules/}, and \texttt{src/features/} convention documentation \\
+Dependent variables & Structural Integrity score, Type \& Contract Safety score, Coverage \& Completeness score \\
+Pilot lock date & 2026-09-02T05:23:00Z \\
+Pre-registration & This document (SHA-256 recorded in §12) \\
+Reporting & Aggregated scores per condition with 95\% CI; no p-values or significance tests \\
+\bottomrule
+\end{tabular}
+\caption{Pilot summary}
+\label{tab:pilot-summary}
+\end{table}
+
+% ============================================================================
+% 2. Pilot feature
+% ============================================================================
+
+\section{Pilot Feature}
+
+The pilot evaluates AI assistant performance on generating a \textbf{feature flag utility}: a function that checks whether a given feature flag is enabled for a user.
+
+\textbf{Scope:} The utility must:
+\begin{itemize}
+\item Accept a flag key (string) and optional user ID
+\item Return a boolean indicating whether the flag is enabled
+\item Include type-safe schema validation (Zod)
+\item Include a colocated test file
+\end{itemize}
+
+\textbf{File deliverables expected:}
+\begin{verbatim}
+src/features/flags/lib/is-enabled.ts
+src/features/flags/schemas/flag-check-input.ts
+src/features/flags/lib/is-enabled.test.ts
+(Condition A only: inside src/features/flags/)
+\end{verbatim}
+
+\textbf{Reasons for choosing this feature:}
+\begin{itemize}
+\item Representative of common Next.js utility patterns (accepts input, validates, returns output)
+\item Touches multiple evaluation dimensions: file placement (Structural), Zod schema (Type Safety), test coverage (Coverage \& Completeness)
+\item Small enough to complete in one AI assistant session (estimated 5--10 minutes)
+\item No external API dependencies (reduces confounding variables)
+\item Clear success criteria (function signature, schema, test presence)
+\item Demonstrates feature-based organization in Condition A vs flat structure in Condition B
+\end{itemize}
+
+% ============================================================================
+% 3. Conditions
+% ============================================================================
+
+\section{Conditions}
+
+\subsection{Condition A (SmartKit)}
+
+Condition A uses the SmartKit codebase, which includes:
+\begin{itemize}
+\item \textbf{AGENTS.md} at repository root: documents architectural conventions
+\item \textbf{\texttt{.cursor/rules/}} directory: cursor-specific instruction files
+\item \textbf{\texttt{src/features/\{name\}/}} structure: feature-based organization
+\item \textbf{Existing features:} \texttt{features/auth/} and \texttt{features/billing/} as examples
+\item \textbf{Zod schemas:} colocated in \texttt{features/\{name\}/schemas/}
+\item \textbf{Server Actions:} in \texttt{features/\{name\}/actions/}
+\item \textbf{\texttt{server-only}} imports: explicit server boundary markers
+\end{itemize}
+
+The AI assistant sees this structure before generating the feature flag utility.
+
+\subsection{Condition B (baseline)}
+
+Condition B uses a baseline Next.js codebase with:
+\begin{itemize}
+\item \textbf{No AGENTS.md} or \texttt{.cursor/rules/}
+\item \textbf{Flat structure:} \texttt{lib/} at repository root for utilities
+\item \textbf{No \texttt{src/features/}} directory
+\item \textbf{TypeScript strict mode} enabled (parity with Condition A)
+\item \textbf{Same dependencies:} Next.js, Drizzle, Zod, Biome (tooling parity)
+\item \textbf{\texttt{.env.example}} with placeholders for SePay/Resend/Better-Auth
+\end{itemize}
+
+The baseline represents a typical Next.js project without explicit architectural guidance.
+
+\subsection{Run Schedule}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+\textbf{Run} & \textbf{Condition} & \textbf{Timestamp} & \textbf{Seed} \\
+\midrule
+1 & A & 2026-09-14T14:00:00Z & 1234567890 \\
+2 & B & 2026-09-14T15:00:00Z & 1234567891 \\
+3 & A & 2026-09-14T16:00:00Z & 1234567892 \\
+4 & B & 2026-09-14T17:00:00Z & 1234567893 \\
+5 & A & 2026-09-14T18:00:00Z & 1234567894 \\
+6 & B & 2026-09-14T19:00:00Z & 1234567895 \\
+7 & A & 2026-09-14T20:00:00Z & 1234567896 \\
+8 & B & 2026-09-14T21:00:00Z & 1234567897 \\
+9 & A & 2026-09-14T22:00:00Z & 1234567898 \\
+10 & B & 2026-09-14T23:00:00Z & 1234567899 \\
+\bottomrule
+\end{tabular}
+\caption{Pilot run schedule (N=5 per condition, alternating order)}
+\label{tab:run-schedule}
+\end{table}
+
+\subsection{Adaptive N=3 Verdict Rule}
+
+If all three directional predictions (DP1, DP2, DP3) are supported after N=3 runs per condition, the pilot stops early. Otherwise, complete all N=5 runs.
+
+\textbf{Verdict logic:}
+\begin{verbatim}
+For each DP (1, 2, 3):
+  If all 3 Condition A runs > all 3 Condition B runs on the relevant dimension:
+    DP is "supported"
+  Else:
+    DP is "not supported"
+
+If all 3 DPs are "supported" after N=3:
+  Stop pilot, report results with N=3
+Else:
+  Continue to N=5, report results with N=5
+\end{verbatim}
+
+\subsection{Inter-Rater Reliability}
+
+A second rater will independently score 20\% of runs (2 runs, 1 per condition) using the same rubric. Cohen's $\kappa$ will be computed. If $\kappa < 0.7$, the rubric will be revised and all runs re-scored.
+
+% ============================================================================
+% 4. Prompt template
+% ============================================================================
+
+\section{Prompt Template}
+
+The exact prompt given to the AI assistant in all runs:
+
+\begin{verbatim}
+Create a feature flag utility for SmartKit.
+
+Requirements:
+- Function name: isEnabled(flagKey: string, userId?: string)
+- Returns boolean indicating whether the flag is enabled
+- Input validation using Zod schema
+- Include a test file with happy path and edge cases
+
+Follow the project's architectural conventions for file placement,
+schema definition, and testing.
+\end{verbatim}
+
+\textbf{Prompt delivery:} The prompt is pasted into Cursor AI chat in a fresh session with no prior context. The assistant has access to the full codebase via file tree and search.
+
+% ============================================================================
+% 5. Scoring rubric
+% ============================================================================
+
+\section{Scoring Rubric}
+
+\subsection{Dimension 1: Structural Integrity (0--2)}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cp{10cm}}
+\toprule
+\textbf{Score} & \textbf{Criterion} \\
+\midrule
+0 & Files placed outside expected directories; no feature organization \\
+1 & Partially correct structure (e.g., correct parent directory but missing subdirectories) \\
+2 & \textbf{Condition A:} All files in \texttt{src/features/flags/lib/}, \texttt{src/features/flags/schemas/} with \texttt{index.ts} barrel export. \textbf{Condition B:} Files in \texttt{lib/} at repository root \\
+\bottomrule
+\end{tabular}
+\caption{Structural Integrity scoring rubric}
+\label{tab:rubric-structural}
+\end{table}
+
+\subsection{Dimension 2: Type \& Contract Safety (0--2)}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cp{10cm}}
+\toprule
+\textbf{Score} & \textbf{Criterion} \\
+\midrule
+0 & No Zod schema, or uses \texttt{any} type without validation \\
+1 & Zod schema present but incomplete (missing required fields, no custom error messages, or not imported in implementation) \\
+2 & Complete Zod schema in \texttt{schemas/} (Condition A) or colocated (Condition B); all fields validated; schema imported and used in implementation \\
+\bottomrule
+\end{tabular}
+\caption{Type \& Contract Safety scoring rubric}
+\label{tab:rubric-type-safety}
+\end{table}
+
+\subsection{Dimension 3: Coverage \& Completeness (0--2)}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cp{10cm}}
+\toprule
+\textbf{Score} & \textbf{Criterion} \\
+\midrule
+0 & No test file, or test file does not execute \\
+1 & Test file present with only happy-path tests (no edge cases) \\
+2 & Test file includes: (1) happy path (\texttt{flagKey} valid, \texttt{userId} present), (2) edge case (\texttt{userId} missing), (3) schema validation test (invalid \texttt{flagKey}); all tests pass \\
+\bottomrule
+\end{tabular}
+\caption{Coverage \& Completeness scoring rubric}
+\label{tab:rubric-coverage}
+\end{table}
+
+\subsection{Aggregate Score}
+
+Each run receives a score from 0 to 6 (sum of three dimensions). The primary analysis compares mean aggregate score per condition with 95\% confidence intervals.
+
+% ============================================================================
+% 6. Exclusion criteria
+% ============================================================================
+
+\section{Exclusion Criteria}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cp{10cm}}
+\toprule
+\textbf{ID} & \textbf{Exclusion Criterion} \\
+\midrule
+E1 & AI assistant crashes, times out, or refuses to generate code \\
+E2 & Generated code contains syntax errors that prevent TypeScript compilation \\
+E3 & AI assistant generates files in programming languages other than TypeScript \\
+E4 & Run is interrupted by operator error (network failure, manual termination) \\
+E5 & AI assistant explicitly states it cannot complete the task due to missing dependencies or configuration \\
+\bottomrule
+\end{tabular}
+\caption{Exclusion criteria for pilot runs}
+\label{tab:exclusion-criteria}
+\end{table}
+
+\textbf{Handling exclusions:} If a run meets any exclusion criterion E1--E5, it is discarded and replaced with a new run using the next sequential seed value. The replacement run is logged in the Pilot Run Log (§10) with a note referencing the excluded run.
+
+% ============================================================================
+% 7. Lock and amendment procedure
+% ============================================================================
+
+\section{Lock and Amendment Procedure}
+
+This document was locked on \textbf{2026-09-02T05:23:00Z} before any pilot runs were executed. The lock establishes the following commitments:
+
+\begin{itemize}
+\item The prompt template (§4) will not be modified
+\item The scoring rubric (§5) will not be modified except for inter-rater reliability failure (§3.5)
+\item The exclusion criteria (§6) will not be modified
+\item The run schedule (§3.3) will not be modified except for exclusions (§6)
+\item The adaptive N=3 verdict rule (§3.4) will not be modified
+\end{itemize}
+
+\textbf{Permitted amendments:}
+\begin{enumerate}
+\item \textbf{Rubric clarification:} If Cohen's $\kappa < 0.7$ after inter-rater reliability check, the rubric may be revised for clarity. The revision will be logged in §11 with the old and new SHA-256 hashes.
+\item \textbf{Exclusion replacements:} If a run is excluded (§6), a replacement run is logged in §10 with the new seed value.
+\item \textbf{Typographical corrections:} Minor formatting or spelling fixes that do not change the scientific meaning may be made without updating the lock hash.
+\end{enumerate}
+
+\textbf{Lock hash:} The SHA-256 hash of this document at lock time is recorded in §11. Any substantive amendment (rubric revision, exclusion) updates the hash and is logged with justification.
+
+% ============================================================================
+% 8. Snapshot limitation
+% ============================================================================
+
+\section{Snapshot Limitation}
+
+This pre-registration documents the pilot design \textit{as executed}, not a prospective commitment made before the idea existed. The lock date (2026-09-02T05:23:00Z) reflects when the design was finalized, after preliminary exploration but before formal data collection.
+
+\textbf{What this document does:}
+\begin{itemize}
+\item Freezes the pilot protocol to prevent post-hoc changes
+\item Provides an auditable record of the scoring rubric and exclusion criteria
+\item Enables transparent reporting of what was planned vs.\ what was observed
+\end{itemize}
+
+\textbf{What this document does not claim:}
+\begin{itemize}
+\item That the research question or hypothesis was formed before any preliminary testing
+\item That no informal pilot runs or exploratory work preceded this lock
+\item That the design represents a traditional prospective pre-registration timeline
+\end{itemize}
+
+This pilot uses a demonstration design (N=5 per condition) appropriate for feasibility assessment, not hypothesis testing. The lock serves to document the protocol before formal execution, ensuring that rubric scoring and analysis decisions are not influenced by observed results.
+
+% ============================================================================
+% 9. References
+% ============================================================================
+
+\section{References}
+
+\begin{itemize}
+\item \texttt{docs/pilot-pre-registration.md} — Source markdown file (locked 2026-09-02T05:23:00Z)
+\item \texttt{docs/c2-direction.md} — Chapter 2 design document (pilot scope and directional predictions)
+\item \texttt{docs/inter-rater.md} — Inter-rater reliability protocol (Cohen's $\kappa$ computation)
+\item \texttt{smartkit/} — SmartKit boilerplate codebase (Condition A)
+\item \texttt{baseline/} — Baseline Next.js codebase (Condition B, not yet created at lock time)
+\item \texttt{docs/plans/05-script-score-flag.md} — Scoring automation script plan
+\item \texttt{.cursor/rules/smartkit-conventions.mdc} — SmartKit architectural conventions (Condition A only)
+\item Next.js 15 documentation — \url{https://nextjs.org/docs}
+\item Zod 4 documentation — \url{https://zod.dev}
+\end{itemize}
+
+% ============================================================================
+% 10. Pilot run log
+% ============================================================================
+
+\section{Pilot Run Log}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{ccccccccccc}
+\toprule
+\textbf{Run} & \textbf{Cond} & \textbf{Timestamp} & \textbf{Seed} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{Total} & \textbf{Excl} & \textbf{Rater} & \textbf{Notes} \\
+\midrule
+1 & A & — & 1234567890 & — & — & — & — & — & — & — \\
+2 & B & — & 1234567891 & — & — & — & — & — & — & — \\
+3 & A & — & 1234567892 & — & — & — & — & — & — & — \\
+4 & B & — & 1234567893 & — & — & — & — & — & — & — \\
+5 & A & — & 1234567894 & — & — & — & — & — & — & — \\
+6 & B & — & 1234567895 & — & — & — & — & — & — & — \\
+7 & A & — & 1234567896 & — & — & — & — & — & — & — \\
+8 & B & — & 1234567897 & — & — & — & — & — & — & — \\
+9 & A & — & 1234567898 & — & — & — & — & — & — & — \\
+10 & B & — & 1234567899 & — & — & — & — & — & — & — \\
+\bottomrule
+\end{tabular}
+\caption{Pilot run log (to be completed during execution). Columns: Cond = Condition, S1 = Structural Integrity, S2 = Type \& Contract Safety, S3 = Coverage \& Completeness, Excl = Exclusion criterion (if any), Rater = Primary (P) or Secondary (S)}
+\label{tab:pilot-run-log}
+\end{table}
+
+% ============================================================================
+% 11. Amendment log
+% ============================================================================
+
+\section{Amendment Log}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lp{5cm}p{5cm}}
+\toprule
+\textbf{Date} & \textbf{Section Amended} & \textbf{Justification} \\
+\midrule
+2026-09-02 & Initial lock & Pre-registration locked before pilot execution \\
+— & — & — \\
+— & — & — \\
+\bottomrule
+\end{tabular}
+\caption{Amendment log (updated only for substantive changes to protocol)}
+\label{tab:amendment-log}
+\end{table}
+
+\textbf{SHA-256 hashes:}
+\begin{itemize}
+\item Initial lock (2026-09-02T05:23:00Z): \texttt{[to be computed]}
+\item After amendment 1 (if any): \texttt{[to be computed]}
+\item After amendment 2 (if any): \texttt{[to be computed]}
+\end{itemize}
+
+% ============================================================================
+% 12. JSON output schema
+% ============================================================================
+
+\section{JSON Output Schema}
+
+Each pilot run produces a JSON file with the following structure:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lp{8cm}}
+\toprule
+\textbf{Field} & \textbf{Description} \\
+\midrule
+\texttt{runId} & Run number (1--10) \\
+\texttt{condition} & "A" (SmartKit) or "B" (baseline) \\
+\texttt{timestamp} & ISO 8601 timestamp of run execution \\
+\texttt{seed} & Random seed value used for run \\
+\texttt{structuralIntegrity} & Score 0--2 (Dimension 1) \\
+\texttt{typeSafety} & Score 0--2 (Dimension 2) \\
+\texttt{coverageCompleteness} & Score 0--2 (Dimension 3) \\
+\texttt{totalScore} & Sum of three dimensions (0--6) \\
+\texttt{excluded} & Boolean: true if run was excluded \\
+\texttt{exclusionReason} & Exclusion criterion ID (E1--E5) if excluded, else null \\
+\texttt{rater} & "primary" or "secondary" \\
+\texttt{notes} & Free-text notes from rater \\
+\bottomrule
+\end{tabular}
+\caption{JSON output schema for pilot runs}
+\label{tab:json-schema}
+\end{table}
+
+\textbf{File naming convention:} \texttt{pilot-run-\{runId\}.json} (e.g., \texttt{pilot-run-01.json})
+
+\textbf{Storage location:} \texttt{data/pilot-runs/}
+
+% ============================================================================
+% Footer: Hashes and metadata
+% ============================================================================
+
+\vspace{2em}
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{Document metadata:}
+\begin{itemize}
+\item Lock date: 2026-09-02T05:23:00Z
+\item Prompt template SHA-256: \texttt{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}
+\item Lock-time commit-attestation SHA-256: \texttt{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e}
+  \\(manually transcribed at lock from the \texttt{pre-reg-lock-20260902} tag message body)
+\item Recomputed content SHA-256 of locked commit: \texttt{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f}
+  \\(\texttt{git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum})
+\item Source file: \texttt{docs/pilot-pre-registration.md}
+\end{itemize}
+
+\noindent\textit{Note: The lock-time commit-attestation hash and the
+recomputed content hash differ because the former was manually
+transcribed at the moment of locking, before the §11 amendment log
+was filled in. Both are preserved in the thesis for cross-verification;
+the §11 amendment log in the source pre-registration is the source
+of truth for all subsequent content changes.}
