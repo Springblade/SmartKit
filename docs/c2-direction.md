@@ -961,9 +961,9 @@ unchecked box blocks the pilot from starting.
 - [x] `latex/appendix-pre-registration.tex` exists and matches the markdown.
 - [x] The 11 required sections (§11.2) are all present.
 - [x] SHA256 of the prompt string is in the pre-registration: `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
-- [x] Run-order schedule has a documented seed and 5 rows (seed=42, see §5 Table).
+- [x] Run-order schedule has a documented seed and 5 rows (seed=1234567890, see §5 Table).
 - [x] Author lock is signed and dated: `2026-09-02T05:23:00Z` (git tag `pre-reg-lock-20260902`, commit `0ac4b35`).
-- [x] Tag-object SHA updated 2026-09-02 (post-A7-fix re-tag): tag dereferences to commit `0ac4b35`; tag-object SHA recorded in tag message body.
+- [x] Tag-object SHA: `adbd23092bd7df93b5c3d92108c82a49f3cf68be` (annotated tag; dereferences to commit `0ac4b35`). The tag message body contains the document content hash, not the tag-object SHA — both are recorded in `pilot-pre-registration.md` §11 footer for cross-verification.
 
 ### 15.2 Condition A (SmartKit)
 
@@ -985,7 +985,7 @@ unchecked box blocks the pilot from starting.
 - [ ] No `.cursor/rules/` at the baseline root.
 - [ ] No `features/` directory.
 - [ ] `tsconfig.json` has `"strict": true`.
-- [ ] `.env.example` has SePay placeholders.
+- [ ] `.env.example` has SePay + Resend + Better~Auth placeholders (matches the broader env-var surface that Condition A exposes; Condition B must surface the same env vars even if it does not use them).
 - [ ] `pnpm install` in the baseline completes.
 - [ ] `pnpm check-types` and `pnpm lint` in the baseline report 0 errors
       on a clean tree.
