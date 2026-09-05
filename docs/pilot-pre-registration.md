@@ -383,9 +383,27 @@ the time-to-correct (§3 of C2), and any exclusion event (§6).
 
 | # | Cond | Start | Model | Str | Type | Cov | DP1 | DP2 | DP3 | ttc (min) | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | A | | | | | | | | | | | |
-| 2 | B | | | | | | | | | | | |
-| … | | | | | | | | | | | | |
+| 1 | B | 2026-09-05T13:14 | cursor-ai/auto | 2 | 1 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flags.ts; no Zod; no FSD |
+| 2 | B | 2026-09-05T13:18 | cursor-ai/auto | 2 | 3 | 1 | n/a | n/a | n/a | 2 | root lib/flags.ts; type alias only; no Zod |
+| 3 | B | 2026-09-05T13:22 | cursor-ai/auto | 2 | 0 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flag.ts; no FSD; range Type=3 → adaptive PROCEED |
+| 4 | A | 2026-09-05T13:26 | cursor-ai/auto | 4 | 5 | 5 | inconclusive | inconclusive | inconclusive | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests |
+| 5 | A | 2026-09-05T13:30 | cursor-ai/auto | 4 | 5 | 4 | inconclusive | inconclusive | inconclusive | 3 | features/flags/lib + Zod + server-only + barrel + 3 tests |
+
+**Run log integrity notes (2026-09-05):**
+
+- All 5 runs reached `scripts/score-flag.ts` completion. No exclusion
+  criterion (E1-E5) triggered.
+- Time-to-correct column is wall-clock minutes from AI session open to
+  committed snapshot. All runs ≤ 3 min. No `did_not_converge: true` flag.
+- Model column shows `cursor-ai/auto` per §8.1 Auto-mode amendment. The
+  pre-reg prompt and locked schedule were preserved across all sessions.
+- Wilson 95% CI and Bonferroni 99% comparative CI computed in
+  `runs/dp-verdict.md`; verdict text matches §5.4.3 reporting template.
+- Type range across Cond B Runs 1-3 = 3, exceeding the §3.4 threshold (2);
+  adaptive PROCEED was logged in `runs/adaptive-decision.md` (commit
+  `ba694ab`) before Run 4 opened.
+- Verdicts on all three DPs: **inconclusive** under §5.4.1 (n=2 per
+  condition; rule requires N=5).
 
 Rows are appended in order. Amendments to this pre-registration are
 appended as a separate table at §11 (Amendment log).
@@ -418,6 +436,9 @@ reference other hashes.
 | 2026-09-04 | §3.3 (Run-order schedule) | "The seed and sequence are frozen in this document; any deviation requires a new pre-registration." | Same sentence + new **Seed role** blockquote paragraph explaining that seed `1234567890` is the deterministic seed for the 3:2 run-condition allocation, the hardcoded B-B-B-A-A table is the canonical output of running that allocation, and the seed is recorded for **reproducibility** (proof that no human reordering was applied after lock). | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader could not tell from §3.3 alone what the seed operationally drives; clarification added without changing the run order, the seed value, or the schedule. No runs had been executed under the old text. | None |
 | 2026-09-04 | §11 (Amendment log) | "_(Empty at lock. Filled only if §7 procedure is invoked.)_" | New header note paragraph: "The table below records every change made to this document after the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows that say 'Hash recomputed after [event]' are **bookkeeping entries** that record the document's SHA-256 footer being updated to track the post-edit state — they are **not** content changes. The lock-time attestation hash `ca9eb4b3…` remains the canonical reference for 'the document that was locked'." | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader found 4 hash-only recomputations in §11 confusing without an explanation; header note now clarifies the bookkeeping pattern and preserves the lock-time attestation hash as the canonical reference. No runs had been executed under the old text. | None |
 | 2026-09-04 | §11 footer (Document hash) | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | Hash recomputed after §3.3 + §11 header clarifications were inserted (reviewer-rehearsal gap fixes per `notes/rehearsal-2026-09-04.md`). No runs had been executed under the prior hash. | None |
+| 2026-09-05 | §10 (Pilot run log) | Empty placeholder rows: `1 \| A \| …`, `2 \| B \| …`, `… \| …` | 5 filled rows (Runs 1-3 Cond B, Runs 4-5 Cond A) with manual scores, DP verdicts, ttc, model snapshot, and §10 integrity notes block. | Post-pilot data fill-in per §7. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. The §10 block was the only data place-holder at lock; populating it does not modify the rubric. | None (all 5 runs completed under the current rubric; Runs 1-5 log entries have no prior row to re-score against) |
+| 2026-09-05 | §11 footer (Document hash) | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | Hash recomputed after §10 run-log fill-in (pilot data populated). No rubric or prompt change. | None |
+| 2026-09-05 | §11 footer (Document hash) | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122` | Hash recomputed after the §10-amendment row itself was added (single bookkeeping entry capturing the footer-update side effect). | None |
 
 ---
 
@@ -451,8 +472,8 @@ The 0–5 cell score reported to the rubric is `details["score"]`.
   (manually transcribed at lock from the `pre-reg-lock-20260902` tag message body; preserved for cross-verification of the document-as-locked reference)
 - Recomputed content hash of locked commit: `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f`
   (`git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`; canonical "content hash of the locked commit")
-- Current working-tree hash: `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf`
-  (after §3.3 + §11 header clarifications on 2026-09-04; reviewer-rehearsal gap fixes per `notes/rehearsal-2026-09-04.md`)
+- Current working-tree hash: `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122`
+  (after §10 run-log fill-in + §11 amendment row on 2026-09-05; pilot data populated, no rubric or prompt change)
 
 _Note: this document uses **two canonical references** for the locked
 state. The lock-time commit-attestation hash `ca9eb4b3…` identifies
