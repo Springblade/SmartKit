@@ -142,6 +142,17 @@ then 2 in Condition A). If variance after Run 3 triggers the adaptive rule
 (range > 2), Runs 4–5 proceed as shown. The seed and sequence are frozen in
 this document; any deviation requires a new pre-registration.
 
+> **Seed role.** The seed `1234567890` is the deterministic seed that
+> drives the random allocation of 5 runs to the two conditions in a
+> 3:2 ratio (B : B : B : A : A). The hardcoded table above is the
+> canonical output of running that allocation with the documented
+> seed. A reader who wants to verify the allocation can re-run the
+> schedule-generation logic with seed `1234567890`; the resulting
+> order must match the table. The seed is recorded for
+> **reproducibility** — the table itself is the authoritative
+> reference; the seed is the proof that no human reordering was
+> applied after lock.
+
 ### 3.4 Adaptive N=3 verdict rule
 
 After completing the first 3 runs (all in Condition B per the locked sequence),
@@ -383,7 +394,17 @@ appended as a separate table at §11 (Amendment log).
 
 ## 11. Amendment log
 
-_(Empty at lock. Filled only if §7 procedure is invoked.)_
+The table below records every change made to this document after
+the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows that
+say "Hash recomputed after [event]" are **bookkeeping entries** that
+record the document's SHA-256 footer being updated to track the
+post-edit state — they are **not** content changes. The first such
+row (2026-09-02) corrected the originally-transcribed lock-time
+hash; subsequent rows capture the hash after each content
+amendment. The lock-time attestation hash `ca9eb4b3…` (recorded in
+the footer below) remains the canonical reference for "the document
+that was locked at 2026-09-02T05:23:00Z" even though later rows
+reference other hashes.
 
 | Date | Section | Old text | New text | Reason | Runs already completed under old text |
 |---|---|---|---|---|---|
@@ -394,6 +415,9 @@ _(Empty at lock. Filled only if §7 procedure is invoked.)_
 | 2026-09-04 | §8 (Snapshot limitation) | Single-model framing: `cursor-ai/<model>/<yyyy-mm-dd>` | Auto-mode framing: `cursor-ai/auto/<yyyy-mm-dd>` + new §8.1 "Recorded snapshot" with concrete Cursor version + commit + MCP servers. Format amended to capture the **tool snapshot** rather than a single model name. | Spec-vs-reality reconciliation: the pilot uses Cursor Auto mode, which does not fix the model at session start. The cross-tool / cross-version caveat in §8 is preserved, plus a new within-tool caveat for Auto mode. No scoring rule changed; §10 run log gains a new `cursor_actual_model` field for each run. | None |
 | 2026-09-04 | §11 footer (Document hash) | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | **SHA inconsistency reconciliation.** The `ca9eb4b3…` value recorded in the prior §11 footer is the **lock-time commit-attestation hash** (manually transcribed at lock 2026-09-02T05:23:00Z from the tag `pre-reg-lock-20260902`). The `bd32d752c…` value is the **recomputed content hash** of the same file at the same commit (`git show 0ac4b35:docs/pilot-pre-registration.md \| sha256sum`). The discrepancy is now recorded: **`ca9eb4b3…` is the canonical reference for "this is the document that was locked"; `bd32d752c…` is the canonical reference for "this is the recomputed content hash of the locked commit".** Both will appear in the final thesis appendix cross-verification table. No runs had been executed under either hash. | None |
 | 2026-09-04 | §11 footer (Document hash) | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | Hash recomputed after §8.1 amendment was inserted. No runs had been executed under the prior hash. | None |
+| 2026-09-04 | §3.3 (Run-order schedule) | "The seed and sequence are frozen in this document; any deviation requires a new pre-registration." | Same sentence + new **Seed role** blockquote paragraph explaining that seed `1234567890` is the deterministic seed for the 3:2 run-condition allocation, the hardcoded B-B-B-A-A table is the canonical output of running that allocation, and the seed is recorded for **reproducibility** (proof that no human reordering was applied after lock). | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader could not tell from §3.3 alone what the seed operationally drives; clarification added without changing the run order, the seed value, or the schedule. No runs had been executed under the old text. | None |
+| 2026-09-04 | §11 (Amendment log) | "_(Empty at lock. Filled only if §7 procedure is invoked.)_" | New header note paragraph: "The table below records every change made to this document after the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows that say 'Hash recomputed after [event]' are **bookkeeping entries** that record the document's SHA-256 footer being updated to track the post-edit state — they are **not** content changes. The lock-time attestation hash `ca9eb4b3…` remains the canonical reference for 'the document that was locked'." | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader found 4 hash-only recomputations in §11 confusing without an explanation; header note now clarifies the bookkeeping pattern and preserves the lock-time attestation hash as the canonical reference. No runs had been executed under the old text. | None |
+| 2026-09-04 | §11 footer (Document hash) | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | Hash recomputed after §3.3 + §11 header clarifications were inserted (reviewer-rehearsal gap fixes per `notes/rehearsal-2026-09-04.md`). No runs had been executed under the prior hash. | None |
 
 ---
 
@@ -427,8 +451,8 @@ The 0–5 cell score reported to the rubric is `details["score"]`.
   (manually transcribed at lock from the `pre-reg-lock-20260902` tag message body; preserved for cross-verification of the document-as-locked reference)
 - Recomputed content hash of locked commit: `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f`
   (`git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`; canonical "content hash of the locked commit")
-- Current working-tree hash: `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b`
-  (after §8.1 amendment on 2026-09-04)
+- Current working-tree hash: `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf`
+  (after §3.3 + §11 header clarifications on 2026-09-04; reviewer-rehearsal gap fixes per `notes/rehearsal-2026-09-04.md`)
 
 _Note: this document uses **two canonical references** for the locked
 state. The lock-time commit-attestation hash `ca9eb4b3…` identifies

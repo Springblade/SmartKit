@@ -1,0 +1,286 @@
+# Reviewer Rehearsal — Self-Rehearsal Notes
+
+**Date:** 2026-09-04
+**Method:** Cách B — self-rehearsal (solo thesis, no peer available within D-11..D-9 window)
+**Pre-rehearsal cool-down:** ≥24h since last rubric edit (rubric finalised in pre-reg commit `0ac4b35`; cool-down holds if you have not opened c2-direction.md §13.3 in the last 24h)
+
+> **Fresh-reader check (not full self-rehearsal).** This file was
+> filled by Claude role-playing as an outside technical reviewer. Per
+> the conversation, Claude has memory contamination from writing the
+> sign-off doc expected answers, so this is a **parallel fresh-reader
+> check** (Option 2), not a substitute for the author's own
+> self-rehearsal. The author's own answers should be written into
+> §15.7 of the sign-off doc, not these notes.
+
+---
+
+## Fresh-reader declaration
+
+I (Claude) role-played as a skeptical reviewer with no prior context
+on the C2 pilot. I had access only to:
+
+- `docs/pilot-pre-registration.md` (full file, 12 sections)
+- `docs/c2-direction.md` §3, §4, §5, §13.3 (conditions, run schedule, rubric schema)
+
+I did **not** consult:
+- `docs/pilot-pre-execution-signoff.md` §15.7 (expected answers)
+- Any retrospective notes from the rubric drafting process
+
+**Memory-contamination caveat.** I have prior context from earlier in
+this session: I drafted the §15.7 expected answers ("git hash, SHA256
+prompt, 15-cell grid frozen" for Q1; "checkout pre-reg commit, run
+setup-condition-b.ts, follow §3.3 row 4" for Q2; "null is reported
+as null, no narrative retrofit" for Q3). My fresh-reader answers
+below are likely to be close to those expected answers even when
+written "cold", because they sit in my context window. Treat the
+answers as a **second opinion with a known bias**, not as an
+independent rehearsal.
+
+---
+
+## Q1 — "What would convince you the rubric was not retrofitted to the data?"
+
+**Raw answer (fresh-reader):**
+
+As a reviewer I'd look for time-stamp evidence that the rubric was
+frozen before the runs were scored. Three things would convince me:
+
+1. **A pre-registration document committed BEFORE the first AI session,
+   with a content hash I can re-verify.** The pre-registration
+   (`pilot-pre-registration.md`) is at commit `0ac4b35`, locked at
+   `2026-09-02T05:23:00Z`. The lock-time SHA-256 of the document
+   (`ca9eb4b3…`) is recorded in §11 footer. I can run
+   `git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`
+   and check it against the recomputed hash (`bd32d752c…`) that
+   the document also records. If the file at that commit hashes
+   to the documented value, the rubric definitions (§5 in pre-reg)
+   cannot have been edited later.
+
+2. **An amendment log that shows no rubric content edits after a
+   run started.** The §11 log has 6 entries. 4 are hash
+   recomputations (no content change), 1 is §8.1 Auto-mode
+   addition (no rubric change), 1 is §12 schema addition
+   (no rubric change). If a rubric cell had been edited after
+   a run, that would appear in §11 with "Old text" / "New text"
+   / "Runs already completed under old text" columns filled in.
+
+3. **The 15 rubric cells are integer levels with explicit
+   descriptions, not continuous scores that can be tuned.** The
+   0–5 cells in §5.1, §5.2, §5.3 are described in natural
+   language with specific structural / type / coverage criteria.
+   A reviewer can re-classify a run independently and check
+   agreement.
+
+**What evidence I cited (after writing):**
+
+- Commit hash `0ac4b35`, lock timestamp `2026-09-02T05:23:00Z`
+- Pre-registration SHA-256 (lock-time attestation `ca9eb4b3…`,
+  recomputed `bd32d752c…`)
+- §11 amendment log structure (old text / new text / reason /
+  runs-completed columns)
+- §5 rubric is integer 0–5 levels with verbal criteria
+
+**Contamination check.** Expected answer (from sign-off doc §15.7):
+"pre-reg lock hash + prompt SHA + frozen 12-section rubric." My
+fresh-reader answer is a **superset**: it adds the §11 amendment
+log check, which is a stricter requirement than the expected
+answer. The expected answer does not mention the amendment log.
+
+---
+
+## Q2 — "How would you reproduce Run 4 of Condition A?"
+
+**Raw answer (fresh-reader):**
+
+Run 4 in the schedule (§3.3) is the first A run after 3 B runs.
+To reproduce I would:
+
+1. **Get the pre-registration commit.** Checkout `0ac4b35` (or
+   the `pre-reg-lock-20260902` annotated tag) so the rubric,
+   prompt, and run schedule are exactly as locked.
+
+2. **Verify the schedule order.** The schedule is in
+   `pilot-pre-registration.md` §3.3 with seed `1234567890`. The
+   schedule table is hardcoded B-B-B-A-A. (I did not find a
+   separate script that generates the order from the seed —
+   the seed is documented but its operational role is unclear
+   to me as a fresh reader. Worth flagging.)
+
+3. **Set up the two conditions.** Condition A is SmartKit at
+   the snapshot commit recorded in §8.1. Condition B is
+   generated by `SmartKit/scripts/setup-condition-b.ts --out
+   ../smartkit-baseline` (per §3.2 of pre-reg and §12 of
+   c2-direction). I run that script to get a fresh
+   `smartkit-baseline/` directory.
+
+4. **Already have runs 1–3 in B** in `runs/cond-b/run-01/`,
+   `run-02/`, `run-03/`. Or I re-execute them per the same
+   prompt.
+
+5. **Check adaptive-N trigger.** Compute range across runs
+   1–3 on the 3 dimensions. If range > 2 on any dimension,
+   proceed to runs 4–5.
+
+6. **Open SmartKit (Condition A) in Cursor AI 3.17.19**
+   (the version locked in §8.1).
+
+7. **Paste the prompt verbatim** from §4 (the verbatim string,
+   SHA-256 `18b84fd4…`). No follow-up clarifications — that
+   would be an E4 exclusion.
+
+8. **Record the run.** Wall-clock start time, model
+   (`cursor_actual_model` from chat metadata), Cursor
+   version. Save the AI's output to `runs/cond-a/run-04/`.
+
+9. **Score the run.** Run `pnpm tsx scripts/score-flag.ts
+   --run-dir runs/cond-a/run-04 --out runs/cond-a/run-04/
+   score.json` per §13.2 of c2-direction. The script produces
+   automated subscores; I manually fill the 4 manual cells.
+
+10. **Record in pre-reg §10.** Append a row to the run log
+    table with run #, condition, start, model, scores, DP
+    verdicts.
+
+**Steps I listed (after writing):**
+
+Same as raw answer, 10 steps.
+
+**Contamination check.** Expected answer (from sign-off §15.7):
+"checkout 0ac4b35, run setup-condition-b.ts, follow pre-reg §3.3
+row 4." My fresh-reader answer is a **detailed expansion** of that
+expected answer with operational steps. I also flagged a gap:
+the seed `1234567890` is documented but I cannot tell if it
+operationally drives the schedule (since the schedule is a
+hardcoded table). The expected answer does not address this.
+
+---
+
+## Q3 — "What if the result is null on all three DPs?"
+
+**Raw answer (fresh-reader):**
+
+"Null" on a DP means the prediction was not confirmed (in the
+language of §5.4.1: k = 0, 1, 2, 3, or 4 out of 5; not 5/5
+confirmed; not 0/5 refuted). If all 3 DPs are null:
+
+1. **Report it honestly in the thesis.** Do not retrofit a
+   narrative that explains away the null. Do not weaken the
+   prediction language. Do not re-classify runs to push them
+   into "confirmed" or "refuted" — the §5.4.1 rule is
+   pre-registered and frozen.
+
+2. **Keep the three-statement report.** Per §5.4.1, each DP
+   is reported as (k/5 point estimate, Wilson 95% CI,
+   comparative CI on A−B). The thesis says e.g. "DP1: 2/5
+   Condition A runs in `features/flags/lib/`, Wilson 95% CI
+   [0.10, 0.65], verdict inconclusive under §5.4.1" — not
+   "DP1: roughly confirmed".
+
+3. **Distinguish DP verdict from framework property.** Per
+   §5.4, a DP is a directional prediction about the
+   measurements; a framework property is a descriptive claim
+   that the framework could measure X. A null DP verdict does
+   **not** invalidate FP1 / FP2 / FP3 — the framework still
+   produced measurements. The thesis should report this
+   separation explicitly so a reviewer does not read "DP
+   null" as "framework failed".
+
+4. **Discuss in the Limitations / Discussion chapter.** Why
+   might all 3 DPs be null?
+   - SmartKit conventions are weaker than claimed (the
+     "convention envelope" did not produce the predicted
+     pattern).
+   - Cursor Auto-mode routing introduced within-run model
+     variance that disrupted the signal.
+   - The pilot feature choice still leaked some pattern
+     from Condition A (e.g. AI saw `process.env` usage
+     elsewhere in SmartKit and copied it).
+   - N=5 is genuinely too small to detect the predicted
+     effect (Wilson CI is wide; a 3/5 vs 5/5 difference is
+     not significant).
+   These are honest research-design discussions, not
+   narrative patches.
+
+5. **Do not run more pilots to "fix" the null.** §7 of
+   pre-reg says: "any deviation requires a new
+   pre-registration document with a new commit hash." If more
+   data is needed, the thesis reports null + proposes
+   follow-up, not silent re-runs.
+
+**Action I committed to (after writing):**
+
+Report null verdicts in the thesis with full numerical
+transparency (k/5 + Wilson CI + comparative CI), keep DP verdict
+distinct from framework property, discuss design hypotheses for
+the null in Limitations, do not retrofit or silently re-run.
+
+**Contamination check.** Expected answer (from sign-off §15.7):
+"null on all 3 DPs is reported as null in thesis; no narrative
+retrofit." My fresh-reader answer is a **detailed expansion** of
+that expected answer with concrete actions (three-statement
+report, DP vs framework-property distinction, discussion
+hypotheses, no-silent-reruns). I also added 2 hypotheses
+(Auto-mode variance, pilot feature leakage) not in the expected
+answer.
+
+---
+
+## Post-rehearsal summary
+
+| Q | Expected answer (sign-off §15.7) | Fresh-reader answer | Match? |
+|---|---|---|---|
+| Q1 | "pre-reg lock hash + prompt SHA + frozen 12-section rubric" | lock commit + SHA + §11 amendment log + integer rubric cells | partial superset |
+| Q2 | "checkout 0ac4b35, run setup-condition-b.ts, follow pre-reg §3.3 row 4" | 10-step reproduction | detailed expansion |
+| Q3 | "null on all 3 DPs is reported as null in thesis; no narrative retrofit" | 5-point null-handling protocol | detailed expansion |
+
+**Gaps surfaced by fresh-reader check:**
+
+1. **Seed `1234567890` operational role unclear.** The schedule
+   is a hardcoded B-B-B-A-A table. The seed is documented but I
+   cannot tell from the docs what it operationally drives. If
+   it is decorative, that's a §3.3 / §4 wording issue worth
+   fixing. If it drives some randomization not visible in the
+   docs, the docs should say so.
+
+2. **§11 amendment log has 4 hash-only recomputations** that
+   each record a different "old text" → "new text" hash
+   transition. This is fine for auditability but a fresh
+   reader might wonder why the hashes keep changing. A
+   one-line note in §11 ("the hash footer was updated
+   4 times to record the final canonical value, no content
+   change") would reduce this confusion.
+
+3. **The framework-property vs DP-verdict distinction (§5.4) is
+   load-bearing for Q3** but easy to miss on a first read.
+   A bolded callout in §5.4 or §15.7 of the sign-off doc
+   would help.
+
+**Contamination overall.** All 3 fresh-reader answers are
+consistent with the expected answers. None contradict them. This
+could mean (a) the expected answers are the right ones and a
+fresh reader would converge on them, or (b) my memory
+contamination drove convergence. The author should do their own
+self-rehearsal to disambiguate.
+
+---
+
+## Next steps after author's own self-rehearsal
+
+1. Author writes their own raw answers to Q1–Q3 (in their own
+   copy of this file or in a separate file).
+2. Compare author answers to fresh-reader answers above and to
+   expected answers in sign-off doc §15.7.
+3. If divergence is large on Q2 or Q3, the rubric / pre-
+   registration may have a real gap. Per c2-direction §15.6
+   last bullet: do **not** edit the rubric; note as thesis
+   limitation.
+4. Replace the 3 placeholder Q-answers in `docs/pilot-pre-
+   execution-signoff.md` §15.7 with the author's raw answers.
+5. Replace `Reviewer: \`<name>\` (peer or supervisor) on
+   \`<date>\`` with: `Reviewer: self (author, solo thesis)`
+6. Add a new bullet under §15.7:
+   > Self-rehearsal per Cách B (solo thesis). Author role-played
+   > as skeptical reviewer ≥24h after rubric finalisation. Raw
+   > answers preserved in `notes/rehearsal-2026-09-04.md`. No
+   > peer witness available within D-11..D-9 window.
+7. Commit: `docs(sign-off): record self-rehearsal answers for §15.7`

@@ -269,6 +269,18 @@ versions or across AI tools. §7 makes this limitation explicit.
 
 ### 5.4 Directional predictions (replaces H1/H2/H3)
 
+> **Framework property vs DP verdict — read this first.** A
+> directional prediction (DP) is a falsifiable claim about whether
+> Condition A's measurement will land above a threshold (e.g. ≥ 80%
+> of runs in `features/flags/lib/`). A **framework property** (FP)
+> is a descriptive claim that the framework could measure X at all
+> (e.g. "the framework measured file placement in 5/5 runs"). If a
+> DP is refuted, **the framework property is unaffected** — the
+> framework still produced the measurement; the prediction just
+> did not hold. This distinction is load-bearing: a reader who
+> reads "DP1 refuted" as "the framework failed" is misreading the
+> design.
+
 - **DP1 (Structural).** We predict Condition A generates the utility
   colocated inside `features/flags/lib/` in ≥ 80% of runs; Condition B
   generates it at `lib/feature-flags.ts` (root) in ≥ 80% of runs.
