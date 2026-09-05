@@ -111,7 +111,7 @@ Q3 answer: Reporting **null** (or **inconclusive** under the §5.4.1 rule) on al
 > — **Tolaria** (Tolaria \<vault@tolaria.md\>)
 > Date: 2026-09-04
 > Commit: `25ba54efe51cce97828aca4d17ef6eff4c754220` (initial sign-off)
-> Commit (this update, §15.7 fill-in): `<filled at Phase 7.1 commit — this file's updated commit hash>`
+> Commit (this update, §15.7 fill-in): `aa223b8` (Phase 7.1 verification commit)
 
 **First AI session plan:**
 
