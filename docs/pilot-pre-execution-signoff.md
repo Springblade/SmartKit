@@ -81,17 +81,26 @@
 
 ## §15.7 Reviewer-rehearsal
 
-Reviewer: `<name>` (peer or supervisor) on `<date>`
+Reviewer: **Self-review** (no external reviewer available within pilot window) on **2026-09-05**
+
+> **Note on reviewer type:** the §15.7 protocol recommends a peer or
+> supervisor as reviewer. No peer/supervisor was available within the
+> pilot execution window (Sep 5–12). A self-review was conducted
+> instead. This is recorded as a thesis limitation: the rubric
+> pre-registration was stress-tested by the same author who wrote it,
+> which is weaker than an independent rehearsal. Cross-tool and
+> third-party audit of the pre-registration remain future work
+> (`c2-direction.md` §8 / §9).
 
 - [x] Q1 — "What would convince you the rubric was not retrofitted to data?" — Answer recorded below
 - [x] Q2 — "How would you reproduce Run 4 of Condition A?" — Answer recorded below
 - [x] Q3 — "What if the result is null on all three DPs?" — Answer recorded below
 
-Q1 answer: `<to be captured during reviewer rehearsal; expected answer: pre-reg lock hash + prompt SHA + frozen 12-section rubric>`
+Q1 answer: The pre-registration `docs/pilot-pre-registration.md` was locked at commit `0ac4b35` with the prompt SHA-256 `18b84fd4dfff09d600548833c11eaedad469e5a689b50ca1c13dc9e85375e8f2` (recorded in §11 footer). The 12-section rubric (§1–§12) has been frozen since lock, and the amendment log (§11) tracks every change with reason. No rubric, prompt, or exclusion-criterion change has been made after the dry run (§15.6), so a reader can verify by diffing the pre-registration against the locked commit. If a rubric change were made mid-pilot, exclusion criterion **E5** would invalidate the entire pilot — this catastrophic-trigger rule makes rubric-tampering structurally impossible, not just discouraged.
 
-Q2 answer: `<to be captured during reviewer rehearsal; expected answer: checkout 0ac4b35, run setup-condition-b.ts, follow pre-reg §3.3 row 4>`
+Q2 answer: Check out pre-registration commit `0ac4b35`; check out SmartKit snapshot commit `dde929c8...` (Condition A); run `pnpm tsx SmartKit/scripts/setup-condition-b.ts --out ../smartkit-baseline` from the SmartKit root (this regenerates Condition B); follow pre-registration §3.3 row 4 (Run 4 = Condition A) by opening Cursor AI in `SmartKit/` and pasting the verbatim prompt from pre-reg §4. After the AI session, copy the generated files to `runs/cond-a/run-04/`, run `pnpm tsx SmartKit/scripts/score-flag.ts --run-dir runs/cond-a/run-04 --out runs/cond-a/run-04/score.json`, fill in manual cells, commit. The locked run-order table (seed `1234567890`) is the canonical schedule; any deviation requires a new pre-registration commit.
 
-Q3 answer: `<to be captured during reviewer rehearsal; expected answer: null on all 3 DPs is reported as null in thesis; no narrative retrofit>`
+Q3 answer: Reporting **null** (or **inconclusive** under the §5.4.1 rule) on all three DPs is a valid pilot outcome, not a failure. The thesis will report each DP with three statements (k/n runs in predicted direction + Wilson 95% CI + Bonferroni 99% comparative CI per `c2-direction.md` §5.4.3) and let the binary verdict (`confirmed/refuted/inconclusive`) reflect the pre-registered rule. No narrative retrofit will be applied to make a null result appear directional; if all three DPs are inconclusive, the thesis discussion will name this honestly as a limitation and list cross-tool, cross-version, and larger-N replication as future work.
 
 ## §15.8 Sign-off statement
 
@@ -101,9 +110,30 @@ Q3 answer: `<to be captured during reviewer rehearsal; expected answer: null on 
 >
 > — **Tolaria** (Tolaria \<vault@tolaria.md\>)
 > Date: 2026-09-04
-> Commit: `<filled at commit 12 of the Phase 6 sequence — this
-> very file's final commit hash>`
+> Commit: `25ba54efe51cce97828aca4d17ef6eff4c754220` (initial sign-off)
+> Commit (this update, §15.7 fill-in): `<filled at Phase 7.1 commit — this file's updated commit hash>`
+
+**First AI session plan:**
+
+- Date: **2026-09-05** (within D-11..D-9 window per `c2-direction.md` §14.1)
+- Time: **after this sign-off commit lands**
+- Run number: **Run 1** (Condition B per pre-reg §3.3 schedule, seed `1234567890`)
+- Run directory: `runs/cond-b/run-01/`
+- Time-to-correct clock starts at Cursor AI session open
 
 The first AI session cannot start until this document is committed.
 Pilot entry into Phase 7 is gated on the `Sign-off commit` value
 above being non-placeholder.
+
+## §15.9 Verification record (2026-09-05)
+
+Re-verification run on 2026-09-05 confirmed:
+
+- [x] `SmartKit` HEAD `dde929c82a8d3e22afa6161a795532abb26caf3b` — `pnpm lint` clean, `pnpm check-types` clean, `pnpm test:run` 14/14 tests passed
+- [x] `SmartKit` working tree clean (CRLF→LF conversion of `scripts/score-flag.ts` and `scripts/setup-condition-b.ts` applied — content unchanged, line-ending normalized per `.gitattributes` `* text=auto eol=lf`)
+- [x] `smartkit-baseline` re-generated via `pnpm tsx scripts/setup-condition-b.ts --out ../smartkit-baseline`; 6/6 self-check rows pass
+- [x] `smartkit-baseline` working tree: `pnpm lint` clean, `pnpm check-types` clean
+- [x] `pnpm tsx SmartKit/scripts/score-flag.ts --run-dir runs/dry-run-a` exits 0 with score 3/4/5
+- [x] `pnpm tsx SmartKit/scripts/score-flag.ts --run-dir runs/dry-run-b` exits 0 with score 2/0/0
+- [x] Sign-off document §15.7 reviewer-rehearsal answers filled in (this commit)
+- [x] No rubric, prompt, or exclusion-criterion change (E5 guard intact)
