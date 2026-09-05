@@ -13,8 +13,8 @@
 | Pre-registration lock-time attestation hash | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` |
 | Pre-registration recomputed content hash (commit `0ac4b35`) | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` |
 | Pre-registration post-A8 working-tree hash | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` |
-| SmartKit snapshot commit (HEAD, post-Phase-6) | `67bd2cd8561ce70e9b0e0011f85a321328169594` |
-| Baseline snapshot commit (HEAD, post-Phase-6) | `64100f717e2780f6dc76a79fd2d68983fe7150b7` |
+| SmartKit snapshot commit (HEAD, post-Phase-6) | `dde929c82a8d3e22afa6161a795532abb26caf3b` |
+| Baseline snapshot commit (HEAD, post-Phase-6) | `f9bdda36463a8c4ce6b429acd753def4c09c488d` |
 | First AI session date | Scheduled in D-11..D-9 window per `docs/c2-direction.md` §14.1 (exact date to be recorded at first run) |
 
 > **Note on SmartKit / baseline HEAD:** both sub-repos had
@@ -45,7 +45,7 @@
 - [x] `AGENTS.md` at `SmartKit/` root
 - [x] `.cursor/rules/` at `SmartKit/` root not present (acceptable per pre-reg §3.1 "if present at run time")
 - [x] `src/features/auth/` and `src/features/billing/` present
-- [x] SmartKit snapshot commit `67bd2cd...` recorded above
+- [x] SmartKit snapshot commit `dde929c8...` recorded above
 
 ## §15.3 Condition B (baseline)
 
