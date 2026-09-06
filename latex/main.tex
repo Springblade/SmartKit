@@ -199,7 +199,7 @@ I am grateful to the open-source and research community whose published work on 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-\textit{This thesis proposes an evaluation framework for AI-generated Next.js boilerplate and ships SmartKit, the boilerplate the framework measures. The pilot ran at N=5 per condition (Condition~A: SmartKit; Condition~B: convention-naive scaffold) on one feature; it shows the framework produces scores, but the sample is too small to support inferential claims. Larger-N runs, cross-tool replication, and developer-participant studies are future work.}
+\textit{This thesis proposes an evaluation framework for AI-generated Next.js boilerplate and ships SmartKit, the boilerplate the framework measures. The pilot ran an adaptive schedule: $n=2$ completed Cond~A runs and $n=3$ Cond~B runs for a total of $5$ runs (Cond~A is being extended to $n=5$ per the §A.5.4.1 verdict rule; the 3 additional runs are pending execution); the framework produces reproducible per-run scores on the targeted \code{isEnabled} feature, but the sample is too small to support inferential claims. Larger-N runs, cross-tool replication, and developer-participant studies are future work.}
 
 AI coding assistants such as GitHub Copilot, Claude Code, and Cursor are now in daily use. Peng et al. report a 55.8\% completion-time gain on a controlled HTTP-server task \parencite{peng2023impact}, and Yetistiren et al. found boilerplate generation to be the strongest AI use case among practitioners \parencite{yetistiren2022assessing}. The benchmarks that dominate the literature---HumanEval, MBPP+, APPS, BigCodeBench, LiveCodeBench for algorithms; SWE-bench for bug-fixing---do not measure whether AI-generated code respects framework conventions. Server/Client boundary violations in Next.js App Router, for instance, fail at runtime in a way no static type check can catch.
 
@@ -756,7 +756,7 @@ The evaluation framework design involves several deliberate choices that balance
 
 \textbf{Automated over manual evaluation.} The framework prioritizes automated metrics to enable reproducibility and scale. Expert review provides richer qualitative assessment, but automated checking ensures consistent evaluation across the large number of code samples required for meaningful comparison. Where qualitative judgment is necessary (e.g., structure quality assessment), the framework will employ LLM-as-judge with majority voting to reduce subjective bias.
 
-\textbf{5-point rubric across dimensions.} Each of the three~dimensions is scored on a 0--5 rubric. The specific cutoffs (0--1: serious violations, 1--2: minor violations, 2--3: acceptable, 3--4: good, 4--5: excellent) map to actionable developer outcomes: scores below 2 indicate code that requires significant manual correction, while scores above 4 indicate code ready for review.
+\textbf{6-level rubric across dimensions.} Each of the three~dimensions is scored on a 0--5 rubric (six integer levels). The per-dimension cell descriptions are detailed in \S A.5.1--A.5.3; the rough mapping is: $0$ = missing artefact, $1$ = severe violation, $2$ = partial (in the right neighbourhood but wrong sub-detail), $3$ = acceptable, $4$ = good (level 3 + a specific bonus criterion, e.g.\ \code{server-only} for Structural), $5$ = excellent (level 4 + a second bonus criterion, e.g.\ barrel re-export). The exact level descriptions are dimension-specific and asserted at the design stage; empirical validation of the cutoff mapping to developer outcomes is future work (\S7.4). The aggregate per-run score is the sum of the three dimensions, range $0$--$15$.
 
 \textbf{Single-framework focus.} The evaluation focuses exclusively on Next.js to maintain depth over breadth. Future work should extend the framework to Nuxt and Remix to assess generalizability of the approach.
 
@@ -959,7 +959,7 @@ This section describes the pilot evaluation conducted under the pre-registered a
 1 & B & 2 & 1 & 1 & 2 & root \code{lib/feature-flags.ts}; no Zod \\
 2 & B & 2 & 3 & 1 & 2 & root \code{lib/flags.ts}; type alias only \\
 3 & B & 2 & 0 & 1 & 2 & root \code{lib/feature-flag.ts}; range Type=3 \textrightarrow{} PROCEED \\
-4 & A & 4 & 5 & 5 & 3 & \code{features/flags/lib} + Zod + server-only + 4 tests \\
+4 & A & 5 & 5 & 5 & 3 & \code{features/flags/lib} + Zod + server-only + 4 tests (manual updated 2026-09-06 after path-normalize fix) \\
 5 & A & 4 & 5 & 4 & 3 & \code{features/flags/lib} + Zod + server-only + 3 tests \\
 \midrule
 6 & A & \multicolumn{5}{l}{\textit{pending} — to be executed per §A.11 amendment 2026-09-06; seed \texttt{1234567899}} \\
@@ -969,7 +969,7 @@ This section describes the pilot evaluation conducted under the pre-registered a
 \end{tabular}
 \end{table}
 
-\textbf{Per-condition aggregate.} Condition~A medians [min, max]: Structural $4$ [$4$, $4$]; Type \& Contract $5$ [$5$, $5$]; Coverage $4.5$ [$4$, $5$]. Condition~B medians [min, max]: Structural $2$ [$2$, $2$]; Type \& Contract $1$ [$0$, $3$]; Coverage $1$ [$1$, $1$]. The Condition~B Type \& Contract range (3) is the largest variance observed; the other two dimensions were stable within each condition.
+\textbf{Per-condition aggregate.} Condition~A medians [min, max]: Structural $4.5$ [$4$, $5$]; Type \& Contract $5$ [$5$, $5$]; Coverage $4.5$ [$4$, $5$]. Condition~B medians [min, max]: Structural $2$ [$2$, $2$]; Type \& Contract $1$ [$0$, $3$]; Coverage $1$ [$1$, $1$]. The Condition~B Type \& Contract range (3) is the largest variance observed; the other two dimensions were stable within each condition. (The Condition~A Structural median was revised from $4$ to $4.5$ on 2026-09-06 after the primary-rater manual cell for Run~4 was updated from $4$ to $5$ to match the corrected \texttt{path\_match=1} reading from the \texttt{score-flag.ts} path-normalize fix; see \S A.11 amendment 2026-09-06 and \texttt{runs/cond-a/run-04/score.json} note.)
 
 \textbf{DP verdicts (per docs/c2-direction §5.4.3 template).} Three directional predictions (DP1: location; DP2: Zod enum; DP3: colocated test) are reported in three-statement form (k/n + Wilson 95\% CI + Bonferroni-corrected comparative CI). The binary verdict rule under §5.4.1 requires $k/5$ runs in the predicted direction for \emph{confirmed} or $0/5$ for \emph{refuted}; values $1$--$4/5$ are \emph{inconclusive}.
 

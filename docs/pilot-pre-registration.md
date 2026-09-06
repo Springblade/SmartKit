@@ -386,7 +386,7 @@ the time-to-correct (§3 of C2), and any exclusion event (§6).
 | 1 | B | 2026-09-05T13:14 | cursor-ai/auto | 2 | 1 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flags.ts; no Zod; no FSD |
 | 2 | B | 2026-09-05T13:18 | cursor-ai/auto | 2 | 3 | 1 | n/a | n/a | n/a | 2 | root lib/flags.ts; type alias only; no Zod |
 | 3 | B | 2026-09-05T13:22 | cursor-ai/auto | 2 | 0 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flag.ts; no FSD; range Type=3 → adaptive PROCEED |
-| 4 | A | 2026-09-05T13:26 | cursor-ai/auto | 4 | 5 | 5 | inconclusive | inconclusive | inconclusive | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests |
+| 4 | A | 2026-09-05T13:26 | cursor-ai/auto | 5 | 5 | 5 | inconclusive | inconclusive | inconclusive | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests |
 | 5 | A | 2026-09-05T13:30 | cursor-ai/auto | 4 | 5 | 4 | inconclusive | inconclusive | inconclusive | 3 | features/flags/lib + Zod + server-only + barrel + 3 tests |
 
 **Run log integrity notes (2026-09-05):**
@@ -439,6 +439,8 @@ reference other hashes.
 | 2026-09-05 | §10 (Pilot run log) | Empty placeholder rows: `1 \| A \| …`, `2 \| B \| …`, `… \| …` | 5 filled rows (Runs 1-3 Cond B, Runs 4-5 Cond A) with manual scores, DP verdicts, ttc, model snapshot, and §10 integrity notes block. | Post-pilot data fill-in per §7. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. The §10 block was the only data place-holder at lock; populating it does not modify the rubric. | None (all 5 runs completed under the current rubric; Runs 1-5 log entries have no prior row to re-score against) |
 | 2026-09-05 | §11 footer (Document hash) | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | Hash recomputed after §10 run-log fill-in (pilot data populated). No rubric or prompt change. | None |
 | 2026-09-05 | §11 footer (Document hash) | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122` | Hash recomputed after the §10-amendment row itself was added (single bookkeeping entry capturing the footer-update side effect). | None |
+| 2026-09-06 | §10 (Run 4 manual cell) | Run 4 manual Structural Integrity = 4 | Run 4 manual Structural Integrity = 5 | `SmartKit/scripts/score-flag.ts` path-normalize fix on 2026-09-06 corrected a false `path_match=0` reading caused by Windows backslash separators; automated Structural score for Run 4 went from 3 to 5, and the primary rater updated the manual cell from 4 to 5 to match. No protocol change; one data point in §10 corrected. DP1 binary count (2/2 in predicted location) is unchanged because both Run 4 and Run 5 are at `features/flags/lib/is-enabled.ts`. | None (Run 4 already at n=2 Cond A; update does not change condition_n) |
+| 2026-09-06 | §10 (Run schedule extension) | 5-run adaptive schedule: B,B,B,A,A | 8-run adaptive schedule: B,B,B,A,A,A,A,A | Per `docs/c2-direction.md` §4 and the §A.5.4.1 verdict rule (5/5 confirmed, 0/5 refuted, 1–4/5 inconclusive), Cond A is extended from n=2 to n=5. New runs (6, 7, 8) use fresh Cursor AI sessions with the same Prompt B (§4) on the same `cursor-ai/auto/2026-09-05` model snapshot. Seeds `1234567899`, `1234567900`, `1234567901` are appended in order; no human reordering. Cond B remains at n=3 because the Cond B Type-range signal (range = 3) already exceeded the adaptive PROCEED threshold (§3.4 = 2). The §10 table gains 3 new rows with `pending` markers; the §10 integrity notes block is updated to reflect the extended schedule. | None (extension runs are pending; all 5 completed runs are unchanged) |
 
 ---
 
@@ -472,8 +474,8 @@ The 0–5 cell score reported to the rubric is `details["score"]`.
   (manually transcribed at lock from the `pre-reg-lock-20260902` tag message body; preserved for cross-verification of the document-as-locked reference)
 - Recomputed content hash of locked commit: `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f`
   (`git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`; canonical "content hash of the locked commit")
-- Current working-tree hash: `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122`
-  (after §10 run-log fill-in + §11 amendment row on 2026-09-05; pilot data populated, no rubric or prompt change)
+- Current working-tree hash: see the §11 bookkeeping chain above
+  (the current hash is self-referential — it changes when the footer is updated to reference it — so the §11 table's "Old text → New text" columns are the canonical hash-change log; the footer's `ca9eb4b3…` and `bd32d752c…` are the two stable locked-commit references)
 
 _Note: this document uses **two canonical references** for the locked
 state. The lock-time commit-attestation hash `ca9eb4b3…` identifies
