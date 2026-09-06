@@ -45,7 +45,7 @@
     "type_contract_safety": 1,
     "coverage_completeness": 1,
     "naming_quality": 2,
-    "notes": "Run 1 Condition B: AI placed utility at lib/feature-flags.ts (root-level, not FSD). No features/ folder used (baseline has none). No server-only import, no Zod schema (FlagKey is just `string` type alias, not z.enum). Test file at tests/feature-flags.test.ts (root-level, not src/tests/features/flags/). Cache implemented (5-min in-memory Map) but no `is-enabled.ts` filename in features/flags/lib/. Functional correctness: default + env override + cache hit all tested. Public API reachable as `isEnabled`."
+    "notes": "Run 1 Condition B: AI placed utility at lib/feature-flags.ts (root-level, not FSD). No features/ folder used (baseline has none). No server-only import, no Zod schema (FlagKey is just `string` type alias, not z.enum). Test file at tests/feature-flags.test.ts (root-level, not src/tests/features/flags/). Cache implemented (5-min in-memory Map) but no `is-enabled.ts` filename in features/flags/lib/. Functional correctness: default + env override + cache hit all tested. Public API reachable as `isEnabled`. (Manual cells preserved from primary rater's original score on 2026-09-05.)"
   },
   "time_to_correct_minutes": 2,
   "edit_list": [

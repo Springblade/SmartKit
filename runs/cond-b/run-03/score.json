@@ -45,7 +45,7 @@
     "type_contract_safety": 0,
     "coverage_completeness": 1,
     "naming_quality": 2,
-    "notes": "Run 3 Condition B: AI placed utility at lib/feature-flag.ts (root-level, singular form this time). Flag parameter typed as `string` (no Zod). Test file at tests/feature-flag.test.ts. Cache implemented (5-min Map). Per-user override stub returns null (no DB wired). Pattern consistent with Runs 1 and 2: root-level, no FSD, no Zod enum, no server-only import. Public API reachable as `isEnabled`."
+    "notes": "Run 3 Condition B: AI placed utility at lib/feature-flag.ts (root-level, singular form this time). Flag parameter typed as `string` (no Zod). Test file at tests/feature-flag.test.ts. Cache implemented (5-min Map). Per-user override stub returns null (no DB wired). Pattern consistent with Runs 1 and 2: root-level, no FSD, no Zod enum, no server-only import. Public API reachable as `isEnabled`. (Manual cells preserved from primary rater's original score on 2026-09-05.)"
   },
   "time_to_correct_minutes": 2,
   "edit_list": [

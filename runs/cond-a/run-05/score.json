@@ -7,20 +7,20 @@
   },
   "automated": {
     "structural_integrity": {
-      "is_enabled_file": "features\\flags\\lib\\is-enabled.ts",
+      "is_enabled_file": "features/flags/lib/is-enabled.ts",
       "has_is_enabled_export": true,
       "uses_server_only_import": true,
       "has_use_client_in_util": false,
-      "path_match": 0,
+      "path_match": 1,
       "feature_complete": 1,
-      "score": 3
+      "score": 5
     },
     "type_contract_safety": {
       "tsc_error_count": 0,
       "any_count": 0,
       "ts_ignore_count": 0,
       "flag_key_is_zod_enum": true,
-      "flags_ts_found": "features\\flags\\types\\flags.ts",
+      "flags_ts_found": "features/flags/types/flags.ts",
       "type_sub_score": 4,
       "contract_sub_score": 5,
       "score": 4
@@ -37,7 +37,7 @@
     }
   },
   "automated_scores": {
-    "structural_integrity": 3,
+    "structural_integrity": 5,
     "type_contract_safety": 4,
     "coverage_completeness": 5
   },
@@ -46,7 +46,7 @@
     "type_contract_safety": 5,
     "coverage_completeness": 4,
     "naming_quality": 4,
-    "notes": "Run 5 Condition A: AI generated full FSD layout. FlagKeySchema via z.enum with 5 entries (different set than Run 4, showing AI variability within convention envelope). Server-only boundary, 5-min in-memory cache, Zod validation throws on invalid key. Test file at src/tests/features/flags/is-enabled.test.ts with 3 cases (env override, default, cache hit). Per-user override path dropped (env/default only) — slight simplification vs Run 4. Otherwise all SmartKit conventions observed."
+    "notes": "Run 5 Condition A: AI generated full FSD layout. FlagKeySchema via z.enum with 5 entries (different set than Run 4, showing AI variability within convention envelope). Server-only boundary, 5-min in-memory cache, Zod validation throws on invalid key. Test file at src/tests/features/flags/is-enabled.test.ts with 3 cases (env override, default, cache hit). Per-user override path dropped (env/default only) — slight simplification vs Run 4. Otherwise all SmartKit conventions observed. (Automated structural score updated from 3/5 to 5/5 on 2026-09-06 after score-flag.ts path-normalize fix; manual cells preserved as originally rated by primary rater.)"
   },
   "time_to_correct_minutes": 3,
   "edit_list": [

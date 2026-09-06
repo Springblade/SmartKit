@@ -45,7 +45,7 @@
     "type_contract_safety": 3,
     "coverage_completeness": 1,
     "naming_quality": 2,
-    "notes": "Run 2 Condition B: AI placed utility at lib/flags.ts (root-level). Type alias `FeatureFlag = string` instead of Zod enum. Test file at tests/flags.test.ts. Cache implemented (5-min Map keyed by flag::userId). Score-flag detected flags.ts as a schema-like file (matched contract_sub_score=3), but it's not Zod-derived — it's just a type alias. No features/ folder, no FSD layout. Cache hit verified via test, 5-min TTL is in code. Public API reachable as `isEnabled`."
+    "notes": "Run 2 Condition B: AI placed utility at lib/flags.ts (root-level). Type alias `FeatureFlag = string` instead of Zod enum. Test file at tests/flags.test.ts. Cache implemented (5-min Map keyed by flag::userId). Score-flag detected flags.ts as a schema-like file (matched contract_sub_score=3), but it's not Zod-derived — it's just a type alias. No features/ folder, no FSD layout. Cache hit verified via test, 5-min TTL is in code. Public API reachable as `isEnabled`. (Manual cells preserved from primary rater's original score on 2026-09-05.)"
   },
   "time_to_correct_minutes": 2,
   "edit_list": [
