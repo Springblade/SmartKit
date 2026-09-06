@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DP Summary — Pilot Phase 8",
+  "description": "Aggregates all 5 scored runs into DP verdicts, Wilson 95% CIs, and three-statement reports per c2-direction.md §5.4.1 and pilot-pre-registration.md.",
+  "run_count": 5,
+  "adaptive_n": true,
+  "adaptive_trigger": "Cond B Type & Contract Safety range = 3 (> 2 threshold) after N=3; Runs 4-5 (both Cond A) executed per locked schedule.",
+  "run_sequence": [
+    "B",
+    "B",
+    "B",
+    "A",
+    "A"
+  ],
+  "condition_n": {
+    "A": 2,
+    "B": 3
+  },
+  "excluded_runs": [
+    {
+      "run_id": "dry-run-a",
+      "condition": "A",
+      "reason": "Smoke/dry run excluded from DP analysis; not scored against the pre-registered rubric."
+    },
+    {
+      "run_id": "dry-run-b",
+      "condition": "B",
+      "reason": "Smoke/dry run excluded from DP analysis; not scored against the pre-registered rubric."
+    }
+  ],
+  "exclusion_events": [],
+  "dp1": {
+    "description": "Structural: Condition A places utility in features/flags/lib/; Condition B places utility at root lib/.",
+    "cond_a_in_features": 2,
+    "cond_a_n": 2,
+    "cond_b_at_root": 3,
+    "cond_b_n": 3,
+    "wilson_95_ci_cond_a": [
+      0.3424,
+      1
+    ],
+    "wilson_95_ci_cond_b": [
+      0.4385,
+      1
+    ],
+    "verdict": "inconclusive",
+    "verdict_note": "Binary rule §5.4.1 cannot issue confirmed/refuted at n=2 per condition (rule requires N=5). Observed 2/2 in predicted direction. Per-condition sample too small for the pre-registered binary rule. Verdict per pre-reg §10 and dp-verdict.md: inconclusive."
+  },
+  "dp2": {
+    "description": "Type & Contract: Condition A exports Zod-derived FlagKey enum; Condition B uses raw string type alias.",
+    "cond_a_zod": 2,
+    "cond_a_n": 2,
+    "cond_b_string": 3,
+    "cond_b_n": 3,
+    "wilson_95_ci_cond_a": [
+      0.3424,
+      1
+    ],
+    "wilson_95_ci_cond_b": [
+      0.4385,
+      1
+    ],
+    "verdict": "inconclusive",
+    "verdict_note": "Binary rule §5.4.1 cannot issue confirmed/refuted at n=2 per condition (rule requires N=5). Observed 2/2 in predicted direction. Per-condition sample too small for the pre-registered binary rule. Verdict per pre-reg §10 and dp-verdict.md: inconclusive."
+  },
+  "dp3": {
+    "description": "Coverage: Condition A includes test at src/tests/features/flags/ (colocated); Condition B includes test at root (not colocated).",
+    "cond_a_colocated": 2,
+    "cond_a_n": 2,
+    "cond_b_not_colocated": 3,
+    "cond_b_n": 3,
+    "wilson_95_ci_cond_a": [
+      0.3424,
+      1
+    ],
+    "wilson_95_ci_cond_b": [
+      0.4385,
+      1
+    ],
+    "verdict": "inconclusive",
+    "verdict_note": "Binary rule §5.4.1 cannot issue confirmed/refuted at n=2 per condition (rule requires N=5). Observed 2/2 in predicted direction. Per-condition sample too small for the pre-registered binary rule. Verdict per pre-reg §10 and dp-verdict.md: inconclusive."
+  },
+  "three_statement_reports": {
+    "dp1": "**DP1 (Structural).** Observation: Cond A in predicted direction (2/2 in features/flags/lib/); Cond B in predicted direction (3/3 at root lib/). Wilson 95% CI on Cond A: [0.34, 1.00]; on Cond B: [0.44, 1.00]. (Comparative CI omitted: c2 §5.4.3 reports it only when both conditions are at adaptive-N=5; Cond A is N=2 in this pilot.) Verdict: **inconclusive** under the §5.4.1 binary rule (n=2 per condition; rule requires N=5). FP1: the framework successfully measured structural placement in 5/5 runs.",
+    "dp2": "**DP2 (Type & Contract).** Observation: Cond A in predicted direction (2/2 in Zod-derived FlagKey enum); Cond B in predicted direction (3/3 in raw string type alias). Wilson 95% CI on Cond A: [0.34, 1.00]; on Cond B: [0.44, 1.00]. (Comparative CI omitted: c2 §5.4.3 reports it only when both conditions are at adaptive-N=5; Cond A is N=2 in this pilot.) Verdict: **inconclusive** under the §5.4.1 binary rule (n=2 per condition; rule requires N=5). FP2: the framework successfully measured type safety in 5/5 runs.",
+    "dp3": "**DP3 (Coverage — test colocation).** Observation: Cond A in predicted direction (2/2 in src/tests/features/flags/); Cond B in predicted direction (3/3 at root-level test, not colocated). Wilson 95% CI on Cond A: [0.34, 1.00]; on Cond B: [0.44, 1.00]. (Comparative CI omitted: c2 §5.4.3 reports it only when both conditions are at adaptive-N=5; Cond A is N=2 in this pilot.) Verdict: **inconclusive** under the §5.4.1 binary rule (n=2 per condition; rule requires N=5). FP3: the framework successfully measured test coverage in 5/5 runs."
+  },
+  "framework_properties": {
+    "fp1": "The scoring framework successfully measured structural file placement in 5/5 runs. Automated sub-scores (path_match, feature_complete) and manual rubric scores were applied consistently across all runs. No exclusion events.",
+    "fp2": "The scoring framework successfully measured type and contract safety in 5/5 runs. TypeScript type-checking (tsc --noEmit), Zod enum detection, and manual rubric scores were applied consistently across all runs. No exclusion events.",
+    "fp3": "The scoring framework successfully measured test coverage and colocation in 5/5 runs. Automated file enumeration (test presence, path) and manual rubric scores were applied consistently across all runs. No exclusion events."
+  },
+  "median_range": {
+    "condition_a": {
+      "n": 2,
+      "structural": {
+        "median": 4,
+        "range": 0,
+        "runs": [
+          4,
+          4
+        ]
+      },
+      "type": {
+        "median": 5,
+        "range": 0,
+        "runs": [
+          5,
+          5
+        ]
+      },
+      "coverage": {
+        "median": 4.5,
+        "range": 1,
+        "runs": [
+          5,
+          4
+        ]
+      }
+    },
+    "condition_b": {
+      "n": 3,
+      "structural": {
+        "median": 2,
+        "range": 0,
+        "runs": [
+          2,
+          2,
+          2
+        ]
+      },
+      "type": {
+        "median": 1,
+        "range": 3,
+        "runs": [
+          1,
+          3,
+          0
+        ]
+      },
+      "coverage": {
+        "median": 1,
+        "range": 0,
+        "runs": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "time_to_correct": {
+    "all_runs_within_3_min": true,
+    "max_minutes": 3,
+    "no_did_not_converge": true
+  },
+  "metadata": {
+    "generated_by": "pnpm tsx SmartKit/scripts/aggregate-dp.ts (see metadata.command for the full invocation)",
+    "command": "pnpm tsx SmartKit/scripts/aggregate-dp.ts --runs-dir ..\\runs --out ..\\runs\\dp-summary.json",
+    "date": "2026-09-06",
+    "source_runs": [
+      {
+        "run_id": "run-01",
+        "condition": "B",
+        "path": "..\\runs\\cond-b\\run-01\\score.json"
+      },
+      {
+        "run_id": "run-02",
+        "condition": "B",
+        "path": "..\\runs\\cond-b\\run-02\\score.json"
+      },
+      {
+        "run_id": "run-03",
+        "condition": "B",
+        "path": "..\\runs\\cond-b\\run-03\\score.json"
+      },
+      {
+        "run_id": "run-04",
+        "condition": "A",
+        "path": "..\\runs\\cond-a\\run-04\\score.json"
+      },
+      {
+        "run_id": "run-05",
+        "condition": "A",
+        "path": "..\\runs\\cond-a\\run-05\\score.json"
+      }
+    ],
+    "referenced_documents": {
+      "dp_verdict": "runs/dp-verdict.md",
+      "adaptive_decision": "runs/adaptive-decision.md",
+      "pilot_pre_registration": "docs/pilot-pre-registration.md",
+      "c2_direction": "docs/c2-direction.md"
+    }
+  }
+}

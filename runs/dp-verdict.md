@@ -66,25 +66,29 @@ Each DP reported as: (1) point estimate k/n, (2) Wilson 95% CI on k/n, (3) compa
 
 ### DP1 — structural placement
 
-- **Point estimate (A):** k=2/2 in features/flags/lib/. Point estimate (B): 0/3 in features/flags/lib/ (3/3 at root lib/).
-- **Wilson 95% CI on A:** [0.34, 1.00] (n=2, all successes).
-- **Wilson 95% CI on B:** [0.00, 0.65] (n=3, all failures).
-- **Comparative CI (A−B):** [0.34, 0.65] (uncorrected), Bonferroni-corrected to 99%: [0.30, 0.65] (nominal). True CI is undefined when one side has k=0 and n=3 because the Wilson interval extends to 0 and the difference CI is mechanically the gap between [0.34, 1.00] and [0.00, 0.65]. Reported as **inconclusive** under §5.4.1.
+- **Point estimate (A):** k=2/2 in features/flags/lib/ (Cond A's predicted location).
+- **Point estimate (B):** k=3/3 in root lib/ (Cond B's predicted location; equivalent to 0/3 in Cond A's predicted location).
+- **Wilson 95% CI on A:** [0.34, 1.00] (n=2, all successes in cond_a's predicted direction).
+- **Wilson 95% CI on B:** [0.44, 1.00] (n=3, all successes in cond_b's predicted direction). Standard Wilson 1927 per `SmartKit/scripts/lib/wilson.ts`.
+- **Comparative CI (A−B):** Omitted per c2 §5.4.3 (reported only when both conditions are at adaptive-N=5; Cond A is N=2).
+- Reported as **inconclusive** under §5.4.1 (n=2 per condition; rule requires N=5).
 
 ### DP2 — Zod-derived FlagKey
 
-- **Point estimate (A):** k=2/2 Zod-derived. Point estimate (B): 0/3 Zod-derived.
+- **Point estimate (A):** k=2/2 Zod-derived.
+- **Point estimate (B):** k=3/3 raw string type alias.
 - **Wilson 95% CI on A:** [0.34, 1.00].
-- **Wilson 95% CI on B:** [0.00, 0.65].
-- **Comparative CI (A−B):** [0.34, 0.65] (uncorr), [0.30, 0.65] (Bonferroni 99%).
+- **Wilson 95% CI on B:** [0.44, 1.00].
+- **Comparative CI (A−B):** Omitted per c2 §5.4.3 (Cond A is N=2).
 - **Verdict:** **Inconclusive** under §5.4.1.
 
 ### DP3 — colocated test
 
-- **Point estimate (A):** k=2/2 colocated. Point estimate (B): 0/3 colocated (B tests live at tests/feature-flag.test.ts or similar, not src/tests/features/flags/).
+- **Point estimate (A):** k=2/2 colocated at `src/tests/features/flags/is-enabled.test.ts`.
+- **Point estimate (B):** k=3/3 not colocated (Cond B tests live at `tests/feature-flags.test.ts`, `tests/flags.test.ts`, `tests/feature-flag.test.ts`, not at `src/tests/features/flags/`).
 - **Wilson 95% CI on A:** [0.34, 1.00].
-- **Wilson 95% CI on B:** [0.00, 0.65].
-- **Comparative CI (A−B):** [0.34, 0.65] (uncorr), [0.30, 0.65] (Bonferroni 99%).
+- **Wilson 95% CI on B:** [0.44, 1.00].
+- **Comparative CI (A−B):** Omitted per c2 §5.4.3 (Cond A is N=2).
 - **Verdict:** **Inconclusive** under §5.4.1.
 
 ## Median + range per condition
@@ -118,6 +122,9 @@ Each DP reported as: (1) point estimate k/n, (2) Wilson 95% CI on k/n, (3) compa
   scoring framework successfully measured all three dimensions in 5/5
   runs. DP verdicts speak to the directional prediction, not to the
   framework's ability to measure.
-- Comparative CI Wilson scores computed with k=2/n=2 (A) and k=0/n=3 (B)
-  using Wilson 1927 formula. Bonferroni correction = 99% per DP family
-  of 3.
+- Wilson 95% CIs computed via `SmartKit/scripts/lib/wilson.ts` (standard
+  Wilson 1927 score interval with z=1.96). Per-condition CIs at k=2/n=2
+  (Cond A) and k=3/n=3 (Cond B) both yield [0.34, 1.00] and [0.44, 1.00]
+  respectively. Comparative CI on A−B difference is omitted per c2
+  §5.4.3 ("reported only when both conditions are at adaptive-N=5"; Cond
+  A is N=2).
