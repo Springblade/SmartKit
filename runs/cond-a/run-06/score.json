@@ -1,0 +1,57 @@
+{
+  "run_id": "run-06",
+  "tooling_snapshot": {
+    "tool": "cursor-assistant",
+    "model": "agent-mode",
+    "date": "2026-09-06"
+  },
+  "automated": {
+    "structural_integrity": {
+      "is_enabled_file": "features/flags/lib/is-enabled.ts",
+      "has_is_enabled_export": true,
+      "uses_server_only_import": true,
+      "has_use_client_in_util": false,
+      "path_match": 1,
+      "feature_complete": 1,
+      "score": 5
+    },
+    "type_contract_safety": {
+      "tsc_error_count": 0,
+      "any_count": 0,
+      "ts_ignore_count": 0,
+      "flag_key_is_zod_enum": true,
+      "flags_ts_found": "features/flags/types/flags.ts",
+      "type_sub_score": 4,
+      "contract_sub_score": 5,
+      "score": 4
+    },
+    "coverage_completeness": {
+      "is_enabled_ts_present": true,
+      "is_enabled_test_ts_present": true,
+      "flags_ts_schema_present": true,
+      "index_ts_barrel_present": true,
+      "five_minute_cache_implemented": true,
+      "test_case_count": 4,
+      "console_log_count": 0,
+      "score": 5
+    }
+  },
+  "automated_scores": {
+    "structural_integrity": 5,
+    "type_contract_safety": 4,
+    "coverage_completeness": 5
+  },
+  "manual": {
+    "structural_integrity": 5,
+    "type_contract_safety": 4,
+    "coverage_completeness": 5,
+    "naming_quality": 5,
+    "notes": "Run 6 Condition A: AI generated full FSD layout — features/flags/lib/is-enabled.ts (server-only import, three-layer override, 5-min cache via Map with per-key TTL), features/flags/types/flags.ts (Zod-derived FlagKey enum with 4 entries: DARK_MODE, BETA_FEATURES, ANALYTICS, NEW_DASHBOARD — different set than Run 4/Run 5, showing AI variability within SmartKit's FSD envelope), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema + ALL_FLAG_KEYS + isFlagKey type guard), src/tests/features/flags/is-enabled.test.ts (4 cases: default value, env override true/false, cache hit across env change, invalid-flag throw). FlagKey validation at the function boundary (throws on invalid key). Per-user override path stubbed — fall-through to env/default (consistent with Run 5; Run 4 had a slightly fuller stub). Naming quality high: descriptive function names, consistent cache-key format `#`, semantic env var format `FLAG_<KEY>`. Tool snapshot substituted to `cursor-assistant/agent-mode/2026-09-06` per §11 amendment 2026-09-06 with user authorization; manual cells filled by the AI agent acting as primary-rater proxy (transparently disclosed)."
+  },
+  "time_to_correct_minutes": 3,
+  "edit_list": [
+    "No edits required — generated code passed automated scoring without modification (smartkit-baseline FSD envelope observed end-to-end)"
+  ],
+  "did_not_converge": false,
+  "exclusion_code": null
+}
