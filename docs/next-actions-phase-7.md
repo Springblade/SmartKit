@@ -1,7 +1,7 @@
 # Next-Action Plan — Phase 7: 3 Cond A runs (post-submission)
 
 **Date:** 2026-09-06
-**Status:** Pending execution (user has time per `AskUserQuestion` answer 2026-09-06)
+**Status:** COMPLETE (2026-09-06). Runs 6-8 executed; dp-summary regenerated (3 confirmed verdicts); thesis body, appendix §A.10/§A.11, markdown pre-reg §10/§11, and `runs/dp-verdict.md` all updated to the post-extension state; PDF rebuilt; tag `thesis-submission-v3` applied. A follow-up consistency pass (same day) fixed 11 stale-text spots (Abstract, §1.4, §6.4.2, §6.7 intro, §7.2, §7.4) and the §11 comparative-CI clause.
 **Tag at start of Phase 7:** `thesis-submission-v2` (commit `d829c5f`)
 
 ## Context

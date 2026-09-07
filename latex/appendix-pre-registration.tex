@@ -506,20 +506,23 @@ transcribed at lock 2026-09-02T05:23:00Z from the
 pre-amendment):
 \texttt{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f}
 \item \textbf{Post-amendment content SHA-256} of \texttt{docs/pilot-pre-registration.md}
-at \texttt{HEAD} (after amendments 1--5 were applied to the source
+at the 2026-09-06 submission state (after all amendments through the
+Cond~A extension and Runs 6--8 data fill-in were applied to the source
 markdown):
-\texttt{639dde974d52b04c922cffd105db3acb8c6f49899f94d72d2f12fa8dc42e210f}
+\texttt{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}
 \end{itemize}
 
 \noindent\textit{Note: the lock-time commit-attestation hash and the
 recomputed content hash differ because the former was manually
 transcribed at the moment of locking, before the \S11 amendment log
 was filled in. The post-amendment content hash reflects the source
-markdown after all amendments 1--5 were applied (the LaTeX appendix
-is rendered from this state). The two locked hashes are preserved
-for cross-verification; the \S11 amendment log in the source
-pre-registration is the source of truth for all subsequent content
-changes.}
+markdown after all amendments through 2026-09-06 were applied (the
+LaTeX appendix is rendered from this state). Because the source
+markdown continues to evolve as amendments are appended, its working-tree
+hash changes with each edit; the \S11 amendment-log rows (old-hash
+$\to$ new-hash chain) are the canonical record of every intermediate
+state, and the two locked hashes above are preserved for
+cross-verification of the locked document itself.}
 
 % ============================================================================
 % 12. JSON output schema
