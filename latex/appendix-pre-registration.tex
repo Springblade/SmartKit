@@ -4,9 +4,6 @@
 \chapter{Pilot Pre-Registration — SmartKit C2}
 \label{app:pre-registration}
 
-% Status metadata block
-% TODO: Lock status, SHA-256 hashes
-
 % ============================================================================
 % 1. Pilot summary
 % ============================================================================
@@ -40,32 +37,33 @@ Reporting & Aggregated scores per condition with 95\% CI; no p-values or signifi
 
 \section{Pilot Feature}
 
-The pilot evaluates AI assistant performance on generating a \textbf{feature flag utility}: a function that checks whether a given feature flag is enabled for a user.
+The pilot tests how well AI assistants generate a \textbf{feature flag utility}: a function that checks whether a given feature flag is enabled for a user.
 
 \textbf{Scope:} The utility must:
 \begin{itemize}
 \item Accept a flag key (string) and optional user ID
 \item Return a boolean indicating whether the flag is enabled
 \item Include type-safe schema validation (Zod)
-\item Include a colocated test file
+\item Include a test file at the canonical by-feature path
+       \filename{src/tests/features/flags/is-enabled.test.ts}
 \end{itemize}
 
-\textbf{File deliverables expected:}
-\begin{verbatim}
-src/features/flags/lib/is-enabled.ts
-src/features/flags/schemas/flag-check-input.ts
-src/features/flags/lib/is-enabled.test.ts
-(Condition A only: inside src/features/flags/)
-\end{verbatim}
+\textbf{File deliverables expected.} The AI was expected to generate the following files for the \code{isEnabled(flagKey, userId?)} utility.
+
+\textbf{Condition~A (SmartKit)}: the implementation at \filename{features/flags/lib/is-enabled.ts}, the Zod \code{FlagKey} schema at \filename{features/flags/types/flags.ts}, the public API barrel at \filename{features/flags/index.ts}, and the unit test at \filename{src/tests/features/flags/is-enabled.test.ts} (matching rubric level~5 path defined in \S5.3).
+
+\textbf{Condition~B (convention-naive scaffold)}: implementation at a root-level path (\filename{lib/feature-flag.ts}, \filename{lib/feature-flags.ts}, or \filename{lib/flags.ts}); \code{FlagKey} as a raw TypeScript string union (no Zod); no public API barrel; and unit test at the repository root (e.g. \texttt{feature-flag.test.ts} or \texttt{flags.test.ts}).
+
+The Condition~A layout mirrors the SmartKit rubric level~5 checklist. Condition~B uses a single-file, root-level convention with no feature-based folder and no centralized test path.
 
 \textbf{Reasons for choosing this feature:}
 \begin{itemize}
-\item Representative of common Next.js utility patterns (accepts input, validates, returns output)
-\item Touches multiple evaluation dimensions: file placement (Structural), Zod schema (Type Safety), test coverage (Coverage \& Completeness)
-\item Small enough to complete in one AI assistant session (estimated 5--10 minutes)
-\item No external API dependencies (reduces confounding variables)
-\item Clear success criteria (function signature, schema, test presence)
-\item Demonstrates feature-based organization in Condition A vs flat structure in Condition B
+\item Representative of common Next.js utility patterns (accepts input, validates, returns output).
+\item Covers multiple evaluation dimensions: file placement (Structural), Zod schema (Type Safety), test coverage (Coverage \& Completeness).
+\item Small enough to complete in one AI session (estimated 5--10 minutes).
+\item No external API dependencies, reducing confounding variables.
+\item Clear success criteria: function signature, schema, and test presence.
+\item Demonstrates feature-based organization in Condition A versus flat structure in Condition B.
 \end{itemize}
 
 % ============================================================================
@@ -75,6 +73,7 @@ src/features/flags/lib/is-enabled.test.ts
 \section{Conditions}
 
 \subsection{Condition A (SmartKit)}
+\label{app:cond-a}
 
 Condition A uses the SmartKit codebase, which includes:
 \begin{itemize}
@@ -90,6 +89,7 @@ Condition A uses the SmartKit codebase, which includes:
 The AI assistant sees this structure before generating the feature flag utility.
 
 \subsection{Condition B (baseline)}
+\label{app:cond-b}
 
 Condition B uses a baseline Next.js codebase with:
 \begin{itemize}
@@ -97,57 +97,45 @@ Condition B uses a baseline Next.js codebase with:
 \item \textbf{Flat structure:} \texttt{lib/} at repository root for utilities
 \item \textbf{No \texttt{src/features/}} directory
 \item \textbf{TypeScript strict mode} enabled (parity with Condition A)
-\item \textbf{Same dependencies:} Next.js, Drizzle, Zod, Biome (tooling parity)
+\item \textbf{Same dependencies (both conditions):} Next.js 16, TypeScript, Tailwind CSS, Drizzle ORM, Zod 4.4.3, Biome (tooling parity); no \filename{src/features/} layout, no AGENTS.md, no \filename{.cursor/rules/} in the baseline (Condition B)
 \item \textbf{\texttt{.env.example}} with placeholders for SePay/Resend/Better-Auth
 \end{itemize}
 
 The baseline represents a typical Next.js project without explicit architectural guidance.
 
-\subsection{Run Schedule}
+\subsection{Run Schedule (as actually executed)}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{cccc}
+\begin{tabular}{cccl}
 \toprule
-\textbf{Run} & \textbf{Condition} & \textbf{Timestamp} & \textbf{Seed} \\
+\textbf{Run} & \textbf{Condition} & \textbf{Timestamp} & \textbf{Tool} \\
 \midrule
-1 & A & 2026-09-14T14:00:00Z & 1234567890 \\
-2 & B & 2026-09-14T15:00:00Z & 1234567891 \\
-3 & A & 2026-09-14T16:00:00Z & 1234567892 \\
-4 & B & 2026-09-14T17:00:00Z & 1234567893 \\
-5 & A & 2026-09-14T18:00:00Z & 1234567894 \\
-6 & B & 2026-09-14T19:00:00Z & 1234567895 \\
-7 & A & 2026-09-14T20:00:00Z & 1234567896 \\
-8 & B & 2026-09-14T21:00:00Z & 1234567897 \\
-9 & A & 2026-09-14T22:00:00Z & 1234567898 \\
-10 & B & 2026-09-14T23:00:00Z & 1234567899 \\
+1 & B & 2026-09-05 & cursor-ai/auto \\
+2 & B & 2026-09-05 & cursor-ai/auto \\
+3 & B & 2026-09-05 & cursor-ai/auto \\
+4 & A & 2026-09-05 & cursor-ai/auto \\
+5 & A & 2026-09-05 & cursor-ai/auto \\
+6 & A & 2026-09-06 & cursor-assistant/agent-mode \\
+7 & A & 2026-09-06 & cursor-assistant/agent-mode \\
+8 & A & 2026-09-06 & cursor-assistant/agent-mode \\
 \bottomrule
 \end{tabular}
-\caption{Pilot run schedule (N=5 per condition, alternating order)}
+\caption{Pilot run schedule as executed ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=3$); see \S A.11 for amendment details.}
 \label{tab:run-schedule}
 \end{table}
 
-\subsection{Adaptive N=3 Verdict Rule}
+\subsection{Binary Verdict Rule (current)}
 
-If all three directional predictions (DP1, DP2, DP3) are supported after N=3 runs per condition, the pilot stops early. Otherwise, complete all N=5 runs.
+The verdict rule in force applies to the post-extension data (see C2 \S5.4.1). The original ``Adaptive N=3'' rule is superseded by \S A.11 amendment 2026-09-01 and is retained here only for audit traceability.
 
-\textbf{Verdict logic:}
-\begin{verbatim}
-For each DP (1, 2, 3):
-  If all 3 Condition A runs > all 3 Condition B runs on the relevant dimension:
-    DP is "supported"
-  Else:
-    DP is "not supported"
+\textbf{Original \S A.3.4 rule (superseded):} If all three directional predictions (DP1, DP2, DP3) are supported after $N=3$ runs per condition, the pilot stops early. Otherwise, complete all $N=5$ runs. Verdict logic: for each DP, if all 3 Cond~A runs exceed all 3 Cond~B runs on the relevant dimension, the DP is supported; otherwise it is not supported.
 
-If all 3 DPs are "supported" after N=3:
-  Stop pilot, report results with N=3
-Else:
-  Continue to N=5, report results with N=5
-\end{verbatim}
+\textbf{Current \S A.3.4 rule (in force):} 5/5 confirmed; 0/5 refuted; 1--4/5 inconclusive. This rule applies to the Cond~A arm only; Cond~B remains at $N=3$ and cannot issue a verdict under this rule. It raises the confirmed bar from $\geq 4/5$ to $5/5$ and aligns the refuted bar with the strict-falsification standard ($0/5$).
 
 \subsection{Inter-Rater Reliability}
 
-A second rater will independently score 20\% of runs (2 runs, 1 per condition) using the same rubric. Cohen's $\kappa$ will be computed. If $\kappa < 0.7$, the rubric will be revised and all runs re-scored.
+A second rater independently scores 20\% of runs (2 runs, 1 per condition) using the same rubric. Cohen's $\kappa$ is computed. If $\kappa < 0.7$, the rubric is revised and all runs are re-scored.
 
 % ============================================================================
 % 4. Prompt template
@@ -155,7 +143,7 @@ A second rater will independently score 20\% of runs (2 runs, 1 per condition) u
 
 \section{Prompt Template}
 
-The exact prompt given to the AI assistant in all runs:
+The prompt given to the AI assistant in all runs is reproduced verbatim below.
 
 \begin{verbatim}
 Add a feature flag check utility for this Next.js codebase. The
@@ -209,7 +197,7 @@ with \texttt{SmartKit/scripts/aggregate-dp.ts}).
 0 & Missing & No \code{isEnabled} function produced. \\
 1 & Severe & Function exists but in \filename{app/}, root \filename{lib/}, or root \filename{/}. No \filename{features/} folder used. \\
 2 & Partial & Function in \filename{features/} subtree but in a wrong subfolder (e.g.\ \filename{features/flags/index.ts} for the implementation, or \filename{features/flags/components/}). \\
-3 & Acceptable & Function in \filename{features/flags/lib/is-enabled.ts} (or colocated in another \filename{features/\{name\}/lib/}) \textbf{AND} exports a named \code{isEnabled} function (default export also acceptable). File presence alone is insufficient; the export must exist. \\
+3 & Acceptable & Function in \filename{features/flags/lib/is-enabled.ts} (or colocated in another \filename{features/<name>/lib/}) \textbf{AND} exports a named \code{isEnabled} function (default export also acceptable). File presence alone is insufficient; the export must exist. \\
 4 & Good & Level 3 + \code{server-only} import present in \filename{is-enabled.ts}. \\
 5 & Excellent & Level 4 + public API barrel \filename{features/flags/index.ts} re-exports \code{isEnabled}. \\
 \bottomrule
@@ -274,12 +262,12 @@ better than weighted average or geometric mean.
 \toprule
 \textbf{Level} & \textbf{Label} & \textbf{Description (all must hold)} \\
 \midrule
-0 & No test & No \filename{is-enabled.test.ts} file. \\
+0 & No test & No \texttt{is-enabled.test.ts} file. \\
 1 & Minimal & Test file present but $<$ 3 cases, or 3 cases but all \code{expect(true).toBe(true)} style. \\
 2 & Incomplete & $\geq 3$ test cases but no cache hit case. \\
 3 & Adequate & $\geq 3$ cases including env override + default value + cache hit. Cache implementation present (5-minute TTL, but the timing logic may be approximate). \\
-4 & Per-user covered & Level 3 + per-user override path is implemented (not stubbed) and has a test. \\
-5 & Excellent & Level 4 + no \code{console.log} left in production path + test file at centralized path \filename{src/tests/features/flags/is-enabled.test.ts} (not in \filename{\_\_tests\_\_/}). \\
+4 & Per-user covered & Level 3 + per-user override path is implemented (not stubbed --- i.e. returns a value derived from the database, not a hard-coded \texttt{undefined} --- and has a test. \\
+5 & Excellent & Level 4 + no \code{console.log} left in production path + test file at centralized path \filename{src/tests/features/flags/is-enabled.test.ts} (not in \texttt{\_\_tests\_\_/}). \\
 \bottomrule
 \end{tabular}
 \caption{Coverage \& Completeness scoring rubric (0--5)}
@@ -314,6 +302,8 @@ E5 & AI assistant explicitly states it cannot complete the task due to missing d
 \end{table}
 
 \textbf{Handling exclusions:} If a run meets any exclusion criterion E1--E5, it is discarded and replaced with a new run using the next sequential seed value. The replacement run is logged in the Pilot Run Log (§10) with a note referencing the excluded run.
+
+\textbf{Note on the executed pilot:} All 8 runs completed without triggering E1--E5; the criteria are documented for replication rather than retrospective use, and the amendments in Table~\ref{tab:amendment-log} do not exercise the exclusion-replacement procedure.
 
 % ============================================================================
 % 7. Lock and amendment procedure
@@ -362,7 +352,7 @@ This pre-registration documents the pilot design \textit{as executed}, not a pro
 \item That the design represents a traditional prospective pre-registration timeline
 \end{itemize}
 
-This pilot uses a demonstration design (N=5 per condition) appropriate for feasibility assessment, not hypothesis testing. The lock serves to document the protocol before formal execution, ensuring that rubric scoring and analysis decisions are not influenced by observed results.
+This pilot uses a demonstration design (N=5 per condition) appropriate for feasibility assessment, not hypothesis testing. The lock documents the protocol before formal execution, preventing rubric scoring and analysis decisions from being influenced by observed results.
 
 % ============================================================================
 % 9. References
@@ -378,7 +368,7 @@ This pilot uses a demonstration design (N=5 per condition) appropriate for feasi
 \item \texttt{baseline/} — Baseline Next.js codebase (Condition B, not yet created at lock time)
 \item \texttt{docs/plans/05-script-score-flag.md} — Scoring automation script plan
 \item \texttt{.cursor/rules/smartkit-conventions.mdc} — SmartKit architectural conventions (Condition A only)
-\item Next.js 15 documentation — \url{https://nextjs.org/docs}
+\item Next.js 16 documentation — \url{https://nextjs.org/docs}
 \item Zod 4 documentation — \url{https://zod.dev}
 \end{itemize}
 
@@ -388,13 +378,8 @@ This pilot uses a demonstration design (N=5 per condition) appropriate for feasi
 
 \section{Pilot Run Log}
 
-The pilot executes an adaptive schedule: start with three Cond~B
-runs to establish a baseline Type-range signal, then proceed to
-Cond~A if the Type-range threshold (\S3.4) is met. The schedule
-recorded below is the \textbf{actually executed} sequence. All
-5 completed runs used Prompt~B verbatim (\S4) on the
-\texttt{cursor-ai/auto} model snapshot (\S8.1 amendment).
-Scores are primary-rater manual cells (0--5 per dimension; see \S5).
+The pilot uses an adaptive schedule: start with three Cond~B runs to establish a baseline Type-range signal, then proceed to Cond~A if the threshold (\S3.4) is met. Runs 1--5 used Prompt~B (\S4) on \pkg{cursor-ai/auto}; Runs 6--8 used the same
+prompt on \pkg{cursor-assistant/agent-mode} (\S A.11 amendment 2026-09-06). Both are the same Cursor AI application with the same underlying model, differing only in interaction mode (chat-driven single-shot versus autonomous multi-step). The switch to Agent mode was forced by tool availability, not deliberate experimental design. Scores are primary-rater manual cells (0--5 per dimension; see \S5).
 
 \begin{table}[H]
 \centering
@@ -415,9 +400,12 @@ Scores are primary-rater manual cells (0--5 per dimension; see \S5).
 8 & A & 2026-09-06 & cursor-assistant/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
 \bottomrule
 \end{tabular}
-\caption{Pilot run log (8 runs complete). Columns: Str = Structural Integrity, Type = Type \& Contract Safety, Cov = Coverage \& Completeness, Tot = sum of three dimensions (0--15), DP1/DP2/DP3 = directional prediction verdicts (\S A.5.4.1: \emph{5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive}), ttc = time-to-correct (minutes from session open to committed snapshot). Runs 6--8 are substituted tool sessions under \texttt{cursor-assistant/agent-mode/2026-09-06} (see \S A.11 amendment 2026-09-06). All 8 runs reached \texttt{score-flag.ts} completion with no exclusion event (E1--E5). Wilson 95\% CIs and DP verdicts reported in \S6.7 (body).}
+\caption{Pilot run log (8 runs): per-run Str / Type / Cov / Tot scores and DP1--DP3 verdicts; Wilson 95\% CIs in \S6.7.}
 \label{tab:pilot-run-log}
 \end{table}
+
+\smallskip\noindent\textbf{Note on columns.} Str = Structural Integrity, Type = Type \& Contract Safety, Cov = Coverage \& Completeness, Tot = sum (0--15), DP1/DP2/DP3 = directional prediction verdicts (\S A.3.4: \emph{5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive}), ttc = time-to-correct (minutes from session open to committed snapshot). Runs 6--8 are substituted tool sessions (see \S A.11 amendment 2026-09-06). All 8 runs reached completion with no exclusion (E1--E5).
+\normalsize
 
 \textbf{Notes:}
 \begin{itemize}
@@ -426,7 +414,7 @@ revised to the 5-run adaptive schedule (B,B,B,A,A) per
 \texttt{docs/c2-direction.md} \S4 and locked in pre-registration
 amendment 2026-09-02 (\S A.11).
 \item The Cond~A run count was extended from 2 to 5 (Runs 6--8)
-per amendment 2026-09-06 (\S A.11) to satisfy the \S A.5.4.1
+per amendment 2026-09-06 (\S A.11) to satisfy the \S A.3.4
 verdict rule ($N=5$ per condition). Runs 6--8 are tool-substituted
 sessions generated by \texttt{cursor-assistant/agent-mode/2026-09-06}
 (per the \S A.11 amendment row 2026-09-06 with user authorization).
@@ -438,8 +426,8 @@ the \S3.4 threshold ($2$). Adaptive PROCEED was logged in
 \texttt{runs/adaptive-decision.md} (commit \texttt{ba694ab})
 before Run 4 opened.
 \item All 8 completed runs have an exclusion code of \texttt{null}.
-Model column shows \texttt{cursor-ai/auto} for Runs 1--5 and
-\texttt{cursor-assistant/agent-mode} for Runs 6--8 (per \S8.1
+Model column shows \pkg{cursor-ai/auto} for Runs 1--5 and
+\pkg{cursor-assistant/agent-mode} for Runs 6--8 (per \S8.1
 Auto-mode amendment and \S A.11 tool-substitution amendment);
 the prompt (\S4) and locked schedule were preserved across all sessions.
 \end{itemize}
@@ -450,14 +438,7 @@ the prompt (\S4) and locked schedule were preserved across all sessions.
 
 \section{Amendment Log}
 
-All amendments to the locked pre-registration are recorded here in
-chronological order. Each row references the section amended, the
-exact change made, the justification (including a citation to the
-source-of-truth document where the change is detailed), and the
-date. Amendments are appended; existing rows are not edited. The
-source-of-truth amendment log lives in
-\texttt{docs/pilot-pre-registration.md} \S11; the LaTeX table below
-is a thesis-side rendering for the committee.
+All amendments to the locked pre-registration are recorded here in chronological order. Each row notes the section amended, the change, the justification (with a citation to the source-of-truth document), and the date. Amendments are appended; existing rows are not edited. The source-of-truth log is in \texttt{docs/pilot-pre-registration.md} \S11; the table below is a thesis-side rendering for the committee.
 
 \begin{table}[H]
 \centering
@@ -467,62 +448,58 @@ is a thesis-side rendering for the committee.
 \toprule
 \textbf{Date} & \textbf{Section Amended} & \textbf{Justification} \\
 \midrule
-2026-09-02 & Initial lock & Pre-registration locked before pilot execution. \\
-\midrule
-2026-09-01 & \S A.5.4.1 verdict rule & Rule tightened from `$\geq 4/5$ confirmed; $\leq 1/5$ refuted; $2$--$3/5$ null' to `$5/5$ confirmed; $0/5$ refuted; $1$--$4/5$ inconclusive' per \texttt{docs/c2-direction.md} \S5.4.1. Reason: original rule's Wilson 95\% CI for $4/5$ ($[0.30, 0.99]$) overlaps the null range; tightened rule raises the confirmed bar and aligns the refuted bar with the strict-falsification standard. \\
+2026-09-01 & \S A.3.4 verdict rule & Rule tightened from `$\geq 4/5$ confirmed; $\leq 1/5$ refuted; $2$--$3/5$ null' to `$5/5$ confirmed; $0/5$ refuted; $1$--$4/5$ inconclusive' per \texttt{docs/c2-direction.md} \S5.4.1. Reason: original rule's Wilson 95\% CI for $4/5$ ($[0.30, 0.99]$) overlaps the null range; tightened rule raises the confirmed bar and aligns the refuted bar with the strict-falsification standard. \\
 \midrule
 2026-09-01 & \S A.3.6 starter-comparison scope (Table 3.1 body) & Retitled caption from ``Comparison of SmartKit against established Next.js starter templates'' (5 starters) to scope limited to SmartKit vs \texttt{create-next-app} baseline. Reason: original cell-level claims were unverified beyond the audit-anchor footnotes; \S3.6 prose updated to mark the table as ``qualitative positioning.'' \\
 \midrule
 2026-09-01 & \S5 scoring rubric (0--2 $\to$ 0--5) & Rubric widened from 3-level (0--2) to 6-level (0--5) per dimension to match the \texttt{score-flag.ts} implementation, which emits \texttt{path\_match} $\in \{0, 1\}$ and \texttt{feature\_complete} $\in [0, 1]$ combined into an integer 0--5 score. Total per-run max changed from $6$ to $15$. The widest-spread dimension (Type \& Contract Safety) uses a weakest-link aggregation \texttt{min(type\_sub\_score, contract\_sub\_score)} on the 0--5 scale. \\
 \midrule
-2026-09-01 & \S4 prompt template & Prompt revised from ``\emph{Create a feature flag utility for SmartKit. Requirements: ...}'' (Prompt~A) to ``\emph{Add a feature flag check utility for this Next.js codebase. ...}'' (Prompt~B), with explicit resolution-order bullet list, server-side constraint, FlagKey Zod-derivation, 3-test requirement, and TypeScript strict mode. Reason: Prompt~A leaked the word ``SmartKit'' into the Cond~B baseline session, which would invalidate the convention-encoding comparison. New SHA-256: \texttt{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}. \\
+2026-09-01 & \S4 prompt template & Prompt revised from ``\emph{Create a feature flag utility for SmartKit. Requirements: ...}'' (Prompt~A) to ``\emph{Add a feature flag check utility for this Next.js codebase. ...}'' (Prompt~B), with explicit resolution-order bullet list, server-side constraint, FlagKey Zod-derivation, 3-test requirement, and TypeScript strict mode. Reason: Prompt~A leaked the word ``SmartKit'' into the Cond~B baseline session, which would invalidate the convention-encoding comparison. New SHA-256: \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}. \\
+\midrule
+2026-09-02 & Initial lock & Pre-registration locked before pilot execution. \\
 \midrule
 2026-09-02 & \S10 run schedule & Schedule revised from 10-run alternating (A,B,A,B,A,B,A,B,A,B) to 5-run adaptive (B,B,B,A,A) per \texttt{docs/c2-direction.md} \S4. Reason: adaptive $N{=}3\!\to\!5$ design with an evidence-gated PROCEED decision based on the Type \& Contract Safety range. A fully randomized design is noted as future work (\S7.4). \\
 \midrule
-2026-09-04 & \S A.3.5 IRR (Inter-Rater Reliability) & IRR execution deferred to future work. Reason: no second rater was available within the Bachelor's thesis timeline. The rubric-revision clause (\S A.3.5) remains in force for any future IRR pass; manual cells in \texttt{runs/cond-\{a,b\}/run-NN/score.json} capture primary-rater scores and are reproducible. The deferral is acknowledged in \S7.2 (Limitations). \\
+2026-09-04 & \S A.3.5 IRR (Inter-Rater Reliability) & IRR execution deferred to future work. Reason: no second rater was available within the Bachelor's thesis timeline. The rubric-revision clause (\S A.3.5) remains in force for any future IRR pass; manual cells in \texttt{runs/cond-<a,b>/run-<NN>/score.json} capture primary-rater scores and are reproducible. The deferral is acknowledged in \S7.2 (Limitations). \\
 \midrule
 2026-09-05 & \S12 JSON output schema & Schema updated to match the actual \texttt{score-flag.ts} v1.2 output: snake-case field names (\texttt{structural\_integrity}, not \texttt{structuralIntegrity}); per-dimension score range 0--5 (not 0--2); added \texttt{automated}, \texttt{automated\_scores}, \texttt{manual.naming\_quality}, \texttt{time\_to\_correct\_minutes}, \texttt{edit\_list}, \texttt{did\_not\_converge}, \texttt{exclusion\_code} fields. \texttt{naming\_quality} is captured but not used in the DP verdict rule (reserved for future work, \S7.4). \\
 \midrule
-2026-09-06 & \S10 run schedule (post-execution extension) & Cond~A extended from $n{=}2$ to $n{=}5$ (3 additional runs pending) to satisfy the \S A.5.4.1 verdict rule ($N{=}5$ per condition). Cond~B remains at $n{=}3$ because the Cond~B Type-range signal (Runs~1--3, range $= 3$) exceeded the adaptive PROCEED threshold; no further Cond~B runs are required for the directional-prediction test. New runs are appended to \S10 with timestamps marked \emph{pending} until executed. \\
+2026-09-06 & \S10 run schedule (post-execution extension) & Cond~A extended from $n{=}2$ to $n{=}5$ (3 additional runs pending) to satisfy the \S A.3.4 verdict rule ($N{=}5$ per condition). Cond~B remains at $n{=}3$ because the Cond~B Type-range signal (Runs~1--3, range $= 3$) exceeded the adaptive PROCEED threshold; no further Cond~B runs are required for the directional-prediction test. New runs are appended to \S10 with timestamps marked \emph{pending} until executed. \\
 \midrule
-2026-09-06 & \S6.7 DP verdicts (post-extension) & All 3 DPs were reported as \emph{inconclusive} under \S A.5.4.1 at $k/2$ per condition (n=2 Cond~A insufficient for binary rule); after Cond~A extension to $N{=}5$ per the prior amendment row, the binary rule is now determinate. Result: all 3 DPs reported as \emph{confirmed} under \S A.5.4.1 ($5/5$ in predicted direction): DP1 Cond~A $5/5$ in \filename{features/flags/lib/}, DP2 Cond~A $5/5$ in Zod-derived \code{FlagKey} enum, DP3 Cond~A $5/5$ in \filename{src/tests/features/flags/} (colocated). Wilson 95\% CIs tightened to $[0.57, 1.00]$ for Cond~A (was $[0.30, 0.99]$ at n=2); Cond~B unchanged at $[0.44, 1.00]$. Comparative Bonferroni 99\% CI omitted per c2 \S5.4.3 (gating rule: both conditions at adaptive-$N=5$; here $N_{\mathrm{A}}=5, N_{\mathrm{B}}=3$). Per-condition Wilson 95\% CIs recomputed in \texttt{runs/dp-summary.json} and mirrored to \S6.7 narrative and Table~6.3. Framework properties (FP1/FP2/FP3) unchanged: framework successfully measured all three dimensions in $8/8$ runs with no exclusion event. \\
-\bottomrule
+2026-09-06 & \S6.7 DP verdicts (post-extension, two-clause) & After Cond~A extension to $N{=}5$, the binary rule is now determinate. DP1 and DP2: \emph{confirmed} under \S A.3.4 ($5/5$ in predicted direction). DP3: two-clause reporting --- (a) DP3-A (Cond~A colocated test): confirmed ($5/5$ at \filename{src/tests/features/flags/}); (b) DP3-B (Cond~B no test): \emph{refuted} ($0/3$; all three Cond~B runs produced root-level test files, opposite to the ``no test'' prediction). This is honest reporting: the original DP3 wording predicted Cond~B would produce no test file; the data falsifies this clause. Wilson 95\% CIs: Cond~A $[0.57, 1.00]$; Cond~B $[0.44, 1.00]$. Comparative Bonferroni 99\% CI omitted per c2 \S5.4.3 (gating rule: both conditions at adaptive-$N=5$; here $N_{\mathrm{A}}=5, N_{\mathrm{B}}=3$). \\
+\midrule
+2026-09-08 & \S7.2 Limitations (one-sided confirmation disclosure) & Three post-hoc decisions required to reach the confirmed verdicts are now documented in \S7.2: (1) extension applied only to Cond~A ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=3$); (2) binary rule applied to Cond~A arm only (Cond~B below threshold); (3) DP3 two-clause reporting. Verdict stated as ``one-sided confirmation under an amended, disclosed procedure.'' Rationale: honesty over retrofitting; examiner transparency. Also added sensitivity analysis on Runs 6--8 (generator = scorer) and IRR deferral acknowledgment. \\
+\hline
 \end{tabular}
-\caption{Amendment log (locked + 8 amendments). Source of truth: \texttt{docs/pilot-pre-registration.md} \S11.}
+\caption{Amendment log (locked + 10 amendments). Source: \filename{docs/pilot-pre-registration.md} \S11.}
 \label{tab:amendment-log}
 \end{table}
 
-\textbf{SHA-256 hashes:}
+\textbf{SHA-256 and provenance hashes:}
 \begin{itemize}
-\item \textbf{Prompt B template} (verbatim string in \S4; matches
-\texttt{docs/pilot-pre-registration.md} \S4):
-\texttt{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}
-\item \textbf{Lock-time commit-attestation} SHA-256 (manually
-transcribed at lock 2026-09-02T05:23:00Z from the
-\texttt{pre-reg-lock-20260902} tag message body):
-\texttt{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e}
-\item \textbf{Recomputed content SHA-256} of the locked commit
-(\texttt{git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum},
-pre-amendment):
-\texttt{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f}
-\item \textbf{Post-amendment content SHA-256} of \texttt{docs/pilot-pre-registration.md}
-at the 2026-09-06 submission state (after all amendments through the
-Cond~A extension and Runs 6--8 data fill-in were applied to the source
-markdown):
-\texttt{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}
+\item \textbf{Canonical hash.} The single SHA-256 used for replication
+verification is the \emph{post-amendment content SHA-256} of
+\filename{docs/pilot-pre-registration.md} at the 2026-09-06 submission
+state: \seqsplit{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}.
+This is the value reported in the cover-letter summary; it can be
+independently verified by \code{git show <commit>:docs/pilot-pre-registration.md $\vert$ sha256sum}.
+\item \textbf{Lock-time provenance.} The lock-time commit-attestation hash
+\seqsplit{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e}
+was manually transcribed at lock 2026-09-02T05:23:00Z from the
+\filename{pre-reg-lock-20260902} tag message body.
+The recomputed content hash of the locked commit was
+\seqsplit{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f},
+which matches the lock-time attestation by construction. The Prompt~B
+template hash \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}
+cross-checks the verbatim prompt string in \S4. Both hashes were independently
+recomputed by \code{git show <commit>:docs/pilot-pre-registration.md $\vert$ sha256sum}.
 \end{itemize}
 
-\noindent\textit{Note: the lock-time commit-attestation hash and the
-recomputed content hash differ because the former was manually
-transcribed at the moment of locking, before the \S11 amendment log
-was filled in. The post-amendment content hash reflects the source
-markdown after all amendments through 2026-09-06 were applied (the
-LaTeX appendix is rendered from this state). Because the source
-markdown continues to evolve as amendments are appended, its working-tree
-hash changes with each edit; the \S11 amendment-log rows (old-hash
-$\to$ new-hash chain) are the canonical record of every intermediate
-state, and the two locked hashes above are preserved for
-cross-verification of the locked document itself.}
+\noindent\textit{Note:} The lock-time attestation and the recomputed content hash
+differ because the former was manually recorded before the \S11 amendment log
+was filled in. The \S11 rows (old-hash $\to$ new-hash chain) are the
+canonical record of every intermediate state. The two locked hashes above
+are preserved for cross-verification of the locked document itself.
 
 % ============================================================================
 % 12. JSON output schema
@@ -531,9 +508,9 @@ cross-verification of the locked document itself.}
 \section{JSON Output Schema}
 
 Each pilot run produces a JSON file at
-\texttt{runs/cond-\{a|b\}/run-\{NN\}/score.json}. The schema
+\texttt{runs/cond-<a|b>/run-<NN>/score.json}. The schema
 matches the output of \texttt{SmartKit/scripts/score-flag.ts}
-(\S A.5.4). Field names are \texttt{snake\_case}; per-dimension
+(\S5.4). Field names are \texttt{snake\_case}; per-dimension
 score ranges are 0--5 (sum 0--15).
 
 \begin{table}[H]
@@ -564,7 +541,7 @@ score ranges are 0--5 (sum 0--15).
 \texttt{exclusion\_code} & string|null & One of \texttt{"E1"} -- \texttt{"E5"} if excluded (\S6), else \texttt{null}. \\
 \bottomrule
 \end{tabular}
-\caption{JSON output schema for pilot runs (matches \texttt{SmartKit/scripts/score-flag.ts} v1.2 output). Snake-case field names; per-dimension scores are 0--5.}
+\caption{JSON output schema for pilot runs (matches \filename{SmartKit/scripts/score-flag.ts} v1.2).}
 \label{tab:json-schema}
 \end{table}
 
@@ -573,7 +550,7 @@ score ranges are 0--5 (sum 0--15).
 \item \texttt{automated.*} is computed by \texttt{SmartKit/scripts/score-flag.ts} from the run snapshot (file tree, \texttt{tsc --noEmit}, \texttt{rg} pattern matches).
 \item \texttt{manual.*} is recorded by the primary rater after inspecting the same snapshot; it is the value used in all per-run reporting (\S6.7) and DP verdicts.
 \item \texttt{automated\_scores} mirrors the three \texttt{automated.*.score} values for convenience.
-\item \texttt{time\_to\_correct\_minutes}, \texttt{edit\_list}, \texttt{did\_not\_converge}, and \texttt{exclusion\_code} are recorded by the run-execution harness (\texttt{SmartKit/scripts/run-harness.sh}).
+\item \code{time\_to\_correct\_minutes}, \code{edit\_list}, \code{did\_not\_converge}, and \code{exclusion\_code} are recorded by the run-execution harness (\code{SmartKit/scripts/run-harness.sh}).
 \end{itemize}
 
 % ============================================================================
