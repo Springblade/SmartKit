@@ -1170,74 +1170,13 @@ Three amendments are permitted by the lock: rubric clarification triggered by IR
 
 \paragraph{Snapshot limitation.} This pre-registration documents the pilot design as executed, not a prospective commitment formed before any preliminary work. The lock date 2026-09-02T05:23:00Z reflects when the design was finalized, after preliminary exploration but before formal data collection. The lock prevents rubric scoring and analysis decisions from being influenced by observed results; it does not represent a traditional prospective pre-registration timeline.
 
-\subsection{Pilot Run Log and Amendment Record}
-\label{sec:pilot-record}
-
-\paragraph{Pilot run log.} The pilot used an adaptive schedule: three Cond~B runs to establish a baseline Type-range signal, then Cond~A. Runs 1--5 used Prompt~B on \pkg{cursor/auto-mode}; Runs 6--8 used the same prompt on \pkg{cursor/agent-mode} (amendment 2026-09-06). The switch to Agent mode was forced by tool availability, not deliberate experimental design.
-
-\begin{table}[H]
-\centering
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{clllcccccccc}
-\toprule
-\textbf{\#} & \textbf{Cond} & \textbf{Start (UTC+7)} & \textbf{Model} & \textbf{Str} & \textbf{Type} & \textbf{Cov} & \textbf{Tot} & \textbf{DP1} & \textbf{DP2} & \textbf{DP3} & \textbf{ttc (min)} \\
-\midrule
-1 & B & 2026-09-05T13:14 & cursor/auto-mode & 2 & 1 & 1 & 4  & n/a & n/a & n/a & 2 \\
-2 & B & 2026-09-05T13:18 & cursor/auto-mode & 2 & 3 & 1 & 6  & n/a & n/a & n/a & 2 \\
-3 & B & 2026-09-05T13:22 & cursor/auto-mode & 2 & 0 & 1 & 3  & n/a & n/a & n/a & 2 \\
-4 & A & 2026-09-05T13:26 & cursor/auto-mode & 5 & 5 & 5 & 15 & incon. & incon. & incon. & 3 \\
-5 & A & 2026-09-05T13:30 & cursor/auto-mode & 4 & 5 & 4 & 13 & incon. & incon. & incon. & 3 \\
-\midrule
-6 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
-7 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
-8 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
-\bottomrule
-\end{tabular}
-\caption{Pilot run log (8 runs): per-run Str / Type / Cov / Tot scores and DP1--DP3 verdicts; Wilson 95\% CIs in §6.7.}
-\label{tab:pilot-runs}
-\end{table}
-
-\smallskip\noindent\textbf{Note on Cov cells.} \textsc{Cov} values for Cond~A Runs 4--8 (5, 4, 5, 5, 5) are first-pass ratings; see Table~\ref{tbl:pilot-actual} and the \emph{Note on Coverage cells} below for the corrected values (\textsc{Cov} = $3$ across all Cond~A runs).
-
-\paragraph{Amendment log.} All amendments to the locked pre-registration are recorded in chronological order. Each row notes the section amended, the change, the justification, and the date. Existing rows are not edited.
-
-\begin{table}[H]
-\centering
-\scriptsize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{p{2.2cm}p{3.2cm}p{8.6cm}}
-\toprule
-\textbf{Date} & \textbf{Section Amended} & \textbf{Justification} \\
-\midrule
-2026-09-01 & §\ref{sec:pilot-schedule} verdict rule & Rule tightened from ``$\geq 4/5$ confirmed; $\leq 1/5$ refuted; $2$--$3/5$ null'' to ``$5/5$ confirmed; $0/5$ refuted; $1$--$4/5$ inconclusive''. Reason: original Wilson 95\% CI for $4/5$ overlaps the null range; tightened rule raises the confirmed bar. \\
-\midrule
-2026-09-01 & §4 prompt template (Prompt A → Prompt B) & Prompt revised to remove the word ``SmartKit'' (which had leaked into the Cond~B baseline session), with explicit resolution-order bullet list, server-side constraint, FlagKey Zod-derivation, 3-test requirement, and TypeScript strict mode. New SHA-256: \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}. \\
-\midrule
-2026-09-01 & §\ref{sec:pilot-rubric} scoring rubric (0--2 $\to$ 0--5) & Rubric widened from 3-level (0--2) to 6-level (0--5) per dimension to match the \texttt{score-flag.ts} implementation, which emits integer 0--5 per dimension. Total per-run max changed from $6$ to $15$. \\
-\midrule
-2026-09-02 & Initial lock & Pre-registration locked before pilot execution. \\
-\midrule
-2026-09-02 & §\ref{sec:pilot-schedule} run schedule & Schedule revised from 10-run alternating to 5-run adaptive. Reason: adaptive design with an evidence-gated PROCEED decision based on the Type \& Contract Safety range; a fully randomized design exceeded Bachelor's thesis scope. \\
-\midrule
-2026-09-04 & §\ref{sec:pilot-irr} IRR (Inter-Rater Reliability) & IRR execution deferred to future work. Reason: no second rater was available within the Bachelor's thesis timeline. The rubric-revision clause remains in force for any future IRR pass; manual cells in \filename{score.json} capture primary-rater scores and are reproducible. \\
-\midrule
-2026-09-05 & JSON output schema & Schema updated to match the actual \texttt{score-flag.ts} v1.2 output: snake-case field names; per-dimension score range 0--5 (not 0--2); added \texttt{automated}, \texttt{automated\_scores}, \texttt{manual.naming\_quality}, \texttt{time\_to\_correct\_minutes}, \texttt{edit\_list}, \texttt{did\_not\_converge}, \texttt{exclusion\_code} fields. \\
-\midrule
-2026-09-06 & §\ref{sec:pilot-schedule} run schedule (post-execution extension) & Cond~A extended from $n{=}2$ to $n{=}5$ (3 additional runs) to satisfy the verdict rule ($N=5$ per condition). Cond~B remains at $n{=}3$ because the Cond~B Type-range signal (Runs~1--3, range $= 3$) exceeded the adaptive PROCEED threshold. \\
-\midrule
-2026-09-06 & §6.7 DP verdicts (post-extension, two-clause) & After Cond~A extension to $N=5$, the binary rule became determinate. DP1 and DP2: \emph{confirmed} ($5/5$ in predicted direction). DP3: two-clause reporting --- (a) DP3-A (Cond~A colocated test): confirmed ($5/5$ at \filename{src/tests/features/flags/}); (b) DP3-B (Cond~B no test): \emph{refuted} ($0/3$; all three Cond~B runs produced root-level test files, opposite to the prediction). Wilson 95\% CIs: Cond~A $[0.57, 1.00]$; Cond~B $[0.44, 1.00]$. \\
-\midrule
-2026-09-08 & §7.2 Limitations (one-sided confirmation disclosure) & Three post-hoc decisions required for the confirmed verdicts are now documented: (1) extension applied only to Cond~A ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=3$); (2) binary rule applied to Cond~A arm only; (3) DP3 two-clause reporting. Verdict stated as ``one-sided confirmation under an amended, disclosed procedure.'' \\
-\hline
-\end{tabular}
-\caption{Amendment log (locked + 10 amendments).}
-\label{tab:amendment-audit}
-\end{table}
-
-\paragraph{Content hashes.} The SHA-256 of the pre-registration content at the 2026-09-06 submission state is \seqsplit{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}. This is the value reported in the cover-letter summary; it can be independently verified by SHA-256 hash comparison against the locked pre-registration content. The lock-time commit-attestation hash \seqsplit{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e} and the post-amendment content hash \seqsplit{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f} are recorded in \S\ref{sec:pilot-protocol} along with derivation notes and inline verification commands; no external file is required. The Prompt~B template hash \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2} cross-checks the verbatim prompt string in Listing~\ref{lst:control-prompt}.
+\section{Empirical Results}
+\label{sec:pilot-results}
 
 This section reports the pilot evaluation of the \code{isEnabled(flagKey, userId?)} utility under the pre-registered adaptive protocol, comparing Condition~A (SmartKit with full convention encoding) against Condition~B (convention-naive scaffold). The final tally is $8$ runs: $n=5$ Condition~A and $n=3$ Condition~B (Section~\ref{sec:control-comparison}). The pilot is reported as a worked example, not a hypothesis test: Two of the three directional predictions are confirmed outright (DP1, DP2); DP3 is confirmed on its Condition A clause and refuted on its Condition B clause under the pre-registered binary rule ($5/5$ Condition~A runs in the predicted direction), but the per-arm sample remains far below the $n \approx 30$ needed for inferential validation, so cross-tool replication, larger-$N$ validation, and developer-participant studies remain future work.
+
+\subsection{Per-run Scores}
+\label{sec:pilot-results-perrun}
 
 \textbf{Task.} The pilot applied the framework to a representative task: generating the \seqsplit{isEnabled(flagKey, userId?)} utility using Cursor AI. This utility resolves a feature flag with three override layers (per-user DB override, per-flag environment variable, default value) and caches the result in-memory for five minutes. As established in Section~\ref{sec:integrations-and-pilot}, the feature was chosen because it exercises none of SmartKit's integrated services, eliminating integration-pattern confounding. The task instruction mirrored a realistic developer request without over-specifying implementation details, so as to evaluate the AI assistant's ability to discover and apply existing conventions rather than merely follow explicit instructions.
 
@@ -1276,6 +1215,14 @@ This section reports the pilot evaluation of the \code{isEnabled(flagKey, userId
 
 \textbf{Coverage score correction.} The first-pass per-run Coverage scores (4 or 5 for Cond~A runs 4--8) were scored against a rubric interpretation that did not strictly enforce rubric A.5.3 level~4's ``not stubbed'' constraint on the per-user override path. The Cond~A code (verified in Runs 04, 05, and 08 at \filename{runs/cond-a/run-NN/features/flags/lib/is-enabled.ts} for $NN \in \{04, 05, 08\}$) returns a hard-coded \texttt{undefined} from the override helper rather than querying a database, which places each run at rubric level~3 (``Adequate'') rather than 4 or 5. The corrected per-condition aggregate (Coverage median 3, range $[3,3]$) is reflected in this table. The directional prediction DP3 (test file at the centralized path \filename{src/tests/features/flags/}, matching rubric A.5.3 level~5) is unaffected: tests were generated at \texttt{src/tests/features/flags/} in $5/5$ Cond~A runs and at repo root in $3/3$ Cond~B runs, exactly as the pre-registration predicted.
 
+\subsection{Per-condition Aggregate}
+\label{sec:pilot-results-aggregate}
+
+\textbf{Per-condition aggregate.} Condition~A medians [min, max]: Structural $5$ [$4$, $5$]; Type \& Contract $4$ [$4$, $5$]; Coverage $3$ [$3$, $3$]. Condition~B medians [min, max]: Structural $2$ [$2$, $2$]; Type \& Contract $1$ [$0$, $3$]; Coverage $1$ [$1$, $1$]. The Condition~B Type \& Contract range ($3$) remains the largest variance observed; the other two dimensions were stable within each condition. Condition~A's Coverage scores cap at 3 once the rubric's ``not stubbed'' requirement on the per-user override path is enforced; the Coverage score correction footnote above documents the change from the first-pass 4--5 cells to the corrected 3/3/3/3/3 values. Type~\&~Contract scores widened slightly (from $0$ range across Runs~4--5 to $1$ across Runs~4--8) once Runs~6--8 entered the sample, but the median remained anchored at $4$ and no run fell below the $\geq 3/5$ rubric threshold. These small per-arm samples are far below the $n \approx 30$ required for any frequentist inferential claim (see \S7.4 for the sample-size discussion that bounds these verdicts).
+
+\subsection{Automated vs.\ Manual Cross-Check}
+\label{sec:pilot-results-cross-check}
+
 \textbf{Automated vs.\ manual score cross-check.} For each run, the JSON artefact at \filename{score.json} records both the \texttt{automated\_scores} block (from \texttt{score-flag.ts}) and the \texttt{manual} block (primary rater). Across the eight runs, the two layers agree within $\pm 1$ on every dimension except Coverage for Cond~A runs 4--8 (post-correction Man Cov $=$ 3 vs.\ Auto Cov $=$ 5, $\Delta = 2$; see the ``Note on cross-check methodology'' below for why Man Cov was corrected from the first-pass 4--5 cells). They were cross-checked post-hoc rather than via blind inter-rater reliability (IRR; see Known Limitations in \S7.2). When the two layers diverged on a given dimension, the discrepancy was logged in the run's \texttt{notes} field and the run retained both values. Note: the \texttt{tooling\_snapshot} field within \filename{score.json} records the tools captured by the run-execution harness at session-open time; Run 4's snapshot returned \texttt{"unknown"} for tool and model because the harness for Runs 1--5 was not yet configured to capture Cursor AI session metadata (this was added for Runs 6--8). Table~\ref{tab:schedule} records the actual tool used per run, reconstructed from the audit log; this discrepancy is cosmetic and does not affect scoring. Table~\ref{tab:auto-vs-manual} below makes the cross-check auditable: every per-run pair is shown side-by-side so the cross-check is verifiable from the raw \filename{score.json} files without re-running the harness (the Auto/Man cells shown are the post-correction cells for Cov runs 4--8; the pre-correction Man Cov values are preserved in \filename{score.json}).
 
 \begin{table}[htbp]
@@ -1303,7 +1250,8 @@ This section reports the pilot evaluation of the \code{isEnabled(flagKey, userId
 \smallskip\noindent\textbf{Note on cross-check methodology.} Str = Structural Integrity, T\&C = Type \& Contract Safety, Cov = Coverage \& Completeness. Each cell is read directly from the corresponding \filename{runs/cond-<a,b>/run-<NN>/score.json} file (\texttt{automated\_scores} block for the auto column, \texttt{manual} block for the man column). The Man Cov column reflects the \emph{post-correction} manual cells (Cov $=$ 3 for all Cond~A runs 4--8), consistent with Table~\ref{tbl:pilot-actual}; the pre-correction manual Coverage values (5, 4, 5, 5, 5 for runs 4--8) were first-pass ratings against a rubric interpretation that did not strictly enforce rubric A.5.3 level~4's ``not stubbed'' requirement on the per-user override path, and the corrected cells reflect the stricter interpretation applied uniformly across both tables in this thesis. The pre-correction cells remain preserved in the per-run \filename{score.json} artefacts alongside this thesis for audit traceability. The maximum per-dimension absolute delta across all 24 (run, dimension) pairs is $2$ (Auto Cov $=$ 5 vs.\ Man Cov $=$ 3 for Cond~A runs 4--8); the other 22 pairs agree within $\pm 1$. The largest remaining divergences within $\pm 1$ are: Run~5 Type \& Contract (automated $4$ vs.\ manual $5$, a one-point judgment-call split) and Run~1/3 Type \& Contract (automated $0$ vs.\ manual $0$--$1$, where manual cells credit a thin Zod-adjacent type alias the automated layer does not detect). Both layers were filled by the same primary rater (Runs 1--5) or by the AI agent acting as primary-rater proxy (Runs 6--8, transparently disclosed); no blind IRR pass was executed (see \S7.2).
 \normalsize
 
-\textbf{Per-condition aggregate.} Condition~A medians [min, max]: Structural $5$ [$4$, $5$]; Type \& Contract $4$ [$4$, $5$]; Coverage $3$ [$3$, $3$]. Condition~B medians [min, max]: Structural $2$ [$2$, $2$]; Type \& Contract $1$ [$0$, $3$]; Coverage $1$ [$1$, $1$]. The Condition~B Type \& Contract range ($3$) remains the largest variance observed; the other two dimensions were stable within each condition. Condition~A's Coverage scores cap at 3 once the rubric's ``not stubbed'' requirement on the per-user override path is enforced; the Coverage score correction footnote above documents the change from the first-pass 4--5 cells to the corrected 3/3/3/3/3 values. Type~\&~Contract scores widened slightly (from $0$ range across Runs~4--5 to $1$ across Runs~4--8) once Runs~6--8 entered the sample, but the median remained anchored at $4$ and no run fell below the $\geq 3/5$ rubric threshold. These small per-arm samples are far below the $n \approx 30$ required for any frequentist inferential claim (see \S7.4 for the sample-size discussion that bounds these verdicts).
+\subsection{Directional Prediction Verdicts}
+\label{sec:pilot-results-dp}
 
 \textbf{DP verdicts.} The binary verdict rule requires $k/5$ runs in the predicted direction for \emph{confirmed}, $0/5$ for \emph{refuted}, and reports $1$--$4/5$ as \emph{inconclusive}.
 \begin{itemize}
@@ -1315,6 +1263,75 @@ This section reports the pilot evaluation of the \code{isEnabled(flagKey, userId
 One prediction is unambiguously confirmed (DP1, structural placement); one is confirmed as an instruction-following asymmetry, not as a convention-encoding benefit (DP2); and one is split, confirmed on its Condition~A clause and refuted on its Condition~B clause (DP3). Runs~6--8, generated under a substituted tool snapshot (Table~\ref{tbl:pilot-actual}), reproduce the same pattern as Runs~4--5, which is why they are retained in the aggregate; the substitution does not change the rubric or the scoring procedure, only the assistant that produced the code. The verdicts above should be read as a single worked pilot on one feature and one tool family, not as a validated cross-tool result --- the limitations of this design are discussed in Section~\ref{sec:limitations}.
 
 \textbf{Wilson-CI precision caveat.} The Wilson 95\% intervals above are computed from small per-arm samples ($N=5$ for Condition~A, $N=3$ for Condition~B); the half-width of a Wilson interval at these sample sizes is approximately $0.21$ for Condition~A and $0.28$ for Condition~B, so a single-condition CI cannot reliably distinguish proportions below $0.5$ from those at $0.8$ or higher, and the verdicts should not be over-interpreted as inferential claims. The precision floor for the executed pilot and the sample-size considerations that follow from it are discussed in \S7.4.
+
+\subsection{Pilot Run Log and Amendment Record}
+\label{sec:pilot-record}
+
+\paragraph{Pilot run log.} The pilot used an adaptive schedule: three Cond~B runs to establish a baseline Type-range signal, then Cond~A. Runs 1--5 used Prompt~B on \pkg{cursor/auto-mode}; Runs 6--8 used the same prompt on \pkg{cursor/agent-mode} (amendment 2026-09-06). The switch to Agent mode was forced by tool availability, not deliberate experimental design.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{clllcccccccc}
+\toprule
+\textbf{\#} & \textbf{Cond} & \textbf{Start (UTC+7)} & \textbf{Model} & \textbf{Str} & \textbf{Type} & \textbf{Cov} & \textbf{Tot} & \textbf{DP1} & \textbf{DP2} & \textbf{DP3} & \textbf{ttc (min)} \\
+\midrule
+1 & B & 2026-09-05T13:14 & cursor/auto-mode & 2 & 1 & 1 & 4  & n/a & n/a & n/a & 2 \\
+2 & B & 2026-09-05T13:18 & cursor/auto-mode & 2 & 3 & 1 & 6  & n/a & n/a & n/a & 2 \\
+3 & B & 2026-09-05T13:22 & cursor/auto-mode & 2 & 0 & 1 & 3  & n/a & n/a & n/a & 2 \\
+4 & A & 2026-09-05T13:26 & cursor/auto-mode & 5 & 5 & 5 & 15 & incon. & incon. & incon. & 3 \\
+5 & A & 2026-09-05T13:30 & cursor/auto-mode & 4 & 5 & 4 & 13 & incon. & incon. & incon. & 3 \\
+\midrule
+6 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
+7 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
+8 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
+\bottomrule
+\end{tabular}
+\caption{Pilot run log (8 runs): per-run Str / Type / Cov / Tot scores and DP1--DP3 verdicts; Wilson 95\% CIs in §6.3.4 (DP verdicts).}
+\label{tbl:pilot-actual-runs}
+\end{table}
+
+\smallskip\noindent\textbf{Note on Cov cells.} \textsc{Cov} values for Cond~A Runs 4--8 (5, 4, 5, 5, 5) are first-pass ratings; see Table~\ref{tbl:pilot-actual} and the \emph{Note on Coverage cells} below for the corrected values (\textsc{Cov} = $3$ across all Cond~A runs).
+
+\paragraph{Amendment log.} All amendments to the locked pre-registration are recorded in chronological order. Each row notes the section amended, the change, the justification, and the date. Existing rows are not edited.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{2.2cm}p{3.2cm}p{8.6cm}}
+\toprule
+\textbf{Date} & \textbf{Section Amended} & \textbf{Justification} \\
+\midrule
+2026-09-01 & §\ref{sec:pilot-schedule} verdict rule & Rule tightened from ``$\geq 4/5$ confirmed; $\leq 1/5$ refuted; $2$--$3/5$ null'' to ``$5/5$ confirmed; $0/5$ refuted; $1$--$4/5$ inconclusive''. Reason: original Wilson 95\% CI for $4/5$ overlaps the null range; tightened rule raises the confirmed bar. \\
+\midrule
+2026-09-01 & §4 prompt template (Prompt A → Prompt B) & Prompt revised to remove the word ``SmartKit'' (which had leaked into the Cond~B baseline session), with explicit resolution-order bullet list, server-side constraint, FlagKey Zod-derivation, 3-test requirement, and TypeScript strict mode. New SHA-256: \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}. \\
+\midrule
+2026-09-01 & §\ref{sec:pilot-rubric} scoring rubric (0--2 $\to$ 0--5) & Rubric widened from 3-level (0--2) to 6-level (0--5) per dimension to match the \texttt{score-flag.ts} implementation, which emits integer 0--5 per dimension. Total per-run max changed from $6$ to $15$. \\
+\midrule
+2026-09-02 & Initial lock & Pre-registration locked before pilot execution. \\
+\midrule
+2026-09-02 & §\ref{sec:pilot-schedule} run schedule & Schedule revised from 10-run alternating to 5-run adaptive. Reason: adaptive design with an evidence-gated PROCEED decision based on the Type \& Contract Safety range; a fully randomized design exceeded Bachelor's thesis scope. \\
+\midrule
+2026-09-04 & §\ref{sec:pilot-irr} IRR (Inter-Rater Reliability) & IRR execution deferred to future work. Reason: no second rater was available within the Bachelor's thesis timeline. The rubric-revision clause remains in force for any future IRR pass; manual cells in \filename{score.json} capture primary-rater scores and are reproducible. \\
+\midrule
+2026-09-05 & JSON output schema & Schema updated to match the actual \texttt{score-flag.ts} v1.2 output: snake-case field names; per-dimension score range 0--5 (not 0--2); added \texttt{automated}, \texttt{automated\_scores}, \texttt{manual.naming\_quality}, \texttt{time\_to\_correct\_minutes}, \texttt{edit\_list}, \texttt{did\_not\_converge}, \texttt{exclusion\_code} fields. \\
+\midrule
+2026-09-06 & §\ref{sec:pilot-schedule} run schedule (post-execution extension) & Cond~A extended from $n{=}2$ to $n{=}5$ (3 additional runs) to satisfy the verdict rule ($N=5$ per condition). Cond~B remains at $n{=}3$ because the Cond~B Type-range signal (Runs~1--3, range $= 3$) exceeded the adaptive PROCEED threshold. \\
+\midrule
+2026-09-06 & §6.3.4 DP verdicts (post-extension, two-clause) & After Cond~A extension to $N=5$, the binary rule became determinate. DP1 and DP2: \emph{confirmed} ($5/5$ in predicted direction). DP3: two-clause reporting --- (a) DP3-A (Cond~A colocated test): confirmed ($5/5$ at \filename{src/tests/features/flags/}); (b) DP3-B (Cond~B no test): \emph{refuted} ($0/3$; all three Cond~B runs produced root-level test files, opposite to the prediction). Wilson 95\% CIs: Cond~A $[0.57, 1.00]$; Cond~B $[0.44, 1.00]$. \\
+\midrule
+2026-09-08 & §7.2 Limitations (one-sided confirmation disclosure) & Three post-hoc decisions required for the confirmed verdicts are now documented: (1) extension applied only to Cond~A ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=3$); (2) binary rule applied to Cond~A arm only; (3) DP3 two-clause reporting. Verdict stated as ``one-sided confirmation under an amended, disclosed procedure.'' \\
+\hline
+\end{tabular}
+\caption{Amendment log (locked + 10 amendments).}
+\label{tab:amendment-audit}
+\end{table}
+
+\paragraph{Content hashes.} The SHA-256 of the pre-registration content at the 2026-09-06 submission state is \seqsplit{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}. This is the value reported in the cover-letter summary; it can be independently verified by SHA-256 hash comparison against the locked pre-registration content. The lock-time commit-attestation hash \seqsplit{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e} and the post-amendment content hash \seqsplit{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f} are recorded in \S\ref{sec:pilot-protocol} along with derivation notes and inline verification commands; no external file is required. The Prompt~B template hash \seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2} cross-checks the verbatim prompt string in Listing~\ref{lst:control-prompt}.
+
+\chapter{Conclusion and Future Work}
 
 \chapter{Conclusion and Future Work}
 \label{sec:conclusion}
@@ -1388,4 +1405,3 @@ Concrete next steps: (1)~run the cross-tool replication on at least two non-Curs
 
 
 \end{document}
-
