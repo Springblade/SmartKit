@@ -901,18 +901,9 @@ Pilot feature
 \renewcommand{\arraystretch}{1}
 \end{table}
 
-\paragraph{Condition A (SmartKit).} Condition A uses the SmartKit codebase, which includes:
-\begin{itemize}
-\item \textbf{AGENTS.md} at the repository root: architectural conventions
-\item \textbf{\filename{.cursor/rules/}} directory: cursor-specific instruction files
-\item \textbf{\filename{src/features/\{name\}/}} structure: feature-based organization
-\item Existing example features (\filename{features/auth/}, \filename{features/billing/}) the AI sees before generating code
-\item Zod schemas colocated in \filename{features/\{name\}/types/}
-\item Server Actions in \filename{features/\{name\}/actions/}
-\item \pkg{server-only} imports as explicit server-boundary markers
-\end{itemize}
+\paragraph{Condition A (SmartKit).} See Table~\ref{tbl:condition-ab} for the full enumeration of conventions, folder layout, and AI tool context. Existing example features (\filename{features/auth/}, \filename{features/billing/}) are visible to the AI before it generates the pilot feature.
 
-\paragraph{Condition B (convention-naive scaffold).} Condition B uses a baseline Next.js codebase produced by \code{create-next-app} with the same dependency surface as SmartKit (Next.js 16.2.12, TypeScript 5.7.3, Tailwind CSS 4.3.3, Drizzle ORM 0.45.2 with PostgreSQL, Zod 4.4.3, Biome 2.5.6, Resend 6.18.1, and \pkg{better-auth} 1.6.x) but no \filename{src/features/} layout, no \filename{AGENTS.md}, and no \filename{.cursor/rules/}. TypeScript strict mode is enabled at parity with Condition~A. The baseline represents a typical Next.js project without explicit architectural guidance.
+\paragraph{Condition B (convention-naive scaffold).} See Table~\ref{tbl:condition-ab} for the dependency surface; TypeScript strict mode is enabled at parity with Condition~A.
 
 The control comparison addresses the primary threat to internal validity: that observed scores on SmartKit reflect technology stack quality rather than convention adherence. By using the same dependency surface in both conditions, the experiment isolates the convention variable. In the executed pilot, the Cond~B Type \& Contract dimension showed a wider inter-run range ($3$ points across $n=3$) than Cond~A; this residual within-condition variance---not convention encoding---is the most plausible alternative explanation for the size of the score gap, and is one reason the DP verdicts in Section~\ref{sec:pilot} are reported as descriptive rather than inferential. Cross-AI-tool replication, where version drift can be measured independently across tools, is identified as future work (Section~\ref{sec:future-work}).
 
