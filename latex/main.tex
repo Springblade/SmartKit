@@ -785,9 +785,7 @@ The framework design is accompanied by a pilot evaluation protocol that exercise
 \subsection{Three Dimensions}
 \label{sec:dimensions}
 
-The evaluation uses a multi-dimensional quality framework that captures different aspects of boilerplate quality. The framework extends existing benchmark methodology to address framework-specific concerns that existing evaluations overlook.
-
-Recent systematic research has identified a fundamental gap in how AI coding benchmarks measure capability. Hou et al.\ (2024), reviewing 395 LLM-SE articles, found that code generation (35\%) and code repair (25\%) dominate the literature, that most studies rely on benchmark evaluation (60\%) rather than human evaluation, and that framework-specific convention adherence is not a separately tracked evaluation category \parencite{hou2024llmse}. SmartKit's contribution is to instantiate this missing measurement dimension for Next.js App Router.
+The evaluation uses a multi-dimensional quality framework that captures different aspects of boilerplate quality. The framework extends existing benchmark methodology to address framework-specific concerns that existing evaluations overlook; the specific literature gap that motivates this framework is documented in Chapter~3 (Related Work, \S\ref{sec:relatedwork}). SmartKit's contribution is to instantiate the missing framework-specific convention-adherence measurement dimension for Next.js App Router.
 
 The three dimensions capture distinct, non-overlapping aspects of boilerplate quality that affect real-world usability. Rather than measuring only output correctness, the framework assesses whether generated code can be integrated into production codebases without convention violations or type safety issues. Each dimension maps to an automated measurement approach and corresponds to a specific failure mode observed in AI-generated Next.js code.
 
