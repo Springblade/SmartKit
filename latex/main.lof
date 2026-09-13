@@ -1,0 +1,9 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces AI-generated Next.js App Router code violating Server/Client boundaries by passing event handlers across component types, with the CORRECT panel showing the composition-pattern fix.}}{5}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Evaluation-framework architecture (target design) for the design-stage 150-artifact corpus (5 tools $\times $ 3 scenarios $\times $ 10 prompts); this thesis executes an 8-run subset (1 tool $\times $ 1 feature $\times $ 8 runs).}}{6}{figure.caption.10}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
