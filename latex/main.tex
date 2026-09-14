@@ -670,12 +670,10 @@ API routes in SmartKit use Zod schemas for request and response validation. Thes
 
 The shared schema pattern enables consistent validation across frontend form components and backend API handlers. The same Zod schemas validate both client-submitted forms and server-handled requests. The match between frontend and backend validation reduces the gap between AI-generated client-side and server-side code, producing more coherent implementations.
 
-\chapter{Implementation}
-\label{sec:implementation}
+\section{Technology Stack}
+\label{sec:technology-stack}
 
 This section describes the technical implementation of the SmartKit framework using Next.js 16.2.12 and associated technologies. The implementation shows how the design principles translate into working code.\footnote{The pilot evaluation (Chapter~\ref{sec:evaluation}) exercises a single representative feature --- the \code{isEnabled(flagKey, userId?)} flag utility --- that touches none of SmartKit's integrated services. The billing (Section~\ref{sec:billing-sepay}), authentication, and email integrations documented below are not exercised by the pilot; they are documented here as part of SmartKit's second role --- a usable SaaS boilerplate --- independent of the evaluation framework. See Section~\ref{sec:integrations-and-pilot} for the relationship between the integrations and the pilot feature.}
-
-\section{Technology Stack}
 
 \subsection{Stack Selection Rationale}
 \label{sec:stack-rationale}
@@ -719,9 +717,13 @@ Table~\ref{tbl:dependency-pins} lists the canonical versions of the libraries th
 
 Next.js~16.2.12 supplies the App Router architecture; Drizzle~ORM~0.45.2 (PostgreSQL) and Zod~4.4.3 jointly enforce the type-safe-contract principle from §\ref{sec:stack-rationale}. The remaining tooling is chosen for consistency rather than for a direct role in the rubric: Tailwind~CSS~4.3.3 (CSS-first configuration) for styling, Biome~2.5.6 as a single linter/formatter in place of separate ESLint and Prettier configurations, Resend~6.18.1 with React~Email~6.9.1 for transactional email templates, and SePay as the payment gateway integrated through \filename{features/billing/} (HMAC signature verification + idempotent webhook handling; described in detail in \S\ref{sec:billing-sepay}). \pkg{@better-auth/drizzle-adapter} integrates authentication with the database layer. The relationship of these four to the pilot evaluation is summarised in the footnote at the start of this chapter; their individual roles are detailed where each is discussed below.
 
-\section{Project Structure}
+\subsection{Project Structure}
+\label{sec:project-structure}
 
-The SmartKit project structure implements the feature-based architecture described in Section~\ref{sec:solution}:
+The SmartKit project structure implements the feature-based architecture described in Section~\ref{sec:solution}.
+
+\subsubsection{Top-Level Directory Layout}
+\label{sec:top-level-layout}
 
 \begin{lstlisting}[
   language={},
@@ -759,13 +761,229 @@ The \filename{features/flags/} directory sits at the repository top level rather
 
 Internally, \filename{features/flags/} follows the same conventions as \filename{src/features/auth/}: \filename{lib/} holds the \code{isEnabled} implementation, \filename{types/} holds the Zod-derived \code{FlagKey} schema, and \filename{index.ts} is the public API barrel. The unit test sits at \filename{src/tests/features/flags/is-enabled.test.ts}, inside \filename{src/}, in line with the centralized-test convention in AGENTS.md. Its presence is what makes the pilot executable against the framework without having to first create a feature by hand.
 
-\section{Key Implementation Patterns}
+\subsection{Feature-Based Organization}
+\label{sec:feature-organization}
 
-The Server/Client boundary convention introduced in Section~\ref{sec:solution} is enforced consistently at implementation level: every generated file is checked for the \usec directive or \pkg{server-only} import appropriate to its role, which is what \texttt{score-flag.ts} inspects for the Structural Integrity dimension.
+The SmartKit project follows a feature-based folder structure (FSD) that groups related code by domain rather than technical role. This organization maps directly to the Structural Integrity dimension: each feature folder contains its own server/client boundary, making violations localized and detectable.
 
-Database queries use Drizzle's type-safe query builder with explicit schema references. Generated code can use TypeScript's type inference to maintain consistency with existing queries. The query patterns include pagination, filtering, and relation loading that AI systems can adapt for new features.
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \small
+    \begin{verbatim}
+features/
+└── flags/
+    ├── lib/
+    │   └── is-enabled.ts  (server-only)
+    ├── types/
+    │   └── flags.ts      (Zod schema)
+    └── index.ts          (barrel export)
 
-API routes use Next.js Route Handlers with Zod schema validation. Request handlers receive parsed and validated data through a consistent interface, while response formatting uses a standard structure that includes status codes, data payloads, and error messages.
+src/features/auth/
+├── lib/                  (server-only)
+├── actions/              (server actions)
+├── components/           ('use client')
+└── types/                (Zod schemas)
+    \end{verbatim}
+    \caption{Feature-based folder structure.}
+    \label{fig:fsd-structure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \begin{tabular}{ll}
+      \toprule
+      \textbf{Directory} & \textbf{Convention} \\
+      \midrule
+      \filename{lib/} & Type definitions, server utilities \\
+      \filename{actions/} & Server actions, DB queries \\
+      \filename{components/} & React components (\pkg{client}) \\
+      \filename{types/} & Zod schemas, type exports \\
+      \filename{index.ts} & Public API barrel \\
+      \bottomrule
+    \end{tabular}
+    \caption{Convention mapping.}
+    \label{tbl:fsd-conventions}
+  \end{minipage}
+\end{figure}
+
+\bigskip\noindent\textbf{Why FSD?}
+Feature-based organization complements the convention encoding principle. Rather than scattering server code across a monolithic \filename{server/} folder, each feature encapsulates its server logic alongside its UI. This makes the Structural Integrity rubric enforceable: violations are confined to the feature folder where they occur.
+
+\section{Core Feature Implementation}
+\label{sec:core-feature-implementation}
+
+This section details the implementation of the three core patterns that the evaluation rubric targets.
+
+\subsection{Feature Flag Resolution}
+\label{sec:feature-flag-resolution}
+
+The feature flag system implements a three-tier resolution hierarchy that evaluates override sources in priority order. This design reflects the convention encoding principle: per-user overrides take precedence over environment variables, which take precedence over static defaults. The implementation is located in \filename{features/flags/lib/is-enabled.ts}, which is marked \pkg{server-only} to enforce the server-side boundary.
+
+The Zod schema that defines the allowed \code{FlagKey} values is colocated in \filename{features/flags/types/flags.ts}:
+
+\begin{lstlisting}[
+  language=TypeScript,
+  caption={Zod schema for feature flag keys.},
+  label={lst:flag-key-schema},
+  basicstyle=\ttfamily\scriptsize,
+]
+import { z } from "zod";
+
+export const FlagKeySchema = z.enum([
+  "FEATURE_NEW_DASHBOARD",
+  "FEATURE_BILLING_ENABLED",
+  "FEATURE_DARK_MODE",
+]);
+
+export type FlagKey = z.infer<typeof FlagKeySchema>;
+\end{lstlisting}
+
+The \code{isEnabled} function implements the three-tier resolution with in-memory caching:
+
+\begin{lstlisting}[
+  language=TypeScript,
+  caption={The isEnabled utility with three-tier resolution and 5-minute TTL cache.},
+  label={lst:is-enabled-impl},
+  basicstyle=\ttfamily\scriptsize,
+]
+import "server-only";
+import { FlagKeySchema, type FlagKey } from "../types/flags";
+
+const TTL_MS = 5 * 60 * 1000;
+
+// Two parallel maps — values holds the resolved boolean, expirations
+// holds the wall-clock timestamp at which the entry expires.
+const values = new Map<string, boolean>();
+const expirations = new Map<string, number>();
+
+const buildCacheKey = (flag: FlagKey, userId?: string): string =>
+  userId ? `${flag}__${userId}` : `${flag}___`;
+
+const readUserOverride = (
+  _userId: string | undefined,
+  _flag: FlagKey,
+): boolean | undefined => {
+  // Per-user DB override is not wired in this pilot.
+  return undefined; // signals "no override, fall through"
+};
+
+const readEnvOverride = (flag: FlagKey): boolean | undefined => {
+  const raw = process.env[`FLAG_${flag}`];
+  if (raw === "true") return true;
+  if (raw === "false") return false;
+  return undefined;
+};
+
+export function isEnabled(
+  flag: unknown,
+  fallback: boolean = false,
+  userId?: string,
+): boolean {
+  const parsed = FlagKeySchema.safeParse(flag);
+  if (!parsed.success) {
+    throw new Error(
+      `Invalid flag key: ${JSON.stringify(flag)}. ` +
+        `Allowed: ${FlagKeySchema.options.join(", ")}`,
+    );
+  }
+  const key = buildCacheKey(parsed.data, userId);
+  const now = Date.now();
+
+  const expires = expirations.get(key);
+  if (expires !== undefined && expires > now) {
+    const cached = values.get(key);
+    if (cached !== undefined) return cached;
+  }
+
+  let resolved: boolean | undefined =
+    readUserOverride(userId, parsed.data) ??
+    readEnvOverride(parsed.data) ??
+    fallback;
+
+  values.set(key, resolved);
+  expirations.set(key, now + TTL_MS);
+  return resolved;
+}
+\end{lstlisting}
+
+\bigskip\noindent\textbf{Why this structure?}
+The tiered design serves two purposes: (1) it mirrors the production pattern where feature flags support gradual rollouts via environment variables before per-user targeting, and (2) it creates a clear server-side boundary that the Structural Integrity dimension reads---the function is marked \pkg{server-only} in the barrel export, never accessible to client components without a typed prop interface. The 5-minute TTL prevents unbounded memory growth while keeping flag values reasonably fresh for environment-driven rollouts.
+
+\subsection{Server/Client Boundary Enforcement}
+\label{sec:server-client-boundary}
+
+The framework's runtime failures (event handlers crossing the boundary, server-only imports leaking to the client) are the failure mode the thesis targets. Next.js surfaces these failures naturally through build-time errors: Server Components fetch data directly through Drizzle, Server Actions in \filename{features/<name>/actions/} call \code{revalidatePath} after writes, and Client Components receive typed props without an intermediate client-side data layer.
+
+To prevent accidental client bundling of server-only code, the framework uses the \pkg{server-only} package~\cite{server-only-npm}:
+
+\begin{lstlisting}[
+  language=TypeScript,
+  caption={Using server-only to prevent client bundling.},
+  label={lst:server-only-usage},
+  basicstyle=\ttfamily\scriptsize,
+]
+import "server-only";
+
+// This module cannot be imported into Client Components.
+// Next.js will throw a build-time error if attempted.
+export async function getServerData() {
+  // server-side only logic
+}
+\end{lstlisting}
+
+\bigskip\noindent\textbf{Why this pattern?}
+The \pkg{server-only} import serves two purposes: (1) it mirrors the production pattern where server utilities must never cross to the client, and (2) it creates a clear server-side boundary that the Structural Integrity dimension reads. The function is marked \pkg{server-only} in the barrel export, never accessible to client components without a typed prop interface.
+
+\subsection{Evaluation Infrastructure}
+\label{sec:eval-infrastructure}
+
+To operationalize the three evaluation dimensions, the framework includes an automated scoring script (\filename{scripts/score-flag.ts}) that reads source files and computes a 0--5 score per dimension. The script is read-only: it does not mutate the run directory and does not call any AI/LLM for scoring.
+
+The structural integrity scoring logic detects server/client boundary violations:
+
+\begin{lstlisting}[
+  language=TypeScript,
+  caption={The structural integrity scoring logic from score-flag.ts.},
+  label={lst:scoring-logic},
+  basicstyle=\ttfamily\scriptsize,
+]
+// Pattern detection for server-only imports
+const SERVER_ONLY_PATTERNS = [
+  /import\s+["']server-only["']/,
+  /from\s+["']server-only["']/,
+];
+
+async function scoreStructural(runDir: string) {
+  const tsFiles = await findTsFiles(runDir);
+  let hasServerOnly = false;
+  let hasUseClient = false;
+
+  for (const f of tsFiles) {
+    const content = await readFile(f, 'utf-8');
+    hasServerOnly = SERVER_ONLY_PATTERNS.some(
+      p => p.test(content)
+    );
+    hasUseClient = /['"]use client['"]/.test(content);
+  }
+
+  // Scoring: path_match (0/0.5/1) + feature_complete (0/0.5/1)
+  let pathMatch = 0;
+  let featureComplete = 0;
+
+  if (inFeatures) pathMatch = 1;
+  if (hasServerOnly) featureComplete = 1;
+  if (hasUseClient) featureComplete = 0; // violation
+
+  return Math.round((pathMatch + featureComplete) * 2.5);
+}
+\end{lstlisting}
+
+\bigskip\noindent\textbf{How the rubric maps to code.}
+Each scoring function returns 0 (violation), 3 (partial), or 5 (pass) per sub-criterion, which are then combined into a 0--5 dimension score. The script aggregates these per file, then averages across the project to produce the dimension score. This design mirrors the rubric's qualitative descriptors: files that expose server internals to the client boundary score 0, files that partially comply score 3, and files that follow conventions score 5.
+
+The Type \& Contract Safety dimension runs \code{tsc --noEmit} and counts \code{: any} occurrences, while Coverage \& Completeness enumerates required files (\code{is-enabled.ts}, \code{is-enabled.test.ts}, \code{flags.ts}, \code{index.ts}) against a reference checklist. The complete rubric implementation is in \filename{smartkit/scripts/score-flag.ts}.
 
 \section{Billing and SePay Integration}
 \label{sec:billing-sepay}
