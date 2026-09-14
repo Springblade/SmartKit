@@ -901,9 +901,11 @@ Pilot feature
 \renewcommand{\arraystretch}{1}
 \end{table}
 
-\paragraph{Condition A (SmartKit).} See Table~\ref{tbl:condition-ab} for the full enumeration of conventions, folder layout, and AI tool context. Existing example features (\filename{features/auth/}, \filename{features/billing/}) are visible to the AI before it generates the pilot feature.
+\bigskip\noindent\textbf{Numbering convention.} Throughout this chapter, run numbers follow condition-first ordering: Condition~B = Runs~1--5, Condition~A = Runs~6--10. The mapping to chronological execution order (Run~1--3 = early-batch Cond~B; Run~4--8 = original Cond~A block; Run~9--10 = late-batch Cond~B extension) is preserved in the filesystem (\filename{runs/cond-<a,b>/run-<NN>/}) and in the pre-registration audit trail (Appendix~\ref{app:pre-registration}); the numbering in this chapter is for presentation only.
 
-\paragraph{Condition B (convention-naive scaffold).} See Table~\ref{tbl:condition-ab} for the dependency surface; TypeScript strict mode is enabled at parity with Condition~A.
+\medskip\noindent\textbf{Condition A (SmartKit).} See Table~\ref{tbl:condition-ab} for the full enumeration of conventions, folder layout, and AI tool context. Existing example features (\filename{features/auth/}, \filename{features/billing/}) are visible to the AI before it generates the pilot feature.
+
+\medskip\noindent\textbf{Condition B (convention-naive scaffold).} See Table~\ref{tbl:condition-ab} for the dependency surface; TypeScript strict mode is enabled at parity with Condition~A.
 
 The control comparison addresses the primary threat to internal validity: that observed scores on SmartKit reflect technology stack quality rather than convention adherence. By using the same dependency surface in both conditions, the experiment isolates the convention variable. In the executed pilot, the Cond~B Type \& Contract dimension showed a wider inter-run range ($3$ points across $n=5$, Type $\in 0, 1, 2, 3$) than Cond~A (Type range $= 1$, Type $\in 4, 5$); this residual within-condition variance---not convention encoding---is the most plausible alternative explanation for the size of the score gap, and is one reason the DP verdicts in Section~\ref{sec:pilot} are reported as descriptive rather than inferential. Note that the Cond~B Type range did not widen when Runs 4--5 were added (post-extension Type scores $1, 2$ both fell inside the original $0, 1, 2, 3$ range), so the residual variance attribution is stable across the Cond~B extension. Cross-AI-tool replication, where version drift can be measured independently across tools, is identified as future work (Section~\ref{sec:future-work}).
 
