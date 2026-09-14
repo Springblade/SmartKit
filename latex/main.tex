@@ -113,6 +113,32 @@
 \definecolor{codestring}{RGB}{163,21,21}
 \definecolor{codenumber}{gray}{0.5}
 
+% --- TypeScript language definition for listings ---
+% The `listings` package does not ship a built-in TypeScript definition on
+% every TeX distribution/version (some local MiKTeX/TeX Live installs are
+% missing it, producing "Couldn't load requested language" /
+% "language typescript undefined"). Defining it explicitly here makes the
+% document portable across installations instead of depending on whatever
+% lstlang*.sty files happen to be present locally.
+\lstdefinelanguage{TypeScript}{
+  keywords={typeof, new, true, false, null, undefined, catch, function, return,
+    switch, var, let, const, if, in, of, while, do, else, case, break, continue,
+    export, import, from, as, default, async, await, class, extends, implements,
+    interface, type, enum, namespace, declare, public, private, protected,
+    readonly, static, abstract, is, keyof, infer, satisfies, get, set, yield,
+    throw, try, finally, this, super, void, never, unknown, any, delete,
+    instanceof},
+  keywords=[2]{string, number, boolean, object, symbol, bigint},
+  keywordstyle=\color{codekeyword}\bfseries,
+  keywordstyle=[2]\color{codekeyword},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  string=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+}
+
 \lstset{
   backgroundcolor=\color{codebg},
   basicstyle=\ttfamily\small,
@@ -670,6 +696,11 @@ API routes in SmartKit use Zod schemas for request and response validation. Thes
 
 The shared schema pattern enables consistent validation across frontend form components and backend API handlers. The same Zod schemas validate both client-submitted forms and server-handled requests. The match between frontend and backend validation reduces the gap between AI-generated client-side and server-side code, producing more coherent implementations.
 
+\chapter{Implementation}
+\label{sec:implementation}
+
+This chapter describes the technical implementation of the SmartKit framework, covering the architecture, technology stack, and key design decisions that enable AI-friendly development patterns.
+
 \section{Technology Stack}
 \label{sec:technology-stack}
 
@@ -773,18 +804,18 @@ The SmartKit project follows a feature-based folder structure (FSD) that groups 
     \small
     \begin{verbatim}
 features/
-└── flags/
-    ├── lib/
-    │   └── is-enabled.ts  (server-only)
-    ├── types/
-    │   └── flags.ts      (Zod schema)
-    └── index.ts          (barrel export)
++-- flags/
+    +-- lib/
+    |   +-- is-enabled.ts  (server-only)
+    +-- types/
+    |   +-- flags.ts      (Zod schema)
+    +-- index.ts          (barrel export)
 
 src/features/auth/
-├── lib/                  (server-only)
-├── actions/              (server actions)
-├── components/           ('use client')
-└── types/                (Zod schemas)
++-- lib/                  (server-only)
++-- actions/              (server actions)
++-- components/           ('use client')
++-- types/                (Zod schemas)
     \end{verbatim}
     \caption{Feature-based folder structure.}
     \label{fig:fsd-structure}
@@ -853,7 +884,7 @@ import { FlagKeySchema, type FlagKey } from "../types/flags";
 
 const TTL_MS = 5 * 60 * 1000;
 
-// Two parallel maps — values holds the resolved boolean, expirations
+// Two parallel maps -- values holds the resolved boolean, expirations
 // holds the wall-clock timestamp at which the entry expires.
 const values = new Map<string, boolean>();
 const expirations = new Map<string, number>();
@@ -1119,7 +1150,7 @@ Pilot feature
 \renewcommand{\arraystretch}{1}
 \end{table}
 
-\bigskip\noindent\textbf{Numbering convention.} Throughout this chapter, run numbers follow condition-first ordering: Condition~B = Runs~1--5, Condition~A = Runs~6--10. The mapping to chronological execution order (Run~1--3 = early-batch Cond~B; Run~4--8 = original Cond~A block; Run~9--10 = late-batch Cond~B extension) is preserved in the filesystem (\filename{runs/cond-<a,b>/run-<NN>/}) and in the pre-registration audit trail (Appendix~\ref{app:pre-registration}); the numbering in this chapter is for presentation only.
+\bigskip\noindent\textbf{Numbering convention.} Throughout this chapter, run numbers follow condition-first ordering: Condition~B = Runs~1--5, Condition~A = Runs~6--10. The mapping to chronological execution order (Run~1--3 = early-batch Cond~B; Run~4--8 = original Cond~A block; Run~9--10 = late-batch Cond~B extension) is preserved in the filesystem (\filename{runs/cond-<a,b>/run-<NN>/}) and in the pre-registration audit trail released in the thesis GitHub repository; the numbering in this chapter is for presentation only.
 
 \medskip\noindent\textbf{Condition A (SmartKit).} See Table~\ref{tbl:condition-ab} for the full enumeration of conventions, folder layout, and AI tool context. Existing example features (\filename{features/auth/}, \filename{features/billing/}) are visible to the AI before it generates the pilot feature.
 
