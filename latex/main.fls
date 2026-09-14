@@ -544,6 +544,9 @@ INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\txmiaS
 INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\vf\public\newtx\ntx-Regular-tlf-ot1.vf
 INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\ntx-Regular-tlf-ot1r.tfm
 INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\newtx\ntx-ot1-tlf.enc
+INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\vf\public\newtx\ntxsy.vf
+INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\txsys.tfm
+INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\txex-bar.tfm
 INPUT .\main.toc
 INPUT .\main.toc
 INPUT main.toc
@@ -552,9 +555,6 @@ INPUT .\main.lof
 INPUT .\main.lof
 INPUT main.lof
 OUTPUT main.lof
-INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\vf\public\newtx\ntxsy.vf
-INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\txsys.tfm
-INPUT C:\Users\wayad\AppData\Local\Programs\MiKTeX\fonts\tfm\public\newtx\txex-bar.tfm
 INPUT .\main.lot
 INPUT .\main.lot
 INPUT main.lot

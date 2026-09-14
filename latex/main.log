@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.5) (preloaded format=xelatex 2026.9.12)  14 SEP 2026 11:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.8.27)  14 SEP 2026 15:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -11,36 +11,28 @@ Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
 File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count273
-\c@chapter=\count274
-\c@section=\count275
-\c@subsection=\count276
-\c@subsubsection=\count277
-\c@paragraph=\count278
-\c@subparagraph=\count279
-\c@figure=\count280
-\c@table=\count281
+\c@part=\count276
+\c@chapter=\count277
+\c@section=\count278
+\c@subsection=\count279
+\c@subsubsection=\count280
+\c@paragraph=\count281
+\c@subparagraph=\count282
+\c@figure=\count283
+\c@table=\count284
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen150
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
-6.
-
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
-File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-))
+)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-
-
-Package inputenc Warning: inputenc package ignored with utf8 based engines.
-
-) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxtext.sty
+)
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxtext.sty
 Package: newtxtext 2024/04/01 v1.744(Michael Sharpe) latex and unicode latex su
 pport for TeXGyreTermesX
 
@@ -50,12 +42,10 @@ nd its extensions (msharpe)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2026-07-20 L3 programming layer (loader) 
 
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-xet
-ex.def
-File: l3backend-xetex.def 2026-07-20 L3 backend support: XeTeX
-\g__graphics_track_int=\count282
-\g__pdfannot_backend_int=\count283
-\g__pdfannot_backend_link_int=\count284
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2026-07-20 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count285
 ))
 Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
 
@@ -65,19 +55,21 @@ Package: xparse 2025-10-09 L3 Experimental document command parser
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count285
+\etb@tempcnta=\count286
 )) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: xetex.def on input line 274.
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\xetex.def
-File: xetex.def 2025/11/01 v5.0p Graphics/color driver for xetex
-) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.lt
-x)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+)
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
@@ -97,15 +89,15 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 \XKV@tempa@toks=\toks20
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\keyval.tex))
-\XKV@depth=\count286
+\XKV@depth=\count287
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex
-\xs_counta=\count287
-\xs_countb=\count288
+\xs_counta=\count288
+\xs_countb=\count289
 )
 Package: xstring 2023/08/22 v1.86 String manipulations (CT)
 ) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
@@ -118,52 +110,36 @@ LaTeX Font Info:    Setting ntxOsF sub-encoding to TS1/0 on input line 24.
 LaTeX Font Info:    Setting ntxTOsF sub-encoding to TS1/0 on input line 24.
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/binhex\binhex.tex)
-\ntx@tmpcnta=\count289
-\ntx@cnt=\count290
+\ntx@tmpcnta=\count290
+\ntx@cnt=\count291
 
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec.sty
-Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/fontaxes\fontaxes.sty
+Package: fontaxes 2026-01-02 v2.0.2 Font selection axes (deprecated)
+Applying: [2024-11-01] Use figureversions if present on input line 74.
 
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec-xetex
-.sty
-Package: fontspec-xetex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTe
-X
-\l__fontspec_script_int=\count291
-\l__fontspec_language_int=\count292
-\l__fontspec_strnum_int=\count293
-\l__fontspec_tmp_int=\count294
-\l__fontspec_tmpa_int=\count295
-\l__fontspec_tmpb_int=\count296
-\l__fontspec_tmpc_int=\count297
-\l__fontspec_em_int=\count298
-\l__fontspec_emdef_int=\count299
-\l__fontspec_strong_int=\count300
-\l__fontspec_strongdef_int=\count301
-\l__fontspec_tmpa_dim=\dimen151
-\l__fontspec_tmpb_dim=\dimen152
-\l__fontspec_tmpc_dim=\dimen153
- (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
-Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/figureversions\figureve
+rsions.sty
+Package: figureversions 2025-04-29 v1.0.1 Figure versions
 )
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/fontspec\fontspec.cfg))
+Already applied: [0000-00-00] Fall back to v1 on input line 76.
 )
-LaTeX Info: Redefining \oldstylenums on input line 611.
-LaTeX Info: Redefining \liningnums on input line 615.
-\tx@sixem=\dimen154
-\tx@y=\dimen155
-\tx@x=\dimen156
-\tx@tmpdima=\dimen157
-\tx@tmpdimb=\dimen158
-\tx@tmpdimc=\dimen159
-\tx@tmpdimd=\dimen160
-\tx@tmpdime=\dimen161
-\tx@tmpdimf=\dimen162
-\tx@dimA=\dimen163
-\tx@dimAA=\dimen164
-\tx@dimB=\dimen165
-\tx@dimBB=\dimen166
-\tx@dimC=\dimen167
-) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxmath.sty
+\tx@sixem=\dimen151
+\tx@y=\dimen152
+\tx@x=\dimen153
+\tx@tmpdima=\dimen154
+\tx@tmpdimb=\dimen155
+\tx@tmpdimc=\dimen156
+\tx@tmpdimd=\dimen157
+\tx@tmpdime=\dimen158
+\tx@tmpdimf=\dimen159
+\tx@dimA=\dimen160
+\tx@dimAA=\dimen161
+\tx@dimB=\dimen162
+\tx@dimBB=\dimen163
+\tx@dimC=\dimen164
+LaTeX Info: Redefining \oldstylenums on input line 902.
+)
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxmath.sty
 Package: newtxmath 2024/09/22 v1.754
 
 `newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe
@@ -178,23 +154,23 @@ Package: amstext 2024/11/17 v2.01 AMS text
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks21
-\ex@=\dimen168
+\ex@=\dimen165
 ))
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen169
+\pmbraise@=\dimen166
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count302
+\inf@bad=\count292
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count303
-\leftroot@=\count304
+\uproot@=\count293
+\leftroot@=\count294
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count305
-\DOTSCASE@=\count306
+\classnum@=\count295
+\DOTSCASE@=\count296
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -204,30 +180,30 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen170
+\big@size=\dimen167
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count307
+\macc@depth=\count297
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count308
+\c@MaxMatrixCols=\count298
 \dotsspace@=\muskip17
-\c@parentequation=\count309
-\dspbrk@lvl=\count310
+\c@parentequation=\count299
+\dspbrk@lvl=\count300
 \tag@help=\toks22
-\row@=\count311
-\column@=\count312
-\maxfields@=\count313
+\row@=\count301
+\column@=\count302
+\maxfields@=\count303
 \andhelp@=\toks23
-\eqnshift@=\dimen171
-\alignsep@=\dimen172
-\tagshift@=\dimen173
-\tagwidth@=\dimen174
-\totwidth@=\dimen175
-\lineht@=\dimen176
+\eqnshift@=\dimen168
+\alignsep@=\dimen169
+\tagshift@=\dimen170
+\tagwidth@=\dimen171
+\totwidth@=\dimen172
+\lineht@=\dimen173
 \@envbody=\toks24
 \multlinegap=\skip52
 \multlinetaggap=\skip53
@@ -238,10 +214,10 @@ LaTeX Info: Redefining \] on input line 2966.
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/oberdiek\centernot.sty
 Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 )
-\tx@cntz=\count314
+\tx@cntz=\count304
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/binhex\binhex.tex)
-\tx@Isdigit=\count315
-\tx@IsAlNum=\count316
+\tx@Isdigit=\count305
+\tx@IsAlNum=\count306
 \tx@tA=\toks26
 \tx@tB=\toks27
 \tx@su=\read2
@@ -256,11 +232,11 @@ LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/minntx/m/n --> OT1/minntx/b/n on input line 403.
 LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 410.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 410.
+(Font)                  OT1/cmss/m/n --> OT1/qhv/m/n on input line 410.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/m/n on input line 410.
+(Font)                  OT1/cmss/bx/n --> OT1/qhv/m/n on input line 410.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/m/n --> OT1/lmss/b/n on input line 412.
+(Font)                  OT1/qhv/m/n --> OT1/qhv/b/n on input line 412.
 LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 419.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> OT1/minntx/m/it on input line 419.
@@ -268,9 +244,9 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/minntx/m/it on input line 419.
 LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 420.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 420.
+(Font)                  OT1/cmtt/m/n --> T1/ntxtt/m/n on input line 420.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 420.
+(Font)                  OT1/cmtt/m/n --> T1/ntxtt/m/n on input line 420.
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 422.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> OT1/minntx/b/n on input line 422.
@@ -279,7 +255,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/minntx/m/it --> OT1/minntx/b/it on input line 423.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  TU/lmtt/m/n --> TU/lmtt/b/n on input line 426.
+(Font)                  T1/ntxtt/m/n --> T1/ntxtt/b/n on input line 426.
 LaTeX Font Info:    Redeclaring symbol font `letters' on input line 534.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
 (Font)                  OML/cmm/m/it --> OML/ntxmi/m/it on input line 534.
@@ -290,6 +266,8 @@ LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
 \symlettersA=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `lettersA' in version `bold'
 (Font)                  U/ntxmia/m/it --> U/ntxmia/b/it on input line 582.
+Now handling font encoding LMS ...
+... no UTF-8 mapping file for font encoding LMS
 LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 604.
 LaTeX Font Info:    Encoding `OMS' has changed to `LMS' for symbol font
 (Font)              `symbols' in the math version `normal' on input line 604.
@@ -307,6 +285,8 @@ LaTeX Font Info:    Overwriting symbol font `AMSm' in version `bold'
 \symsymbolsC=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `symbolsC' in version `bold'
 (Font)                  U/ntxsyc/m/n --> U/ntxsyc/b/n on input line 651.
+Now handling font encoding LMX ...
+... no UTF-8 mapping file for font encoding LMX
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 664.
 LaTeX Font Info:    Encoding `OMX' has changed to `LMX' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 6
@@ -346,23 +326,23 @@ Package: geometry 2026/03/07 v6.0 Page Geometry
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count317
-\Gm@cntv=\count318
-\c@Gm@tempcnt=\count319
-\Gm@bindingoffset=\dimen177
-\Gm@wd@mp=\dimen178
-\Gm@odd@mp=\dimen179
-\Gm@even@mp=\dimen180
-\Gm@layoutwidth=\dimen181
-\Gm@layoutheight=\dimen182
-\Gm@layouthoffset=\dimen183
-\Gm@layoutvoffset=\dimen184
+\Gm@cnth=\count307
+\Gm@cntv=\count308
+\c@Gm@tempcnt=\count309
+\Gm@bindingoffset=\dimen174
+\Gm@wd@mp=\dimen175
+\Gm@odd@mp=\dimen176
+\Gm@even@mp=\dimen177
+\Gm@layoutwidth=\dimen178
+\Gm@layoutheight=\dimen179
+\Gm@layouthoffset=\dimen180
+\Gm@layoutvoffset=\dimen181
 \Gm@dimlist=\toks29
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count320
+\c@float@type=\count310
 \float@exts=\toks30
 \float@box=\box55
 \@float@everytoks=\toks31
@@ -373,15 +353,15 @@ Package: textpos 2022/07/23 v1.10.1
 Package textpos Info: choosing support for LaTeX3 on input line 60.
 \TP@textbox=\box57
 \TP@holdbox=\box58
-\TPHorizModule=\dimen185
-\TPVertModule=\dimen186
-\TP@margin=\dimen187
-\TP@absmargin=\dimen188
+\TPHorizModule=\dimen182
+\TPVertModule=\dimen183
+\TP@margin=\dimen184
+\TP@absmargin=\dimen185
 
 Grid set 16 x 16 = 37.34424pt x 52.81541pt
-\TPboxrulesize=\dimen189
-\TP@ox=\dimen190
-\TP@oy=\dimen191
+\TPboxrulesize=\dimen186
+\TP@ox=\dimen187
+\TP@oy=\dimen188
 \TP@tbargs=\toks32
 TextBlockOrigin set to 0pt x 0pt
 ) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
@@ -396,10 +376,10 @@ Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: xetex.def on input line 106.
+Package graphics Info: Driver file: pdftex.def on input line 106.
 )
-\Gin@req@height=\dimen192
-\Gin@req@width=\dimen193
+\Gin@req@height=\dimen189
+\Gin@req@width=\dimen190
 )
 TextBlockOrigin set to 0pt x 0pt
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
@@ -439,12 +419,12 @@ Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box59
 \beforetitleunit=\skip68
 \aftertitleunit=\skip69
-\ttl@plus=\dimen194
-\ttl@minus=\dimen195
+\ttl@plus=\dimen191
+\ttl@minus=\dimen192
 \ttl@toksa=\toks34
-\titlewidth=\dimen196
-\titlewidthlast=\dimen197
-\titlewidthfirst=\dimen198
+\titlewidth=\dimen193
+\titlewidthlast=\dimen194
+\titlewidthfirst=\dimen195
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
 sty
@@ -454,8 +434,8 @@ y
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -common.tex
 \pgfutil@everybye=\toks35
-\pgfutil@tempdima=\dimen199
-\pgfutil@tempdimb=\dimen256
+\pgfutil@tempdima=\dimen196
+\pgfutil@tempdimb=\dimen197
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -latex.def
@@ -485,52 +465,46 @@ Package: pgfsys 2026-08-01 v3.1.12 (3.1.12)
 libraryfiltered.code.tex
 \pgfkeys@tmptoks=\toks38
 ))
-\pgf@x=\dimen257
-\pgf@y=\dimen258
-\pgf@xa=\dimen259
-\pgf@ya=\dimen260
-\pgf@xb=\dimen261
-\pgf@yb=\dimen262
-\pgf@xc=\dimen263
-\pgf@yc=\dimen264
-\pgf@xd=\dimen265
-\pgf@yd=\dimen266
+\pgf@x=\dimen198
+\pgf@y=\dimen199
+\pgf@xa=\dimen256
+\pgf@ya=\dimen257
+\pgf@xb=\dimen258
+\pgf@yb=\dimen259
+\pgf@xc=\dimen260
+\pgf@yc=\dimen261
+\pgf@xd=\dimen262
+\pgf@yd=\dimen263
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
-\c@pgf@counta=\count321
-\c@pgf@countb=\count322
-\c@pgf@countc=\count323
-\c@pgf@countd=\count324
+\c@pgf@counta=\count311
+\c@pgf@countb=\count312
+\c@pgf@countc=\count313
+\c@pgf@countd=\count314
 \t@pgf@toka=\toks39
 \t@pgf@tokb=\toks40
 \t@pgf@tokc=\toks41
-\pgf@sys@id@count=\count325
+\pgf@sys@id@count=\count315
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
 fg
 File: pgf.cfg 2026-08-01 v3.1.12 (3.1.12)
 )
-Driver file for pgf: pgfsys-xetex.def
+Driver file for pgf: pgfsys-pdftex.def
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
-s-xetex.def
-File: pgfsys-xetex.def 2026-08-01 v3.1.12 (3.1.12)
-
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
-s-dvipdfmx.def
-File: pgfsys-dvipdfmx.def 2026-08-01 v3.1.12 (3.1.12)
+s-pdftex.def
+File: pgfsys-pdftex.def 2026-08-01 v3.1.12 (3.1.12)
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 s-common-pdf.def
 File: pgfsys-common-pdf.def 2026-08-01 v3.1.12 (3.1.12)
-)
-\pgfsys@objnum=\count326
 )))
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 ssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgfsyssoftpath@smallbuffer@items=\count327
-\pgfsyssoftpath@bigbuffer@items=\count328
+\pgfsyssoftpath@smallbuffer@items=\count316
+\pgfsyssoftpath@bigbuffer@items=\count317
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 sprotocol.code.tex
@@ -546,8 +520,8 @@ Package: pgfcore 2026-08-01 v3.1.12 (3.1.12)
 code.tex)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
 r.code.tex
-\pgfmath@dimen=\dimen267
-\pgfmath@count=\count329
+\pgfmath@dimen=\dimen264
+\pgfmath@count=\count318
 \pgfmath@box=\box61
 \pgfmath@toks=\toks42
 \pgfmath@stack@operand=\toks43
@@ -575,39 +549,39 @@ ions.integerarithmetics.code.tex)
 code.tex)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
 .code.tex
-\c@pgfmathroundto@lastzeros=\count330
+\c@pgfmathroundto@lastzeros=\count319
 ))
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
 tex)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epoints.code.tex
 File: pgfcorepoints.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@picminx=\dimen268
-\pgf@picmaxx=\dimen269
-\pgf@picminy=\dimen270
-\pgf@picmaxy=\dimen271
-\pgf@pathminx=\dimen272
-\pgf@pathmaxx=\dimen273
-\pgf@pathminy=\dimen274
-\pgf@pathmaxy=\dimen275
-\pgf@xx=\dimen276
-\pgf@xy=\dimen277
-\pgf@yx=\dimen278
-\pgf@yy=\dimen279
-\pgf@zx=\dimen280
-\pgf@zy=\dimen281
+\pgf@picminx=\dimen265
+\pgf@picmaxx=\dimen266
+\pgf@picminy=\dimen267
+\pgf@picmaxy=\dimen268
+\pgf@pathminx=\dimen269
+\pgf@pathmaxx=\dimen270
+\pgf@pathminy=\dimen271
+\pgf@pathmaxy=\dimen272
+\pgf@xx=\dimen273
+\pgf@xy=\dimen274
+\pgf@yx=\dimen275
+\pgf@yy=\dimen276
+\pgf@zx=\dimen277
+\pgf@zy=\dimen278
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@path@lastx=\dimen282
-\pgf@path@lasty=\dimen283
+\pgf@path@lastx=\dimen279
+\pgf@path@lasty=\dimen280
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathusage.code.tex
 File: pgfcorepathusage.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@shorten@end@additional=\dimen284
-\pgf@shorten@start@additional=\dimen285
+\pgf@shorten@end@additional=\dimen281
+\pgf@shorten@start@additional=\dimen282
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 escopes.code.tex
@@ -615,19 +589,19 @@ File: pgfcorescopes.code.tex 2026-08-01 v3.1.12 (3.1.12)
 \pgfpic=\box62
 \pgf@hbox=\box63
 \pgf@layerbox@main=\box64
-\pgf@picture@serial@count=\count331
+\pgf@picture@serial@count=\count320
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 egraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgflinewidth=\dimen286
+\pgflinewidth=\dimen283
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 etransformations.code.tex
 File: pgfcoretransformations.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@pt@x=\dimen287
-\pgf@pt@y=\dimen288
-\pgf@pt@temp=\dimen289
+\pgf@pt@x=\dimen284
+\pgf@pt@y=\dimen285
+\pgf@pt@temp=\dimen286
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 equick.code.tex
@@ -644,14 +618,14 @@ File: pgfcorepathprocessing.code.tex 2026-08-01 v3.1.12 (3.1.12)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 earrows.code.tex
 File: pgfcorearrows.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgfarrowsep=\dimen290
+\pgfarrowsep=\dimen287
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eshade.code.tex
 File: pgfcoreshade.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@max=\dimen291
-\pgf@sys@shading@range@num=\count332
-\pgf@shadingcount=\count333
+\pgf@max=\dimen288
+\pgf@sys@shading@range@num=\count321
+\pgf@shadingcount=\count322
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eimage.code.tex
@@ -690,8 +664,8 @@ File: pgfmoduleplot.code.tex 2026-08-01 v3.1.12 (3.1.12)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-0-65.sty
 Package: pgfcomp-version-0-65 2026-08-01 v3.1.12 (3.1.12)
-\pgf@nodesepstart=\dimen292
-\pgf@nodesepend=\dimen293
+\pgf@nodesepstart=\dimen289
+\pgf@nodesepend=\dimen290
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-1-18.sty
@@ -709,8 +683,8 @@ ty
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
 code.tex
 Package: pgffor 2026-08-01 v3.1.12 (3.1.12)
-\pgffor@iter=\dimen294
-\pgffor@skip=\dimen295
+\pgffor@iter=\dimen291
+\pgffor@skip=\dimen292
 \pgffor@stack=\toks45
 \pgffor@toks=\toks46
 ))
@@ -721,34 +695,34 @@ Package: tikz 2026-08-01 v3.1.12 (3.1.12)
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgf@plot@mark@count=\count334
-\pgfplotmarksize=\dimen296
+\pgf@plot@mark@count=\count323
+\pgfplotmarksize=\dimen293
 )
-\tikz@lastx=\dimen297
-\tikz@lasty=\dimen298
-\tikz@lastxsaved=\dimen299
-\tikz@lastysaved=\dimen300
-\tikz@lastmovetox=\dimen301
-\tikz@lastmovetoy=\dimen302
-\tikzleveldistance=\dimen303
-\tikzsiblingdistance=\dimen304
+\tikz@lastx=\dimen294
+\tikz@lasty=\dimen295
+\tikz@lastxsaved=\dimen296
+\tikz@lastysaved=\dimen297
+\tikz@lastmovetox=\dimen298
+\tikz@lastmovetoy=\dimen299
+\tikzleveldistance=\dimen300
+\tikzsiblingdistance=\dimen301
 \tikz@figbox=\box67
 \tikz@figbox@bg=\box68
 \tikz@tempbox=\box69
 \tikz@tempbox@bg=\box70
-\tikztreelevel=\count335
-\tikznumberofchildren=\count336
-\tikznumberofcurrentchild=\count337
-\tikz@fig@count=\count338
+\tikztreelevel=\count324
+\tikznumberofchildren=\count325
+\tikznumberofcurrentchild=\count326
+\tikz@fig@count=\count327
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 matrix.code.tex
 File: pgfmodulematrix.code.tex 2026-08-01 v3.1.12 (3.1.12)
-\pgfmatrixcurrentrow=\count339
-\pgfmatrixcurrentcolumn=\count340
-\pgf@matrix@numberofcolumns=\count341
+\pgfmatrixcurrentrow=\count328
+\pgfmatrixcurrentcolumn=\count329
+\pgf@matrix@numberofcolumns=\count330
 )
-\tikz@expandcount=\count342
+\tikz@expandcount=\count331
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
@@ -772,29 +746,29 @@ File: tikzlibraryfit.code.tex 2026-08-01 v3.1.12 (3.1.12)
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen305
-\lightrulewidth=\dimen306
-\cmidrulewidth=\dimen307
-\belowrulesep=\dimen308
-\belowbottomsep=\dimen309
-\aboverulesep=\dimen310
-\abovetopsep=\dimen311
-\cmidrulesep=\dimen312
-\cmidrulekern=\dimen313
-\defaultaddspace=\dimen314
-\@cmidla=\count343
-\@cmidlb=\count344
-\@aboverulesep=\dimen315
-\@belowrulesep=\dimen316
-\@thisruleclass=\count345
-\@lastruleclass=\count346
-\@thisrulewidth=\dimen317
+\heavyrulewidth=\dimen302
+\lightrulewidth=\dimen303
+\cmidrulewidth=\dimen304
+\belowrulesep=\dimen305
+\belowbottomsep=\dimen306
+\aboverulesep=\dimen307
+\abovetopsep=\dimen308
+\cmidrulesep=\dimen309
+\cmidrulekern=\dimen310
+\defaultaddspace=\dimen311
+\@cmidla=\count332
+\@cmidlb=\count333
+\@aboverulesep=\dimen312
+\@belowrulesep=\dimen313
+\@thisruleclass=\count334
+\@lastruleclass=\count335
+\@thisrulewidth=\dimen314
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2026/02/24 v2.7b Tabular extension package (FMi)
-\col@sep=\dimen318
+\col@sep=\dimen315
 \ar@mcellbox=\box71
-\extrarowheight=\dimen319
+\extrarowheight=\dimen316
 \NC@list=\toks47
 \extratabsurround=\skip70
 \backup@length=\skip71
@@ -805,47 +779,47 @@ Package: colortbl 2026/05/01 v1.0l Color table columns (DPC)
 
 new hooks used!!
 \minrowclearance=\skip72
-\rownum=\count347
+\rownum=\count336
 ) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2026-01-28 v4.27 Multi-page Table package (DPC)
 \LTleft=\skip73
 \LTright=\skip74
 \LTpre=\skip75
 \LTpost=\skip76
-\LTchunksize=\count348
-\LTcapwidth=\dimen320
+\LTchunksize=\count337
+\LTcapwidth=\dimen317
 \LT@head=\box73
 \LT@firsthead=\box74
 \LT@foot=\box75
 \LT@lastfoot=\box76
 \LT@gbox=\box77
-\LT@cols=\count349
-\LT@rows=\count350
-\c@LT@tables=\count351
-\c@LT@chunks=\count352
+\LT@cols=\count338
+\LT@rows=\count339
+\c@LT@tables=\count340
+\c@LT@chunks=\count341
 \LT@p@ftn=\toks48
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count353
+\lst@mode=\count342
 \lst@gtempboxa=\box78
 \lst@token=\toks49
-\lst@length=\count354
-\lst@currlwidth=\dimen321
-\lst@column=\count355
-\lst@pos=\count356
-\lst@lostspace=\dimen322
-\lst@width=\dimen323
-\lst@newlines=\count357
-\lst@lineno=\count358
-\lst@maxwidth=\dimen324
+\lst@length=\count343
+\lst@currlwidth=\dimen318
+\lst@column=\count344
+\lst@pos=\count345
+\lst@lostspace=\dimen319
+\lst@width=\dimen320
+\lst@newlines=\count346
+\lst@lineno=\count347
+\lst@maxwidth=\dimen321
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count359
-\lst@skipnumbers=\count360
+\c@lstnumber=\count348
+\lst@skipnumbers=\count349
 \lst@framebox=\box79
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
@@ -857,18 +831,18 @@ Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen325
-\captionmargin=\dimen326
-\caption@leftmargin=\dimen327
-\caption@rightmargin=\dimen328
-\caption@width=\dimen329
-\caption@indent=\dimen330
-\caption@parindent=\dimen331
-\caption@hangindent=\dimen332
+\caption@tempdima=\dimen322
+\captionmargin=\dimen323
+\caption@leftmargin=\dimen324
+\caption@rightmargin=\dimen325
+\caption@width=\dimen326
+\caption@indent=\dimen327
+\caption@parindent=\dimen328
+\caption@hangindent=\dimen329
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count361
-\c@continuedfloat=\count362
+\c@caption@flags=\count350
+\c@continuedfloat=\count351
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
@@ -893,7 +867,7 @@ Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode not found.
+Package pdftexcmds Info: \pdfdraftmode found.
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
@@ -902,7 +876,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count363
+\lrq@indent=\count352
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -911,49 +885,49 @@ File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-\c@tabx@nest=\count364
-\c@listtotal=\count365
-\c@listcount=\count366
-\c@liststart=\count367
-\c@liststop=\count368
-\c@citecount=\count369
-\c@citetotal=\count370
-\c@multicitecount=\count371
-\c@multicitetotal=\count372
-\c@instcount=\count373
-\c@maxnames=\count374
-\c@minnames=\count375
-\c@maxitems=\count376
-\c@minitems=\count377
-\c@citecounter=\count378
-\c@maxcitecounter=\count379
-\c@savedcitecounter=\count380
-\c@uniquelist=\count381
-\c@uniquename=\count382
-\c@refsection=\count383
-\c@refsegment=\count384
-\c@maxextratitle=\count385
-\c@maxextratitleyear=\count386
-\c@maxextraname=\count387
-\c@maxextradate=\count388
-\c@maxextraalpha=\count389
-\c@abbrvpenalty=\count390
-\c@highnamepenalty=\count391
-\c@lownamepenalty=\count392
-\c@maxparens=\count393
-\c@parenlevel=\count394
-\blx@tempcnta=\count395
-\blx@tempcntb=\count396
-\blx@tempcntc=\count397
-\c@blx@maxsection=\count398
-\blx@maxsegment@0=\count399
-\blx@notetype=\count400
-\blx@parenlevel@text=\count401
-\blx@parenlevel@foot=\count402
-\blx@sectionciteorder@0=\count403
-\blx@sectionciteorderinternal@0=\count404
-\blx@entrysetcounter=\count405
-\blx@biblioinstance=\count406
+\c@tabx@nest=\count353
+\c@listtotal=\count354
+\c@listcount=\count355
+\c@liststart=\count356
+\c@liststop=\count357
+\c@citecount=\count358
+\c@citetotal=\count359
+\c@multicitecount=\count360
+\c@multicitetotal=\count361
+\c@instcount=\count362
+\c@maxnames=\count363
+\c@minnames=\count364
+\c@maxitems=\count365
+\c@minitems=\count366
+\c@citecounter=\count367
+\c@maxcitecounter=\count368
+\c@savedcitecounter=\count369
+\c@uniquelist=\count370
+\c@uniquename=\count371
+\c@refsection=\count372
+\c@refsegment=\count373
+\c@maxextratitle=\count374
+\c@maxextratitleyear=\count375
+\c@maxextraname=\count376
+\c@maxextradate=\count377
+\c@maxextraalpha=\count378
+\c@abbrvpenalty=\count379
+\c@highnamepenalty=\count380
+\c@lownamepenalty=\count381
+\c@maxparens=\count382
+\c@parenlevel=\count383
+\blx@tempcnta=\count384
+\blx@tempcntb=\count385
+\blx@tempcntc=\count386
+\c@blx@maxsection=\count387
+\blx@maxsegment@0=\count388
+\blx@notetype=\count389
+\blx@parenlevel@text=\count390
+\blx@parenlevel@foot=\count391
+\blx@sectionciteorder@0=\count392
+\blx@sectionciteorderinternal@0=\count393
+\blx@entrysetcounter=\count394
+\blx@biblioinstance=\count395
 \labelnumberwidth=\skip77
 \labelalphawidth=\skip78
 \biblabelsep=\skip79
@@ -965,9 +939,9 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@bcfin=\read4
 \blx@bcfout=\write4
 \blx@langwohyphens=\language79
-\c@mincomprange=\count407
-\c@maxcomprange=\count408
-\c@mincompwidth=\count409
+\c@mincomprange=\count396
+\c@maxcomprange=\count397
+\c@mincompwidth=\count398
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -982,84 +956,84 @@ File: apa.dbx 2025/08/27 v9.20 APA biblatex style data model
 )
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count410
-\c@savedafterword=\count411
-\c@annotator=\count412
-\c@savedannotator=\count413
-\c@author=\count414
-\c@savedauthor=\count415
-\c@bookauthor=\count416
-\c@savedbookauthor=\count417
-\c@commentator=\count418
-\c@savedcommentator=\count419
-\c@editor=\count420
-\c@savededitor=\count421
-\c@editora=\count422
-\c@savededitora=\count423
-\c@editorb=\count424
-\c@savededitorb=\count425
-\c@editorc=\count426
-\c@savededitorc=\count427
-\c@foreword=\count428
-\c@savedforeword=\count429
-\c@holder=\count430
-\c@savedholder=\count431
-\c@introduction=\count432
-\c@savedintroduction=\count433
-\c@namea=\count434
-\c@savednamea=\count435
-\c@nameb=\count436
-\c@savednameb=\count437
-\c@namec=\count438
-\c@savednamec=\count439
-\c@translator=\count440
-\c@savedtranslator=\count441
-\c@shortauthor=\count442
-\c@savedshortauthor=\count443
-\c@shorteditor=\count444
-\c@savedshorteditor=\count445
-\c@narrator=\count446
-\c@savednarrator=\count447
-\c@execproducer=\count448
-\c@savedexecproducer=\count449
-\c@execdirector=\count450
-\c@savedexecdirector=\count451
-\c@with=\count452
-\c@savedwith=\count453
-\c@labelname=\count454
-\c@savedlabelname=\count455
-\c@institution=\count456
-\c@savedinstitution=\count457
-\c@lista=\count458
-\c@savedlista=\count459
-\c@listb=\count460
-\c@savedlistb=\count461
-\c@listc=\count462
-\c@savedlistc=\count463
-\c@listd=\count464
-\c@savedlistd=\count465
-\c@liste=\count466
-\c@savedliste=\count467
-\c@listf=\count468
-\c@savedlistf=\count469
-\c@location=\count470
-\c@savedlocation=\count471
-\c@organization=\count472
-\c@savedorganization=\count473
-\c@origlocation=\count474
-\c@savedoriglocation=\count475
-\c@origpublisher=\count476
-\c@savedorigpublisher=\count477
-\c@publisher=\count478
-\c@savedpublisher=\count479
-\c@language=\count480
-\c@savedlanguage=\count481
-\c@origlanguage=\count482
-\c@savedoriglanguage=\count483
-\c@citation=\count484
-\c@savedcitation=\count485
-\c@pageref=\count486
-\c@savedpageref=\count487
+\c@afterword=\count399
+\c@savedafterword=\count400
+\c@annotator=\count401
+\c@savedannotator=\count402
+\c@author=\count403
+\c@savedauthor=\count404
+\c@bookauthor=\count405
+\c@savedbookauthor=\count406
+\c@commentator=\count407
+\c@savedcommentator=\count408
+\c@editor=\count409
+\c@savededitor=\count410
+\c@editora=\count411
+\c@savededitora=\count412
+\c@editorb=\count413
+\c@savededitorb=\count414
+\c@editorc=\count415
+\c@savededitorc=\count416
+\c@foreword=\count417
+\c@savedforeword=\count418
+\c@holder=\count419
+\c@savedholder=\count420
+\c@introduction=\count421
+\c@savedintroduction=\count422
+\c@namea=\count423
+\c@savednamea=\count424
+\c@nameb=\count425
+\c@savednameb=\count426
+\c@namec=\count427
+\c@savednamec=\count428
+\c@translator=\count429
+\c@savedtranslator=\count430
+\c@shortauthor=\count431
+\c@savedshortauthor=\count432
+\c@shorteditor=\count433
+\c@savedshorteditor=\count434
+\c@narrator=\count435
+\c@savednarrator=\count436
+\c@execproducer=\count437
+\c@savedexecproducer=\count438
+\c@execdirector=\count439
+\c@savedexecdirector=\count440
+\c@with=\count441
+\c@savedwith=\count442
+\c@labelname=\count443
+\c@savedlabelname=\count444
+\c@institution=\count445
+\c@savedinstitution=\count446
+\c@lista=\count447
+\c@savedlista=\count448
+\c@listb=\count449
+\c@savedlistb=\count450
+\c@listc=\count451
+\c@savedlistc=\count452
+\c@listd=\count453
+\c@savedlistd=\count454
+\c@liste=\count455
+\c@savedliste=\count456
+\c@listf=\count457
+\c@savedlistf=\count458
+\c@location=\count459
+\c@savedlocation=\count460
+\c@organization=\count461
+\c@savedorganization=\count462
+\c@origlocation=\count463
+\c@savedoriglocation=\count464
+\c@origpublisher=\count465
+\c@savedorigpublisher=\count466
+\c@publisher=\count467
+\c@savedpublisher=\count468
+\c@language=\count469
+\c@savedlanguage=\count470
+\c@origlanguage=\count471
+\c@savedoriglanguage=\count472
+\c@citation=\count473
+\c@savedcitation=\count474
+\c@pageref=\count475
+\c@savedpageref=\count476
 \shorthandwidth=\skip85
 \shortjournalwidth=\skip86
 \shortserieswidth=\skip87
@@ -1074,11 +1048,6 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \localshorttitlewidth=\skip96
 \localshortauthorwidth=\skip97
 \localshorteditorwidth=\skip98
-Package biblatex Info: Trying to load enhanced support for Unicode engines...
-Package biblatex Info: ... file 'blx-unicode.def' found.
-
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-unicode.de
-f)
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -1089,19 +1058,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
 File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-\c@textcitecount=\count488
-\c@textcitetotal=\count489
-\c@textcitemaxnames=\count490
-\c@biburlbigbreakpenalty=\count491
-\c@biburlbreakpenalty=\count492
-\c@biburlnumpenalty=\count493
-\c@biburlucpenalty=\count494
-\c@biburllcpenalty=\count495
+\c@textcitecount=\count477
+\c@textcitetotal=\count478
+\c@textcitemaxnames=\count479
+\c@biburlbigbreakpenalty=\count480
+\c@biburlbreakpenalty=\count481
+\c@biburlnumpenalty=\count482
+\c@biburlucpenalty=\count483
+\c@biburllcpenalty=\count484
 \biburlbigskip=\muskip19
 \biburlnumskip=\muskip20
 \biburlucskip=\muskip21
 \biburllcskip=\muskip22
-\c@smartand=\count496
+\c@smartand=\count485
 )
 Package biblatex Info: Trying to load bibliography style 'apa'...
 Package biblatex Info: ... file 'apa.bbx' found.
@@ -1113,8 +1082,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
 bx
 File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count497
-\c@bbx:relatedtotal=\count498
+\c@bbx:relatedcount=\count486
+\c@bbx:relatedtotal=\count487
 )
 Package biblatex Info: Delimiter 'nameyeardelim' in context 'bib' already defin
 ed, overwriting.
@@ -1156,8 +1125,7 @@ Package biblatex Info: ... file 'biblatex.cfg' found.
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.cfg
 File: biblatex.cfg 
 )
-Package biblatex Info: XeTeX detected.
-(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
 Package biblatex Info: ... and expl3
 (biblatex)             2026-07-20 L3 programming layer (loader) 
@@ -1172,11 +1140,11 @@ Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \enitkv@toks@=\toks50
 \labelindent=\skip99
-\enit@outerparindent=\dimen333
+\enit@outerparindent=\dimen330
 \enit@toks=\toks51
 \enit@inbox=\box80
-\enit@count@id=\count499
-\enitdp@description=\count500
+\enit@count@id=\count488
+\enitdp@description=\count489
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2026-06-17 v7.01r Hypertext links for LaTeX
@@ -1200,24 +1168,28 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count501
+\c@section@level=\count490
 )
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
 ty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen334
-\Hy@linkcounter=\count502
-\Hy@pagecounter=\count503
+\@linkdim=\dimen331
+\Hy@linkcounter=\count491
+\Hy@pagecounter=\count492
  (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-06-17 v7.01r Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 ) (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count504
+\Hy@SavedSpaceFactor=\count493
  (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-06-17 v7.01r Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 4070.
 Package hyperref Info: Hyper figures OFF on input line 4199.
@@ -1227,9 +1199,9 @@ Package hyperref Info: Plain pages OFF on input line 4214.
 Package hyperref Info: Backreferencing OFF on input line 4219.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4466.
-\c@Hy@tempcnt=\count505
+\c@Hy@tempcnt=\count494
 LaTeX Info: Redefining \url on input line 4805.
-\XeTeXLinkMargin=\dimen335
+\XeTeXLinkMargin=\dimen332
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -1239,9 +1211,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count506
-\Field@Width=\dimen336
-\Fld@charsize=\dimen337
+\Fld@menulength=\count495
+\Field@Width=\dimen333
+\Fld@charsize=\dimen334
 Package hyperref Info: Hyper figures OFF on input line 6091.
 Package hyperref Info: Link nesting OFF on input line 6096.
 Package hyperref Info: Hyper index ON on input line 6099.
@@ -1249,19 +1221,16 @@ Package hyperref Info: backreferencing OFF on input line 6106.
 Package hyperref Info: Link coloring ON on input line 6109.
 Package hyperref Info: Link coloring with OCG OFF on input line 6116.
 Package hyperref Info: PDF/A mode OFF on input line 6121.
-\Hy@abspage=\count507
-\c@Item=\count508
-\c@Hfootnote=\count509
+\Hy@abspage=\count496
+\c@Item=\count497
+\c@Hfootnote=\count498
 )
-Package hyperref Info: Driver (autodetected): hxetex.
+Package hyperref Info: Driver (autodetected): hpdftex.
 
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hxetex.def
-File: hxetex.def 2026-06-17 v7.01r Hyperref driver for XeTeX
-\pdfm@box=\box81
-\c@Hy@AnnotLevel=\count510
-\HyField@AnnotCount=\count511
-\Fld@listcount=\count512
-\c@bookmark@seq@number=\count513
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2026-06-17 v7.01r Hyperref driver for pdfTeX
+\Fld@listcount=\count499
+\c@bookmark@seq@number=\count500
 
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -1279,118 +1248,18 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/tools\indentfirst.sty
 Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
 )
-(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\TeXGyreTermesX.fo
-ntspec)
+LaTeX Font Info:    Trying to load font information for T1+ntxtlf on input line
+ 190.
 
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Bold scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Bold scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Italic scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Italic scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Slanted scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-Slanted scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-BoldItalic scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-BoldItalic scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-BoldSlanted scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             TeXGyreTermesX-BoldSlanted scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             Font family 'TeXGyreTermesX(0)' created for font
-(fontspec)             'TeXGyreTermesX' with options [Ligatures = TeX,Scale =
-(fontspec)             1,Extension = .otf,SmallCapsFeatures={RawFeature =
-(fontspec)             +pcap},RawFeature=-ss05,Ligatures=TeX,Extension =
-(fontspec)             .otf,UprightFont = TeXGyreTermesX-Regular,BoldFont =
-(fontspec)             TeXGyreTermesX-Bold,ItalicFont =
-(fontspec)             TeXGyreTermesX-Italic,BoldItalicFont =
-(fontspec)             TeXGyreTermesX-BoldItalic,SlantedFont =
-(fontspec)             *-Slanted,BoldSlantedFont= *-BoldSlanted,Numbers =
-(fontspec)             {Monospaced,Lining}].
-(fontspec)              
-(fontspec)              This font family consists of the following NFSS
-(fontspec)             series/shapes:
-(fontspec)              
-(fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Regular.otf]/OT:script=latn;lan
-guage=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Regular.otf]/OT:script=latn;lan
-guage=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-(fontspec)             - 'bold' (b/n) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Bold.otf]/OT:script=latn;langua
-ge=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Bold.otf]/OT:script=latn;langua
-ge=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-(fontspec)             - 'italic' (m/it) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Italic.otf]/OT:script=latn;lang
-uage=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Italic.otf]/OT:script=latn;lang
-uage=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-(fontspec)             - 'slanted' (m/sl) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Slanted.otf]/OT:script=latn;lan
-guage=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'slanted small caps'  (m/scsl) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-Slanted.otf]/OT:script=latn;lan
-guage=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;
-language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;
-language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-(fontspec)             - 'bold slanted' (b/sl) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn
-;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;"
-(fontspec)             - 'bold slanted small caps'  (b/scsl) with NFSS spec.:
-(fontspec)             <->s*[1]"[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn
-;language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;"
-
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\t1ntxtlf.fd
+File: t1ntxtlf.fd 2021/05/24 v1.1 font definition file for T1/ntx/tlf
+)
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 12.0pt on input line 190.
-\@quotelevel=\count514
-\@quotereset=\count515
- (main.aux)
+\@quotelevel=\count501
+\@quotereset=\count502
+
+(main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 190.
@@ -1408,8 +1277,6 @@ LaTeX Font Info:    ... okay on input line 190.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 190.
 LaTeX Font Info:    ... okay on input line 190.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 190.
-LaTeX Font Info:    ... okay on input line 190.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 190.
 LaTeX Font Info:    ... okay on input line 190.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 190.
 LaTeX Font Info:    ... okay on input line 190.
@@ -1441,13 +1308,41 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 190.
 LaTeX Font Info:    ... okay on input line 190.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 190.
 LaTeX Font Info:    ... okay on input line 190.
+
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count503
+\scratchdimen=\dimen335
+\scratchbox=\box81
+\nofMPsegments=\count504
+\nofMParguments=\count505
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count506
+\MPscratchDim=\dimen336
+\MPnumerator=\count507
+\makeMPintoPDFobject=\count508
+\everyMPtoPDFconversion=\toks53
+)
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+\c@mv@tabular=\count509
+\c@mv@boldtabular=\count510
 LaTeX Info: Command `\dddot' is already robust on input line 190.
 LaTeX Info: Command `\ddddot' is already robust on input line 190.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: xetex
+*geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
-* driver: xetex
+* driver: pdftex
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -1478,7 +1373,7 @@ LaTeX Info: Command `\ddddot' is already robust on input line 190.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count516
+\c@lstlisting=\count511
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -1514,8 +1409,7 @@ Package biblatex Info: ... file 'english.lbx' found.
 x
 File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
 ))))
-Package biblatex Info: XeTeX detected.
-(biblatex)             Assuming input encoding 'utf8'.
+Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
 \openout4 = `main.bcf'.
@@ -1531,13 +1425,13 @@ Package hyperref Info: Link coloring ON on input line 190.
 \openout5 = `main.out'.
 
  (thesis_cover.tex
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 17.28pt on input line 8.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 17.28pt on input line 8.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 14.4pt on input line 11.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Trying to load font information for OT1+minntx on input lin
 e 21.
@@ -1614,11 +1508,13 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 )
 [1
 
-] [1
+{C:/Users/wayad/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/waya
+d/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}]
+[1
 
 
 ]
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 12.0pt on input line 222.
  [2
 
@@ -1675,7 +1571,8 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
  [3
 
 
-] (main.toc [4
+{C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newtx/ntx-ot1-tlf
+.enc}] (main.toc [4
 
 
 ])
@@ -1690,23 +1587,27 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 
 
 ] (main.lot
-Overfull \hbox (4.87946pt too wide) in paragraph at lines 7--7
- \TU/TeXGyreTermesX(0)/m/n/12 Versions match $[][][][][][][][] [] [][][][][][][
-] [] [][][][]$; $[][][][][][][][][][][][]$ lists the latest 1.6.x 
- []
+LaTeX Font Info:    Trying to load font information for T1+ntxtt on input line 
+7.
 
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\t1ntxtt.fd
+File: t1ntxtt.fd 2012/04/20 v3.1
+)
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 12.0pt on input line 7.
 )
 \tf@lot=\write8
 \openout8 = `main.lot'.
 
- [7
+
+[7
 
 
 ]
 Chapter 1.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 8.8pt on input line 296.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 10.0pt on input line 296.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
 (Font)              scaled to size 10.0pt on input line 296.
@@ -1756,139 +1657,97 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 7.3pt on input line 296.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 5.5pt on input line 296.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 7.3pt on input line 296.
 
-Overfull \hbox (10.0303pt too wide) in paragraph at lines 298--299
-\TU/TeXGyreTermesX(0)/m/n/12 ports incremental adoption: teams can apply the fe
-ature-based folder structure and Server/Client
- []
-
-[1
-
-
-]
-Overfull \hbox (4.01566pt too wide) in paragraph at lines 306--307
-\TU/TeXGyreTermesX(0)/m/n/12 React meta-frameworks ([]Vercel, [][]2024[][]); St
-ack Overflow’s annual Developer Survey has tracked
- []
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.300 ...lem: AI Convention Violations in Next.js}
+                                                   [1
 
 
-Overfull \hbox (3.06712pt too wide) in paragraph at lines 312--313
-[]\TU/TeXGyreTermesX(0)/m/n/12 The primary motivation of this thesis is to brid
-ge this gap by designing a three-dimensional
- []
+] [2]
+LaTeX Font Info:    Trying to load font information for TS1+ntxtlf on input lin
+e 317.
 
-[2]
-Overfull \hbox (3.65431pt too wide) in paragraph at lines 365--368
-\TU/TeXGyreTermesX(0)/m/n/12 against a feature-specific checklist and produce a
- 0–5 per-run score that reflects required-
- []
-
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
+(C:\Users\wayad\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ts1ntxtlf.fd
+File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
+)
+LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
+(Font)              scaled to size 12.0pt on input line 317.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
 (Font)              scaled to size 12.0pt on input line 374.
-[3]
-Overfull \hbox (13.07433pt too wide) in paragraph at lines 405--406
-\TU/TeXGyreTermesX(0)/m/n/12 source Next.js boilerplate demonstrating feature-b
-ased modularity, explicit Server/Client bound-
- []
 
-[4]
+[3{C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ts1.
+enc}] [4]
+<figs/fig-motivated-example.pdf, id=473, 351.29742pt x 298.3426pt>
 File: figs/fig-motivated-example.pdf Graphic file (type pdf)
 <use figs/fig-motivated-example.pdf>
+Package pdftex.def Info: figs/fig-motivated-example.pdf  used on input line 409
+.
+(pdftex.def)             Requested size: 388.09775pt x 329.6073pt.
+<figs/fig-evaluation-framework.pdf, id=475, 425.44746pt x 440.24776pt>
 File: figs/fig-evaluation-framework.pdf Graphic file (type pdf)
 <use figs/fig-evaluation-framework.pdf>
- [5] [6] [7]
+Package pdftex.def Info: figs/fig-evaluation-framework.pdf  used on input line 
+420.
+(pdftex.def)             Requested size: 388.09775pt x 401.60686pt.
+ [5 <./figs/fig-motivated-example.pdf>] [6 <./figs/fig-evaluation-framework.pdf
+>] [7]
 Chapter 2.
-
-Overfull \hbox (26.62582pt too wide) in paragraph at lines 450--451
-[]\TU/TeXGyreTermesX(0)/m/n/12 These assistants share common architectural elem
-ents. They process code through transformer-
- []
-
-
-Overfull \hbox (3.89015pt too wide) in paragraph at lines 454--455
-[]\TU/TeXGyreTermesX(0)/m/n/12 The task taxonomy for AI suitability shows that 
-boilerplate generation represents a strength
- []
-
 [8
 
 ] [9]
 Chapter 3.
 [10
 
-] [11] [12]
-Overfull \hbox (14.16179pt too wide) in paragraph at lines 533--534
-[]\TU/TeXGyreTermesX(0)/b/n/12 Prompting strategies \TU/TeXGyreTermesX(0)/m/n/1
-2 represent the most lightweight alternative. Enhanced system prompts,
- []
-
-[13]
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+] [11] [12] [13]
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.0pt on input line 553.
 
 Underfull \hbox (badness 10000) in paragraph at lines 555--555
-[]|\TU/TeXGyreTermesX(0)/m/n/10 Feature-based
+[]|\T1/ntxtlf/m/n/10 Feature-based
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 556--556
-[]|\TU/TeXGyreTermesX(0)/m/n/10 Server/Client
+[]|\T1/ntxtlf/m/n/10 Server/Client
  []
 
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 10.0pt on input line 556.
 
-Overfull \hbox (2.76723pt too wide) in paragraph at lines 558--558
- []|$[][][][][][][][]$$[][][][]$| 
+Overfull \hbox (2.76706pt too wide) in paragraph at lines 558--558
+ []|$\T1/ntxtt/m/n/10 better-[]$$auth$| 
  []
 
-[14]
+[14] [15]
 Chapter 4.
-
-Overfull \hbox (0.22215pt too wide) in paragraph at lines 588--589
-\TU/TeXGyreTermesX(0)/m/n/12 SmartKit uses Zod schemas, defined once in $[][][]
-[][][][][] [] [][][][][][] [][] [][][][][][][]$, parsed at the server
- []
-
-[15
+[16
 
 ]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 604.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 10.95pt on input line 604.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 10.95pt on input line 605.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 6.0pt on input line 605.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.95pt on input line 611.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
 (Font)              scaled to size 10.95pt on input line 611.
 
-Overfull \hbox (4.1378pt too wide) in paragraph at lines 619--621
-[]\TU/TeXGyreTermesX(0)/m/n/12 Server/Client boundaries affect data flow design
-. Server Components can access databases
+Overfull \hbox (2.6025pt too wide) in paragraph at lines 619--621
+[]\T1/ntxtlf/m/n/12 Server/Client bound-aries af-fect data flow de-sign. Server
+ Com-po-nents can ac-cess databases
  []
 
-[16]
-Overfull \hbox (10.82913pt too wide) in paragraph at lines 661--662
-[]\TU/TeXGyreTermesX(0)/m/n/12 SmartKit uses Drizzle ORM with PostgreSQL to pro
-vide type-safe database access through-
- []
-
-[17] [18]
+[17] [18] [19]
 Chapter 5.
-
-Overfull \hbox (3.00897pt too wide) in paragraph at lines 687--688
-[]\TU/TeXGyreTermesX(0)/b/n/12 Type-safe contracts at the boundary. \TU/TeXGyre
-TermesX(0)/m/n/12 TypeScript 5.7 strict mode provides the compile-
- []
-
-
-Overfull \hbox (0.65022pt too wide) in paragraph at lines 687--688
-\TU/TeXGyreTermesX(0)/m/n/12 time signal that Type & Contract Safety reads from
- $[][][][][][][][][][][][][]$, while Zod 4 schemas
- []
-
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
 (Font)              scaled to size 10.95pt on input line 701.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
@@ -1937,384 +1796,186 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 8.0pt on input line 701.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 6.1pt on input line 701.
-[19
+[20
 
-] [20]
-Overfull \hbox (15.33022pt too wide) in paragraph at lines 752--753
-\TU/TeXGyreTermesX(0)/m/n/12 sition that the Structural Integrity rubric inspec
-ts (server-only imports, $[][][][][][][][][][][][][][]$directives,
- []
-
-
-Overfull \hbox (28.70197pt too wide) in paragraph at lines 754--755
-\TU/TeXGyreTermesX(0)/m/n/12 tions graph in $[][][][][][][][][] [] [][]$, and t
-he billing tables ($[][][][][][][] [] [][]$ with $[][][][][][][] [] [][][][][][
-][][][][][][][]$)
- []
-
-
-Overfull \hbox (16.86214pt too wide) in paragraph at lines 760--761
-[][][][][][][][][][][] [] [][][][] [] [][]$\TU/TeXGyreTermesX(0)/m/n/12 , insid
-e $[][][][]$, in line with the centralized-test convention in AGENTS.md.
- []
-
-[21] [22]
+] [21] [22] [23]
 Chapter 6.
+[24
 
-Overfull \hbox (124.72595pt too wide) in paragraph at lines 796--797
-\TU/TeXGyreTermesX(0)/m/it/12 sub-score \TU/TeXGyreTermesX(0)/m/n/12 focuses on
- compile-time checks: $[][][][][][][][][][][][][]$ error counts and $[][][][][]
-[][][][][][][][][][][][][][][]$$[][][][][][][][][][][][][][][][][]$
- []
-
-[23
-
-]
-Overfull \hbox (6.35687pt too wide) in paragraph at lines 798--799
-\TU/TeXGyreTermesX(0)/m/n/12 sary artifacts for a functional feature. Table [][
-]6.1[][] shows the reference checklist for the $[][][][][][][][][]$
- []
-
-[24]
+] [25]
 Underfull \hbox (badness 10000) in paragraph at lines 820--820
-[]|\TU/TeXGyreTermesX(0)/m/n/10 Zod schema and
+[]|\T1/ntxtlf/m/n/10 Zod schema and
  []
 
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/it' will be
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
 (Font)              scaled to size 10.0pt on input line 828.
-[25]
-Overfull \hbox (18.02922pt too wide) in paragraph at lines 845--846
-[][][][] [] [][][][][][][]$\TU/TeXGyreTermesX(0)/m/n/12 ) that the AI can use a
-s pattern-matching anchors beyond the explicit AGENTS.md
+[26] [27]
+Underfull \hbox (badness 5696) in paragraph at lines 881--882
+[]|\T1/ntxtlf/m/n/10.95 SmartKit (Next.js 16, Driz-zle,
  []
 
 
-Overfull \hbox (3.99232pt too wide) in paragraph at lines 845--846
-\TU/TeXGyreTermesX(0)/m/n/12 (Next.js 16.2.12, TypeScript 5.7.3, Tailwind CSS 4
-.3.3, Drizzle ORM 0.45.2 with PostgreSQL,
- []
-
-
-Overfull \hbox (3.65681pt too wide) in paragraph at lines 845--846
-\TU/TeXGyreTermesX(0)/m/n/12 git history and are not duplicated in the bound th
-esis. The pilot feature ($[][][][][][][][][][][][][][][][][] [][]
- []
-
-
-Overfull \hbox (24.10632pt too wide) in paragraph at lines 851--852
-\TU/TeXGyreTermesX(0)/m/it/12 tegrity \TU/TeXGyreTermesX(0)/m/n/12 uses Biome c
-ustom rules to check Next.js-specific file placement, naming, and Server/Client
-
- []
-
-
-Overfull \hbox (5.34583pt too wide) in paragraph at lines 853--854
-[]\TU/TeXGyreTermesX(0)/m/n/12 Qualitative metrics derive from expert review of
- generated code. Reviewers assess whether
- []
-
-
-Overfull \hbox (9.38312pt too wide) in paragraph at lines 855--856
-[]\TU/TeXGyreTermesX(0)/m/n/12 Productivity metrics such as diff authoring time
- and developer-reported productivity ([]Beller
- []
-
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 881--882
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 SmartKit (Next.js 16, Drizzle,
+Underfull \hbox (badness 7308) in paragraph at lines 882--882
+[]|\T1/ntxtlf/m/n/10.95 create-next-app scaf-fold + full
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 882--882
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 create-next-app scaffold + full
+\T1/ntxtlf/m/n/10.95 SmartKit de-pen-dency sur-face
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 882--882
-\TU/TeXGyreTermesX(0)/m/n/10.95 SmartKit dependency surface
+Underfull \hbox (badness 7273) in paragraph at lines 882--882
+\T1/ntxtlf/m/n/10.95 (Next.js 16, Type-Script, Tail-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 882--882
-\TU/TeXGyreTermesX(0)/m/n/10.95 (Next.js 16, TypeScript, Tail-
+Underfull \hbox (badness 4403) in paragraph at lines 882--882
+\T1/ntxtlf/m/n/10.95 no $\T1/ntxtt/m/n/10.95 src / features/$ \T1/ntxtlf/m/n/10
+.95 lay-out, no
  []
 
 
-Underfull \hbox (badness 1874) in paragraph at lines 882--882
-\TU/TeXGyreTermesX(0)/m/n/10.95 Zod 4.4.3, Resend, Better Auth);
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 882--882
-\TU/TeXGyreTermesX(0)/m/n/10.95 no $[][][] [] [][][][][][][][][]$ layout, no
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 884--885
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Convention
+Underfull \hbox (badness 3078) in paragraph at lines 884--885
+[]|\T1/ntxtlf/m/n/10.95 Convention en-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 885--886
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 FSD $[][][] [] [][][][][][][][] [] [][][][][
-][] [][] []$,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 885--886
-\TU/TeXGyreTermesX(0)/m/n/10.95 AGENTS.md, $[][][][][][][][][][][][]$,
- []
-
-
-Underfull \hbox (badness 1584) in paragraph at lines 885--886
-\TU/TeXGyreTermesX(0)/m/n/10.95 colocated Zod in $[][][][][][]$, Server
+[]|\T1/ntxtlf/m/n/10.95 FSD $\T1/ntxtt/m/n/10.95 src / features / <[]name >[] /
+$\T1/ntxtlf/m/n/10.95 ,
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 886--886
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 No AGENTS.md, no
+[]|\T1/ntxtlf/m/n/10.95 No AGENTS.md, no
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 886--886
-[][][] [] [][][][][][][][][]$\TU/TeXGyreTermesX(0)/m/n/10.95 , flat $[][][][]$ 
-at
+Underfull \hbox (badness 6592) in paragraph at lines 886--886
+\T1/ntxtt/m/n/10.95 src / features/$\T1/ntxtlf/m/n/10.95 , flat $\T1/ntxtt/m/n/
+10.95 lib/$ \T1/ntxtlf/m/n/10.95 at
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 889--890
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Feature-scoped: $[][][][][][][][][][][]$,
+[]|\T1/ntxtlf/m/n/10.95 Feature-scoped: $\T1/ntxtt/m/n/10.95 components/$\T1/nt
+xtlf/m/n/10.95 ,
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 890--890
-[]|$[][][][]$ \TU/TeXGyreTermesX(0)/m/n/10.95 (pages), $[][][][]$ (flat),
+[]|$\T1/ntxtt/m/n/10.95 app/$ \T1/ntxtlf/m/n/10.95 (pages), $\T1/ntxtt/m/n/10.9
+5 lib/$ \T1/ntxtlf/m/n/10.95 (flat),
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 893--894
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Sees existing $[][][][][][][][] [] [][][][][
-]$,
+Underfull \hbox (badness 5274) in paragraph at lines 893--894
+[]|\T1/ntxtlf/m/n/10.95 Sees ex-ist-ing $\T1/ntxtt/m/n/10.95 features / auth/$\
+T1/ntxtlf/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 893--894
-[][][][][][][][] [] [][][][][][][][]$ \TU/TeXGyreTermesX(0)/m/n/10.95 patterns;
-
- []
-
-
-Underfull \hbox (badness 1735) in paragraph at lines 894--894
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Sees only $[][][][][][][][][][][][][][][][][
-]$ de-
- []
-
-
-Underfull \hbox (badness 7099) in paragraph at lines 894--894
-\TU/TeXGyreTermesX(0)/m/n/10.95 fault plus env placeholders; no
+Underfull \hbox (badness 1728) in paragraph at lines 894--894
+\T1/ntxtlf/m/n/10.95 fault plus env place-hold-ers; no
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 897--898
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Generate $[][][][][][][][][][][][][][][][][]
- [][]
+[]|\T1/ntxtlf/m/n/10.95 Generate $\T1/ntxtt/m/n/10.95 isEnabled(flagKey ,[]
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 897--898
-[][][][][][] [] []$ \TU/TeXGyreTermesX(0)/m/n/10.95 utility + Zod
+\T1/ntxtt/m/n/10.95 userId ? )$ \T1/ntxtlf/m/n/10.95 util-ity + Zod
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 897--898
-\TU/TeXGyreTermesX(0)/m/n/10.95 schema + centralized test at
+\T1/ntxtlf/m/n/10.95 schema + cen-tral-ized test at
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 898--898
-[]|\TU/TeXGyreTermesX(0)/m/n/10.95 Generate same
+[]|\T1/ntxtlf/m/n/10.95 Generate same
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 898--898
-[][][][][][][][][][][][][][][][][] [][] [][][][][][] [] []$
- []
-
-[27]
-Overfull \hbox (4.02776pt too wide) in paragraph at lines 904--905
-\TU/TeXGyreTermesX(0)/m/n/12 out, and AI tool context. Existing example feature
-s ($[][][][][][][][] [] [][][][][]$, $[][][][][][][][] [] [][][][][][][][]$)
+\T1/ntxtt/m/n/10.95 isEnabled(flagKey ,[] userId ? )$
  []
 
 [28]
-Overfull \hbox (40.30228pt too wide) in paragraph at lines 948--949
-\TU/TeXGyreTermesX(0)/m/n/12 “for SmartKit”, “follow the feature-based layout”,
- “use $[][][][][][][]$ naming”, or “refer to AGENTS.md”).
- []
 
-[29]
-Underfull \hbox (badness 10000) in paragraph at lines 992--993
-[]|\TU/TeXGyreTermesX(0)/m/n/12 Level 3 + $[][][][][][][][][][][][]$ import pre
-sent in
- []
+LaTeX Warning: Reference `app:pre-registration' on page 29 undefined on input l
+ine 904.
 
-
-Underfull \hbox (badness 3128) in paragraph at lines 993--994
-[]|\TU/TeXGyreTermesX(0)/m/n/12 Level 4 + public API barrel $[][][][][][][][] [
-] [][][][][] []
- []
-
-[30]
-Underfull \hbox (badness 1584) in paragraph at lines 1017--1018
-[]|\TU/TeXGyreTermesX(0)/m/n/12 Level 4 + $[][][][][][][]$ is a \TU/TeXGyreTerm
-esX(0)/b/n/12 Zod-derived \TU/TeXGyreTermesX(0)/m/n/12 enum ($[] []
+[29] [30]
+Underfull \hbox (badness 1221) in paragraph at lines 993--994
+\T1/ntxtt/m/n/12 ts$ \T1/ntxtlf/m/n/12 (or colo-cated in an-other $\T1/ntxtt/m/
+n/12 features / <[]name >[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1033--1034
-[]|\TU/TeXGyreTermesX(0)/m/n/12 Validation exists but only as $[][][][][][][][]
-[] [] [] []
+Underfull \hbox (badness 4872) in paragraph at lines 994--995
+[]|\T1/ntxtlf/m/n/12 Level 3 + $\T1/ntxtt/m/n/12 server-[]only$ \T1/ntxtlf/m/n/
+12 im-port present in
  []
 
-
-Underfull \hbox (badness 1609) in paragraph at lines 1035--1036
-[]|\TU/TeXGyreTermesX(0)/m/n/12 Zod schema present in $[][][][][][][][] [] [][]
-[][][] [] [][][][][] []
+[31]
+Underfull \hbox (badness 4518) in paragraph at lines 1035--1036
+[]|\T1/ntxtlf/m/n/12 Validation ex-ists but only as $\T1/ntxtt/m/n/12 if(typeof
+ ! = =
  []
 
-[31] [32] [33]
-Overfull \hbox (10.2578pt too wide) in paragraph at lines 1100--1101
-[]\TU/TeXGyreTermesX(0)/b/n/12 Pilot output and adaptive schedule. \TU/TeXGyreT
-ermesX(0)/m/n/12 The pilot produced the frozen task prompt, generated-
- []
-
-[34]
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 1139.
+[32] [33] [34] [35]
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.0pt on input line 1141.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
+(Font)              scaled to size 6.0pt on input line 1143.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.0pt on input line 1141.
-LaTeX Font Info:    Font shape `TU/TeXGyreTermesX(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 1143.
-
-Overfull \hbox (0.26097pt too wide) in paragraph at lines 1161--1163
-\TU/TeXGyreTermesX(0)/m/n/12 column, \TU/lmtt/m/n/12 manual \TU/TeXGyreTermesX(
-0)/m/n/12 block for the man column). The Man Cov column reflects the \TU/TeXGyr
-eTermesX(0)/m/it/12 post-correction
- []
-
-[35] [36]
-Overfull \hbox (11.72496pt too wide) in paragraph at lines 1186--1187
-\TU/TeXGyreTermesX(0)/m/n/12 used. Condition A’s $\OT1/minntx/m/n/12 5\LMS/ntxs
-y/m/n/12 ^^9d\OT1/minntx/m/n/12 5$ \TU/TeXGyreTermesX(0)/m/n/12 prediction matc
-h on placement (centralized at ‘src/tests/features/flags/‘)
- []
-
-[37] [38]
-Overfull \hbox (1.81778pt too wide) in paragraph at lines 1235--1236
-[]\TU/TeXGyreTermesX(0)/b/n/12 Cross-framework transfer. \TU/TeXGyreTermesX(0)/
-m/n/12 The SmartKit implementation focuses exclusively on Next.js
- []
-
-[39] [40]
-Overfull \hbox (2.8298pt too wide) in paragraph at lines 1255--1256
-[]\TU/TeXGyreTermesX(0)/b/n/12 Protocol Deviations (Internal-Validity Subset). 
-\TU/TeXGyreTermesX(0)/m/n/12 Five protocol-affecting decisions bound
- []
-
-
-Overfull \hbox (9.93112pt too wide) in paragraph at lines 1257--1258
-[]\TU/TeXGyreTermesX(0)/b/n/12 Protocol-rule violation: N-extension and verdict
--rule shift exceeded permitted amend-
- []
-
-[41] [42]
+(Font)              scaled to size 6.0pt on input line 1143.
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 8.0pt on input line 1145.
+ [36] [37] [38] [39] [40] [41] [42] [43]
 Chapter 7.
 
-Overfull \hbox (37.69514pt too wide) in paragraph at lines 1273--1274
-[]\TU/TeXGyreTermesX(0)/m/n/12 This thesis proposes a three-dimensional evaluat
-ion framework (Structural Integrity, Type & Con-
+Overfull \hbox (0.70842pt too wide) in paragraph at lines 1286--1287
+[]\T1/ntxtlf/b/n/12 Protocol De-vi-a-tions. \T1/ntxtlf/m/n/12 Five protocol-aff
+ecting de-ci-sions bound how the within-condition
  []
 
+[44
 
-Overfull \hbox (2.46896pt too wide) in paragraph at lines 1283--1284
-[]\TU/TeXGyreTermesX(0)/b/n/12 Protocol Deviations. \TU/TeXGyreTermesX(0)/m/n/1
-2 Five protocol-affecting decisions bound how the within-condition
- []
-
-
-Overfull \hbox (1.3421pt too wide) in paragraph at lines 1283--1284
-[][][][][][][][][][][]$ \TU/TeXGyreTermesX(0)/m/n/12 rather than the originally
- intended $[][][][][][] [] [][][][][][][][][][]$), (iii) N-extension
- []
-
-[43
+] [45] [46] [47] [48
 
 ]
-Overfull \hbox (5.41699pt too wide) in paragraph at lines 1285--1286
-[]\TU/TeXGyreTermesX(0)/b/n/12 Bundled-effect limitation (DP2). \TU/TeXGyreTerm
-esX(0)/m/n/12 The confirmed DP2 verdict cannot distinguish “struc-
+Overfull \hbox (5.57109pt too wide) in paragraph at lines 1324--1324
+[][]\T1/ntxtlf/m/n/12 Nguyen-Duc, A., et al. (2025). Gen-er-a-tive ar-ti-fi-cia
+l in-tel-li-gence for soft-ware engineering---
  []
 
-
-Overfull \hbox (1.51964pt too wide) in paragraph at lines 1298--1299
-\TU/TeXGyreTermesX(0)/m/n/12 Next.js conventions; both effects remain to be mea
-sured against no-framework and competing-
- []
-
-[44]
-Overfull \hbox (45.21013pt too wide) in paragraph at lines 1300--1301
-\TU/TeXGyreTermesX(0)/m/n/12 based folder conventions, Next.js Server/Client bo
-undary directives ($[][][][][][][][][][][][][][]$and $[][][][][][][][][][][][]$
-
- []
-
-
-Overfull \hbox (9.61021pt too wide) in paragraph at lines 1304--1305
-\TU/TeXGyreTermesX(0)/m/n/12 and $[][][][][][][][][][][][]$ imports)—or if the 
-conventions are folded into mainstream documentation—
- []
-
-
-Overfull \hbox (3.90613pt too wide) in paragraph at lines 1311--1312
-[]\TU/TeXGyreTermesX(0)/m/n/12 Cross-tool evaluation will replicate the pilot u
-sing alternative AI coding assistants (GitHub
- []
-
-[45] [46] [47
-
-]
-Overfull \hbox (7.56819pt too wide) in paragraph at lines 1321--1321
-[][]\TU/TeXGyreTermesX(0)/m/n/12 Nguyen-Duc, A., et al. (2025). Generative arti
-ficial intelligence for software engineering—
- []
-
-[48]
-Overfull \hbox (38.04425pt too wide) in paragraph at lines 1321--1321
-\TU/TeXGyreTermesX(0)/m/n/12 nificant. \TU/TeXGyreTermesX(0)/m/it/12 Psychologi
-cal Science\TU/TeXGyreTermesX(0)/m/n/12 , \TU/TeXGyreTermesX(0)/m/it/12 22\TU/T
-eXGyreTermesX(0)/m/n/12 (11), 1359–1366. [][]$[][][][][] [] [] [] [][][] [] [][
-][] [] [][] [] [][][][] [] [][][][][][][][][][][][][][][][]$[][] 
- []
-
-[49] (main.aux)
+[49] [50] (main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2020/03/25>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 3192F0D0A3E7B640E98746A336CA9271;11677.
 Package logreq Info: Writing requests to 'main.run.xml'.
@@ -2322,12 +1983,40 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39057 strings out of 402619
- 761319 string characters out of 5438862
- 1970594 words of memory out of 5000000
- 67596 multiletter control sequences out of 15000+600000
- 682407 words of font info for 177 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 92i,12n,117p,2309b,5378s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 38344 strings out of 467500
+ 710263 string characters out of 5408529
+ 1870645 words of memory out of 5000000
+ 66690 multiletter control sequences out of 15000+600000
+ 741074 words of font info for 187 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 92i,12n,117p,2311b,5177s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewTXM
+I.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmbx8.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmbx9.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/wayad/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/wayad/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wayad/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/wayad/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users
+/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><
+C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmt
+i9.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmtt8.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmtt9.pfb><C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/latxfont/lcircle1.pfb><C:/Users/wayad/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/tex-gyre/qtmr.pfb><C:/Users/wayad/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/txfonts/t1xtt.pfb><C:/Users/wayad/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/newtx/txexs.pfb><C:/Users/wayad/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/newtx/txmiaX.pfb><C:/Users/wayad/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb><C:/Users/wayad/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmb.pfb><C:/Users/wayad/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmr.pfb><C:/Users/wayad/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmri.pfb>
+Output written on main.pdf (58 pages, 652266 bytes).
+PDF statistics:
+ 1259 PDF objects out of 1440 (max. 8388607)
+ 318 named destinations out of 1000 (max. 500000)
+ 543 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on main.pdf (57 pages).

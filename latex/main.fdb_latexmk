@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1789299781.00392 "main.bcf" "main.bbl" "main" 1789355560.53703 0
-  "main.bcf" 1789355560 137916 68bf1f9584701d46516c3a83ed5cae93 "pdflatex"
+["biber main"] 1789299781.00392 "main.bcf" "main.bbl" "main" 1789368730.06768 0
+  "main.bcf" 1789368729 137916 68bf1f9584701d46516c3a83ed5cae93 "pdflatex"
   "references.bib" 1789299076 13690 85e4b7756e4c7d195a7a831bb074cc35 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1789355556.909 "c:/Users/wayad/Documents/Thesis/latex/main.tex" "main.pdf" "main" 1789355560.5377 0
+["pdflatex"] 1789368725.96849 "c:/Users/wayad/Documents/Thesis/latex/main.tex" "main.pdf" "main" 1789368730.06842 0
   "C:/Users/wayad/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1789273157 163288 427e351fbf11aedb9837f7ba4bf3de77 ""
   "C:/Users/wayad/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1787840814 13367647 076038a78e7ae49396b50edf4cc16b02 ""
   "C:/Users/wayad/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1736607166 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
@@ -248,17 +248,17 @@
   "C:/Users/wayad/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/wayad/AppData/Local/Programs/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
   "C:/Users/wayad/AppData/Local/Programs/MiKTeX/tex/latex/xstring/xstring.sty" 1693735632 123 a302f2c651a95033260db60e51527ae8 ""
-  "c:/Users/wayad/Documents/Thesis/latex/main.tex" 1789355262 159652 4616eedd40058bd1d83d326644ef6aeb ""
+  "c:/Users/wayad/Documents/Thesis/latex/main.tex" 1789368725 165643 3fd577bad9d3328b4f46dc895c09ca3a ""
   "figs/fig-evaluation-framework.pdf" 1789034387 114752 dac97c6d85a3d88ff42d279217f48b5f ""
   "figs/fig-motivated-example.pdf" 1789034384 88060 2d790f3ab8f98d9a00e7db39cfe55901 ""
-  "main.aux" 1789355560 35444 9bb0f6108e245afa7e828dbd044a6db5 "pdflatex"
+  "main.aux" 1789368729 35587 0b8fde70380c0fb927ba536d144e9a6c "pdflatex"
   "main.bbl" 1789299783 150531 de3013d96a9447674cff94946a266e63 "biber main"
-  "main.lof" 1789355560 710 ee9430912fe1880328a87fc1b262c3f1 "pdflatex"
-  "main.lot" 1789355560 2377 03fffc62462e8f571ef8cc2e862d1d46 "pdflatex"
-  "main.out" 1789355560 11652 5cd1ce3a8a7521f7ba420d2410b27084 "pdflatex"
-  "main.run.xml" 1789355560 2427 d1bfcd6d722f5bf4e724fdcb22d9bbf2 "pdflatex"
-  "main.tex" 1789355262 159652 4616eedd40058bd1d83d326644ef6aeb ""
-  "main.toc" 1789355560 6895 13262f9ed644223acfb4bb2e7a8a43f2 "pdflatex"
+  "main.lof" 1789368729 778 3ad684be5e7d0c9360ad9eae7de95141 "pdflatex"
+  "main.lot" 1789368729 2389 896a8f4a1347a43084352f8d20661185 "pdflatex"
+  "main.out" 1789368729 11677 3192f0d0a3e7b640e98746a336ca9271 "pdflatex"
+  "main.run.xml" 1789368729 2427 d1bfcd6d722f5bf4e724fdcb22d9bbf2 "pdflatex"
+  "main.tex" 1789368725 165643 3fd577bad9d3328b4f46dc895c09ca3a ""
+  "main.toc" 1789368729 6898 8653fa821c8e078ba9fe189f34546853 "pdflatex"
   "thesis_cover.tex" 1787806387 1229 7f9f117770b8774fafd6296ad64e8284 ""
   (generated)
   "main.aux"
