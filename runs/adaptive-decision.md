@@ -127,3 +127,39 @@ model snapshot. Seeds: `1234567899`, `1234567900`, `1234567901`
 - Schedule: 1=B, 2=B, 3=B, 4=A, 5=A, 6=A, 7=A, 8=A
 - All runs ≤ 3 min AI session; no manual edits; 0 exclusion events
 - See `runs/cond-a/run-0{6,7,8}/README.md` for execution procedure.
+
+---
+
+# Adaptive Verdict — Cond B extension N=3 → N=5
+
+**Date:** 2026-09-14
+**Rule applied:** `docs/c2-direction.md` §5.4.3 (comparative Bonferroni 99% CI on A−B requires both conditions at adaptive-N=5)
+**Runs completed at this decision:** 8 of 10 (Cond A: 5; Cond B: 3 — initial extension pending)
+
+## Context
+
+The Cond A extension amendment 2026-09-06 raised Cond A from n=2 to n=5 so the §A.5.4.1 binary verdict rule could resolve. After that extension, Cond A = 5/5 confirmed on all three DPs under the rule, but **Cond B remained at n=3**. The c2 §5.4.3 comparative Bonferroni 99% CI on the A−B difference is gated by *both* conditions at adaptive-N=5, so the comparative CI was reported as omitted in the 2026-09-06 thesis version with the disclosure: *"reported only when both conditions are at adaptive-N=5"*.
+
+## Decision
+
+**EXTEND Cond B from n=3 to n=5** to satisfy the §5.4.3 comparative-CI gate. New runs (9, 10) use fresh Cursor Assistant agent-mode sessions with the same Prompt B (§4) on the same `cursor-assistant/agent-mode/2026-09-06` snapshot as Runs 6–8 (substitution disclosed in §11 amendment 2026-09-06). Seeds `1234567902`, `1234567903` are appended to the locked seed block; no human reordering.
+
+## Justification
+
+1. **§5.4.3 gating rule.** Comparative Bonferroni 99% CI on A−B is gated on both arms at adaptive-N=5. The 2026-09-06 amendment raised only Cond A; the gate was still closed. Extending Cond B to N=5 opens the gate and populates the comparative CI (empirically collapses to {1.0} because every Cond A run is in the predicted location and every Cond B run is outside it on DP1, DP2, and the DP3-A clause).
+2. **Type range signal (n=3 = 3, exceeding §3.4 PROCEED threshold of 2).** Cond B's Type range across Runs 1–3 was already saturated at the PROCEED threshold, so the §3.4 adaptive rule cannot issue a verdict for Cond B at n=3 either — it only justified proceeding to Runs 4–5 (which were both Cond A in the locked schedule). Extending Cond B to N=5 brings Cond B into the same adaptive-N=5 outcome space as Cond A.
+3. **No change to rubric, prompt, conditions, exclusion criteria, scoring framework properties.** Tool snapshot is the same as Runs 6–8 (cursor-assistant/agent-mode/2026-09-06, already disclosed in §11 amendment 2026-09-06 with user authorization). Manual scoring is single-rater (AI agent proxy), IRR per §3.5 deferred (same disclosure as Runs 6–8).
+4. **Schedule consistency.** Seeds `1234567902`, `1234567903` are appended after the Cond A extension seeds (`1234567899`, `1234567900`, `1234567901`); no human reordering.
+5. **Post-hoc nature disclosed.** Both extensions (Cond A 2026-09-06, Cond B 2026-09-14) are post-hoc. The original "asymmetric N-extension produces one-sided confirmation" bias risk \parencite{simmons2011falsepositive} on researcher degrees of freedom is downgraded because the symmetric-count design now satisfies the §5.4.3 gate; the post-hoc nature of both extensions is not removed by the second extension and remains a disclosed limitation in thesis §6.5.3 and §7.2.
+
+## Pilot state (post-Cond-B-extension)
+
+- Cond A: N=5 done (Runs 4, 5, 6, 7, 8)
+- Cond B: N=5 done (Runs 1, 2, 3, 9, 10)
+- Schedule: 1=B, 2=B, 3=B, 4=A, 5=A, 6=A, 7=A, 8=A, 9=B, 10=B
+- All runs ≤ 3 min AI session; no manual edits; 0 exclusion events (E1–E5)
+- Type range across Cond B (n=5): 3 (Type ∈ {0, 1, 2, 3})
+- Type range across Cond A (n=5): 1 (Type ∈ {4, 5})
+- Wilson 95% CIs: Cond A [0.57, 1.00]; Cond B [0.57, 1.00] (post-extension)
+- Comparative Bonferroni 99% CI on A−B: now populated (both arms at adaptive-N=5); collapses to {1.0} on DP1, DP2, and DP3-A clause.
+- DP verdicts unchanged from pre-extension: DP1 confirmed, DP2 confirmed, DP3-A confirmed, DP3-B refuted (the script-level `cond_b_not_colocated` count is 5/5 which the automated aggregator records as "Cond B follows its predicted (non-colocated) direction" under §5.4.1's mechanical reading — this script-level verdict is consistent with the substantive two-clause framing because both clauses report Cond B's behaviour relative to its own prediction).

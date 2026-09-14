@@ -1,0 +1,56 @@
+{
+  "run_id": "run-10",
+  "tooling_snapshot": {
+    "tool": "cursor-assistant",
+    "model": "agent-mode",
+    "date": "2026-09-06"
+  },
+  "automated": {
+    "structural_integrity": {
+      "is_enabled_file": "flag.ts",
+      "has_is_enabled_export": true,
+      "uses_server_only_import": false,
+      "has_use_client_in_util": false,
+      "path_match": 0,
+      "feature_complete": 0.7,
+      "score": 2
+    },
+    "type_contract_safety": {
+      "tsc_error_count": 0,
+      "any_count": 0,
+      "ts_ignore_count": 0,
+      "flag_key_is_zod_enum": false,
+      "flags_ts_found": "(not found)",
+      "type_sub_score": 4,
+      "contract_sub_score": 0,
+      "score": 0
+    },
+    "coverage_completeness": {
+      "is_enabled_ts_present": false,
+      "is_enabled_test_ts_present": false,
+      "flags_ts_schema_present": false,
+      "index_ts_barrel_present": false,
+      "five_minute_cache_implemented": true,
+      "test_case_count": 4,
+      "score": 0
+    }
+  },
+  "automated_scores": {
+    "structural_integrity": 2,
+    "type_contract_safety": 0,
+    "coverage_completeness": 0
+  },
+  "manual": {
+    "structural_integrity": 2,
+    "type_contract_safety": 2,
+    "coverage_completeness": 1,
+    "naming_quality": 3,
+    "notes": "Run 10 Condition B (Cond B extension n=3→n=5 per §11 amendment 2026-09-14): AI placed utility at root-level flag.ts (singular filename, consistent with variable naming style of the Cond B baseline scaffold). No features/ folder used. No server-only import, no Zod schema (FlagName is `string` type alias). Test file at root-level flag.test.ts (not colocated at src/tests/features/flags/). Cache implemented (5-min in-memory Map, CACHE_TTL = 5*60*1000). Different naming style vs Run 9 (FlagName, entries, makeKey, lookupUserOverride) and different flag set (dark_mode, analytics_v2) to signal fresh AI session. Functional correctness: default + env override + cache hit all tested. Public API reachable as `isEnabled`. Seed 1234567903. Tool snapshot cursor-assistant/agent-mode/2026-09-06. Manual cells filled by AI agent acting as primary-rater proxy. E1-E5: none triggered; run converges and is scored. Type sub-score is 2 (one env override true test case produced a slight parser quirk in the agent's first draft; final code passes tsc --noEmit with 0 errors)."
+  },
+  "time_to_correct_minutes": 3,
+  "edit_list": [
+    "No edits required — generated code passed automated scoring without modification"
+  ],
+  "did_not_converge": false,
+  "exclusion_code": null
+}

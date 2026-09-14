@@ -20,68 +20,62 @@
 \contentsline {section}{\numberline {3.5}Literature Search Methodology}{13}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Alternative Approaches to AI-Codebase Alignment}{13}{section.3.6}%
 \contentsline {paragraph}{Caveat on the alternative-approaches dismissals.}{14}{paragraph*.11}%
-\contentsline {chapter}{\numberline {4}Proposed Solution}{16}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Design Rationale}{16}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Feature-Based Modular Architecture}{17}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Server/Client Boundary Conventions}{17}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Database Schema Patterns}{18}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Type-Safe API Contracts}{19}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Implementation}{20}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Technology Stack}{20}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Stack Selection Rationale}{20}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Dependency Version Pins}{20}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Project Structure}{21}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Key Implementation Patterns}{23}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Billing and SePay Integration}{23}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Evaluation}{24}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluation Framework}{24}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Three Dimensions}{24}{subsection.6.1.1}%
-\contentsline {subsubsection}{Relationship between SmartKit Integrations and the Pilot Feature}{25}{subsubsection*.14}%
-\contentsline {subsection}{\numberline {6.1.2}Design Rationale and Trade-offs}{26}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Evaluation Metrics}{27}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Pilot Methodology}{28}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Conditions}{28}{subsection.6.2.1}%
-\contentsline {paragraph}{Condition A (SmartKit).}{29}{paragraph*.17}%
-\contentsline {paragraph}{Condition B (convention-naive scaffold).}{29}{paragraph*.18}%
-\contentsline {subsection}{\numberline {6.2.2}Standardized Prompt}{30}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Run Schedule and Verdict Rule}{31}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Scoring Rubric}{31}{subsection.6.2.4}%
-\contentsline {subsubsection}{Dimension 1: Structural Integrity (0--5)}{32}{subsubsection*.19}%
-\contentsline {subsubsection}{Dimension 2: Type \& Contract Safety (0--5)}{32}{subsubsection*.21}%
-\contentsline {subsubsection}{Type Safety sub-score}{32}{subsubsection*.22}%
-\contentsline {subsubsection}{Contract Safety sub-score}{33}{subsubsection*.24}%
-\contentsline {subsubsection}{Dimension 3: Coverage \& Completeness (0--5)}{33}{subsubsection*.26}%
-\contentsline {subsection}{\numberline {6.2.5}Exclusion Criteria}{34}{subsection.6.2.5}%
-\contentsline {section}{\numberline {6.3}Empirical Results}{34}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Per-run Scores}{34}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Per-condition Aggregate}{35}{subsection.6.3.2}%
+\contentsline {chapter}{\numberline {4}Proposed Solution}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Design Rationale}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Feature-Based Modular Architecture}{16}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Server/Client Boundary Conventions}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Database Schema Patterns}{17}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Type-Safe API Contracts}{18}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Implementation}{19}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Technology Stack}{19}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Stack Selection Rationale}{19}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Dependency Version Pins}{19}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Project Structure}{20}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Key Implementation Patterns}{22}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Billing and SePay Integration}{22}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Evaluation}{23}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluation Framework}{23}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Three Dimensions}{23}{subsection.6.1.1}%
+\contentsline {subsubsection}{Relationship between SmartKit Integrations and the Pilot Feature}{24}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {6.1.2}Design Rationale and Trade-offs}{25}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Evaluation Metrics}{26}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Pilot Methodology}{27}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Conditions}{27}{subsection.6.2.1}%
+\contentsline {paragraph}{Condition A (SmartKit).}{28}{paragraph*.17}%
+\contentsline {paragraph}{Condition B (convention-naive scaffold).}{28}{paragraph*.18}%
+\contentsline {subsection}{\numberline {6.2.2}Standardized Prompt}{29}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Run Schedule and Verdict Rule}{29}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Scoring Rubric}{30}{subsection.6.2.4}%
+\contentsline {subsubsection}{Dimension 1: Structural Integrity (0--5)}{31}{subsubsection*.19}%
+\contentsline {subsubsection}{Dimension 2: Type \& Contract Safety (0--5)}{31}{subsubsection*.21}%
+\contentsline {subsubsection}{Type Safety sub-score}{31}{subsubsection*.22}%
+\contentsline {subsubsection}{Contract Safety sub-score}{32}{subsubsection*.24}%
+\contentsline {subsubsection}{Dimension 3: Coverage \& Completeness (0--5)}{32}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {6.2.5}Exclusion Criteria}{33}{subsection.6.2.5}%
+\contentsline {section}{\numberline {6.3}Results and Discussion}{33}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Per-run Scores}{33}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Per-condition Aggregate}{34}{subsection.6.3.2}%
 \contentsline {subsection}{\numberline {6.3.3}Automated vs.\ Manual Cross-Check}{35}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Directional Prediction Verdicts}{37}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4}Discussion of Trade-offs}{38}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Where the framework wins: DP1 as a measurement success}{38}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Where the framework loses}{39}{subsection.6.4.2}%
-\contentsline {paragraph}{DP2 is an instruction-following asymmetry, not a convention-encoding benefit.}{39}{paragraph*.31}%
-\contentsline {paragraph}{DP3-B is refuted: Condition~B generated tests when the pre-registration predicted it would not.}{39}{paragraph*.32}%
-\contentsline {paragraph}{Coverage in Condition~A is capped at $3$.}{40}{paragraph*.33}%
-\contentsline {subsection}{\numberline {6.4.3}Statistical context: $n=5$ and $n=3$ are not inferential}{40}{subsection.6.4.3}%
-\contentsline {section}{\numberline {6.5}Pre-registration and Amendments}{40}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Lock, Amendment Procedure, and Snapshot Limitation}{40}{subsection.6.5.1}%
-\contentsline {paragraph}{Lock.}{40}{paragraph*.34}%
-\contentsline {paragraph}{Snapshot limitation.}{40}{paragraph*.35}%
-\contentsline {subsection}{\numberline {6.5.2}Pilot Run Log and Amendment Record}{41}{subsection.6.5.2}%
-\contentsline {paragraph}{Pilot run log.}{41}{paragraph*.36}%
-\contentsline {paragraph}{Amendment log.}{41}{paragraph*.37}%
-\contentsline {paragraph}{Content hashes.}{41}{paragraph*.38}%
-\contentsline {section}{\numberline {6.6}Threats to Validity}{41}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}External Validity (Generalizability)}{41}{subsection.6.6.1}%
-\contentsline {subsection}{\numberline {6.6.2}Construct Validity}{42}{subsection.6.6.2}%
-\contentsline {subsection}{\numberline {6.6.3}Internal Validity}{42}{subsection.6.6.3}%
-\contentsline {subsection}{\numberline {6.6.4}Temporal Validity}{44}{subsection.6.6.4}%
-\contentsline {subsection}{\numberline {6.6.5}Conclusion Validity}{44}{subsection.6.6.5}%
-\contentsline {subsection}{\numberline {6.6.6}Instrumentation}{44}{subsection.6.6.6}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{46}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary}{46}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Limitations and Threats to Validity}{46}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Diffusion Pathway and Adoption Risks}{49}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Future Work}{50}{section.7.4}%
-\contentsline {chapter}{Bibliography}{54}{Item.48}%
+\contentsline {subsection}{\numberline {6.3.4}DP1 -- Structural Placement}{36}{subsection.6.3.4}%
+\contentsline {subsection}{\numberline {6.3.5}DP2 -- Zod-derived FlagKey}{36}{subsection.6.3.5}%
+\contentsline {subsection}{\numberline {6.3.6}DP3 -- Centralized Test Path}{37}{subsection.6.3.6}%
+\contentsline {subsection}{\numberline {6.3.7}Statistical Context: $n=5$ per Condition is not Inferential}{37}{subsection.6.3.7}%
+\contentsline {section}{\numberline {6.4}Pre-registration and Amendments}{38}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Lock, Amendment Procedure, and Snapshot Limitation}{38}{subsection.6.4.1}%
+\contentsline {paragraph}{Lock.}{38}{paragraph*.31}%
+\contentsline {paragraph}{Snapshot limitation.}{38}{paragraph*.32}%
+\contentsline {subsection}{\numberline {6.4.2}Pilot Run Log and Amendment Record}{39}{subsection.6.4.2}%
+\contentsline {paragraph}{Pilot run log.}{39}{paragraph*.33}%
+\contentsline {paragraph}{Amendment log.}{39}{paragraph*.34}%
+\contentsline {paragraph}{Content hashes.}{39}{paragraph*.35}%
+\contentsline {section}{\numberline {6.5}Threats to Validity}{39}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}External and Temporal Validity (Generalizability)}{39}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Measurement Validity}{40}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Internal Validity}{41}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Conclusion Validity}{42}{subsection.6.5.4}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{43}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary}{43}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Summary of Limitations}{43}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Diffusion Pathway and Adoption Risks}{44}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Future Work}{45}{section.7.4}%
+\contentsline {chapter}{Bibliography}{49}{Item.49}%

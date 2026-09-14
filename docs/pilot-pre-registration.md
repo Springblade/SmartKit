@@ -391,37 +391,43 @@ the time-to-correct (§3 of C2), and any exclusion event (§6).
 | 6 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests; seed 1234567899; tool-substituted per §11 amendment 2026-09-06 |
 | 7 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod (async variant) + barrel + 4 tests; seed 1234567900; tool-substituted per §11 amendment 2026-09-06 |
 | 8 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + dual-Map cache + barrel + 4 tests; seed 1234567901; tool-substituted per §11 amendment 2026-09-06 |
+| 9 | B | 2026-09-14T10:20 | cursor-assistant/agent-mode | 2 | 1 | 1 | confirmed | confirmed | confirmed | 3 | root flags.ts; no Zod; no FSD; seed 1234567902; Cond B extension per §11 amendment 2026-09-14 (n=3→n=5) |
+| 10 | B | 2026-09-14T10:25 | cursor-assistant/agent-mode | 2 | 2 | 1 | confirmed | confirmed | confirmed | 3 | root flag.ts; no Zod; no FSD; seed 1234567903; Cond B extension per §11 amendment 2026-09-14 (n=3→n=5) |
 
-**Run log integrity notes (2026-09-06, post-extension):**
+**Run log integrity notes (2026-09-14, post-Cond-B-extension; supersedes the 2026-09-06 post-Cond-A-extension block):**
 
-- All 8 runs reached `scripts/score-flag.ts` completion. No exclusion
+- All 10 runs reached `scripts/score-flag.ts` completion. No exclusion
   criterion (E1-E5) triggered.
 - Time-to-correct column is wall-clock minutes from AI session open to
   committed snapshot. All runs ≤ 3 min. No `did_not_converge: true` flag.
 - Model column shows `cursor-ai/auto` for Runs 1-5 (per §8.1 Auto-mode
-  amendment) and `cursor-assistant/agent-mode` for Runs 6-8 (per the
-  §11 tool-substitution amendment 2026-09-06 with user authorization).
-  The pre-reg prompt (§4) and locked schedule were preserved across
-  all sessions.
-- Runs 4-5 DP cells show `n/a` because at the time of the first interim
-  look (n=2 Cond A) the §5.4.1 binary rule could not issue a verdict;
-  verdicts for all DPs were issued after the Cond A extension to N=5
-  (Runs 6-8) and are identical for the whole Cond A block because the
-  rule operates on the per-condition binary count (5/5 in predicted
-  direction → confirmed for DP1/DP2/DP3).
+  amendment) and `cursor-assistant/agent-mode` for Runs 6-10 (per the
+  §11 tool-substitution amendment 2026-09-06 and §11 amendment
+  2026-09-14). The pre-reg prompt (§4) and locked schedule were
+  preserved across all sessions.
 - Wilson 95% CIs on per-condition pass rates: Cond A [0.57, 1.00]
-  (n=5), Cond B [0.44, 1.00] (n=3). Comparative Bonferroni 99% CI
-  remains omitted per §5.4.3's gating rule (requires both conditions
-  at adaptive-N=5; Cond B is N=3). Computed in `runs/dp-summary.json`;
-  verdict text matches §5.4.3 reporting template.
-- Type range across Cond B Runs 1-3 = 3, exceeding the §3.4 threshold (2);
-  adaptive PROCEED was logged in `runs/adaptive-decision.md` (commit
-  `ba694ab`) before Run 4 opened.
+  (n=5), Cond B [0.57, 1.00] (n=5) after the 2026-09-14 Cond B
+  extension. Comparative Bonferroni 99% CI on the A−B difference
+  is now **populated** per §5.4.3 (gating rule requires both
+  conditions at adaptive-N=5; both arms now at N=5). Computed in
+  `runs/dp-summary.json`; verdict text matches §5.4.3 reporting
+  template.
+- Type range across Cond B Runs 1-10 = 3 (Type ∈ {0, 1, 2, 3};
+  same as the original N=3 range of 0–3); adaptive PROCEED was
+  logged in `runs/adaptive-decision.md` (commit `ba694ab`) before
+  Run 4 opened.
 - Type range across Cond A Runs 4-8 = 1 (Type ∈ {4, 5}); Structural
   range = 1 (Structural ∈ {4, 5}); Coverage range = 1 (Coverage ∈ {4, 5}).
-- Verdicts on all three DPs (post-extension): **confirmed** under
-  §5.4.1 (Cond A 5/5 in predicted direction; Cond B 3/3 in its own
-  predicted direction).
+- Verdicts on all three DPs (post-Cond-B-extension): **confirmed**
+  under §5.4.1 (Cond A 5/5 in predicted direction; Cond B 5/5 in its
+  own predicted direction). DP3 retains its two-clause framing
+  recorded in `runs/dp-verdict.md` (Cond A clause: test colocated at
+  `src/tests/features/flags/` → confirmed; Cond B clause: Cond B
+  produces a root-level test file in 5/5 runs, opposite to the
+  original "no test" prediction → refuted on the original clause).
+  Both framings are reported; the §5.4.1 binary rule operates on
+  the per-condition count, which the automated aggregator applies
+  mechanically as "5/5 in predicted direction" for both arms.
 
 Rows are appended in order. Amendments to this pre-registration are
 appended as a separate table at §11 (Amendment log).
@@ -461,6 +467,10 @@ reference other hashes.
 | 2026-09-06 | §10 (Run schedule extension) | 5-run adaptive schedule: B,B,B,A,A | 8-run adaptive schedule: B,B,B,A,A,A,A,A | Per `docs/c2-direction.md` §4 and the §A.5.4.1 verdict rule (5/5 confirmed, 0/5 refuted, 1–4/5 inconclusive), Cond A is extended from n=2 to n=5. New runs (6, 7, 8) use fresh Cursor AI sessions with the same Prompt B (§4) on the same `cursor-ai/auto/2026-09-05` model snapshot. Seeds `1234567899`, `1234567900`, `1234567901` are appended in order; no human reordering. Cond B remains at n=3 because the Cond B Type-range signal (range = 3) already exceeded the adaptive PROCEED threshold (§3.4 = 2). The §10 table gains 3 new rows with `pending` markers; the §10 integrity notes block is updated to reflect the extended schedule. | None (extension runs are pending; all 5 completed runs are unchanged) |
 | 2026-09-06 | §10 (Runs 6-7-8 tooling) | Runs 6-7-8 use fresh Cursor AI Composer Pro sessions (per the prior schedule-extension row) | Runs 6-7-8 use **Cursor Assistant agent-mode sessions** substituted by the user-authorized AI assistant under the `cursor-assistant/agent-mode/2026-09-06` tool label | **Tool substitution disclosed before data generation.** Per user authorization at 2026-09-06 (chat thread: "Mình cho phép bạn chạy 7.1 các lần trước là bạn chạy cho mình mà"), the AI code outputs for runs 6-8 are generated by the Cursor Assistant agent (`MiniMax-M3` model) in this workspace instead of fresh Cursor Pro Composer sessions. **Tool label updated** in `score.json.tooling_snapshot.tool` from `cursor-ai` (used by runs 1-5) to `cursor-assistant/agent-mode/2026-09-06` for runs 6-8 so the substitution is verifiable in the score files. Model snapshot is `agent-mode` (the Cursor Assistant does not surface the underlying model name; this is `MiniMax-M3` per the assistant's system card) at date 2026-09-06 — distinguishable from the prior `cursor-ai/auto/2026-09-05` snapshot. **Rubric (§5), Prompt B (§4), Conditions (§3), Exclusion criteria (§6) all unchanged.** Seeds `1234567899`, `1234567900`, `1234567901` retained from the schedule-extension row. Manual scoring cells (`manual.*`) are filled by the same AI assistant (acting as the primary rater's proxy, transparently disclosed as such — not a second human rater, so inter-rater Cohen's κ per §3.5 is out of scope for runs 6-8 only). Comparative Bonferroni 99% CI per c2 §5.4.3 **remains omitted**: the gating rule requires *both* conditions at adaptive-N=5; the extension raises only Cond A to N=5 while Cond B stays at N=3, so the gate is still closed. Thesis §A.11 and `latex/appendix-pre-registration.tex` §A.11 mirror this amendment. **No exclusion event triggered per §6.** | None (3 extension runs are pending; all 5 completed runs unchanged) |
 | 2026-09-06 | §10 (Runs 6-7-8 data fill-in) | 3 pending placeholder rows in §10 run log | 3 filled rows (Runs 6-8 Cond A) with manual scores, DP verdicts (confirmed × 3 per run), ttc, model snapshot, and updated §10 integrity notes block | Post-extension data fill-in per §7, mirroring the 2026-09-05 §10 fill-in pattern. DP verdicts for the Cond A block are issued at the condition level after the extension (5/5 in predicted direction on all three DPs), so Runs 6-8 carry `confirmed` cells; the §10 integrity notes are updated to reflect the post-extension Wilson CIs and the still-omitted comparative CI. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. | Runs 1-5 (already committed under earlier rows; their scores are unchanged) |
+| 2026-09-14 | §10 (Run schedule extension — Cond B) | 8-run adaptive schedule: B,B,B,A,A,A,A,A | 10-run adaptive schedule: B,B,B,A,A,A,A,A,B,B | Per `docs/c2-direction.md` §4 and §A.5.4.1 verdict rule (5/5 confirmed, 0/5 refuted, 1–4/5 inconclusive), Cond B is extended from n=3 to n=5 so the §5.4.3 comparative Bonferroni 99% CI gating rule opens (it requires both conditions at adaptive-N=5; the 2026-09-06 amendment raised only Cond A to N=5, leaving the gate closed). New runs (9, 10) use fresh Cursor Assistant agent-mode sessions with the same Prompt B (§4) on the same `cursor-assistant/agent-mode/2026-09-06` tool snapshot as Runs 6-8. Seeds `1234567902`, `1234567903` are appended in order to the locked seed block (after `1234567901` from the 2026-09-06 extension); no human reordering. The §10 table gains 2 new rows; the §10 integrity notes block is updated to reflect the balanced-N=5/5 state and the now-populated comparative CI. | None (extension runs pending at time of writing the amendment; both §11 rows below complete the §10 fill-in) |
+| 2026-09-14 | §10 (Runs 9-10 data fill-in) | 2 pending placeholder rows in §10 run log | 2 filled rows (Runs 9-10 Cond B) with manual scores, DP verdicts (confirmed × 2 per run, consistent with the post-extension 5/5 condition-level count), ttc, model snapshot, and updated §10 integrity notes block | Post-extension data fill-in per §7, mirroring the 2026-09-06 §10 fill-in pattern. DP verdicts for the Cond B block are issued at the condition level after the extension (5/5 in predicted direction on all three DPs by the §5.4.1 binary rule applied to the per-condition count), so Runs 9-10 carry `confirmed` cells; the §10 integrity notes are updated to reflect the post-extension balanced-N=5/5 Wilson CIs (Cond A and Cond B both [0.57, 1.00]) and the now-populated comparative Bonferroni 99% CI on A−B (per §5.4.3, both conditions at adaptive-N=5). No rubric, prompt, condition, exclusion criterion, or scoring rule changed. **Two-clause DP3 framing preserved** as recorded in `runs/dp-verdict.md`: the §5.4.1 binary rule operates mechanically on the per-condition count (Cond B 5/5 in the predicted "test not colocated at the FSD path" direction → confirmed), but the original §5.4 DP3 prediction also had a secondary "Cond B includes no test file" clause which Cond B refutes (5/5 Cond B runs produce a test file at root level). Both clauses are reported honestly rather than collapsed into a single verdict. **Tool snapshot mirror**: Runs 9-10 use the same `cursor-assistant/agent-mode/2026-09-06` snapshot substitution disclosed for Runs 6-8 (user authorization at 2026-09-06); manual cells filled by the AI agent acting as primary-rater proxy (single-rater, IRR per §3.5 deferred). | Runs 1-8 (already committed under earlier rows; their scores are unchanged) |
+| 2026-09-14 | §11 footer (Document hash) | `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122` | `7272bd76c32d68f7ed3f599ff41ad2225b9b9290d5e6d22c73c6ba19ae57bfd6` | Hash recomputed after the §10 Run 9 / Run 10 fill-in (Cond B extension n=3→n=5). No rubric or prompt change. | None |
+| 2026-09-14 | §11 footer (Document hash) | `7272bd76c32d68f7ed3f599ff41ad2225b9b9290d5e6d22c73c6ba19ae57bfd6` | `3ac62a5df7bde3480fc7ac70c62228854e3ec562008530f36c0409d8f86b6ac8` | Hash recomputed after the bookkeeping row itself was added (single bookkeeping entry capturing the footer-update side effect, mirroring the 2026-09-05 pattern). | None |
 
 ---
 
