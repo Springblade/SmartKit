@@ -380,17 +380,17 @@ per §6.2.
 the framework can be operationalised on a real artifact:
 \begin{itemize}
     \item \textbf{FP1 (Structural Integrity).} The framework can measure
-    file placement, Server/Client boundary usage, and naming patterns in
-    AI-generated Next.js code, producing a 0--5 score per run on a
-    representative feature.
+    the dimension it targets---file placement, Server/Client boundary
+    usage, and naming patterns---on AI-generated Next.js code, yielding
+    a per-run score on a representative feature.
     \item \textbf{FP2 (Type \& Contract Safety).} The framework can measure
-    TypeScript error counts and Zod-validation coverage in AI-generated
-    Next.js code, producing a 0--5 score per run that combines a
-    Type-Safety sub-score and a Contract-Safety sub-score via the
-    weakest-link rule.
+    the dimension it targets on AI-generated Next.js code, yielding a
+    per-run score on a representative feature by combining Type-Safety
+    and Contract-Safety sub-scores under the framework's weakest-link
+    combination rule.
     \item \textbf{FP3 (Coverage \& Completeness).} The framework can
-    enumerate AI-generated files against a feature-specific checklist and
-    produce a 0--5 per-run score that reflects required-artifact presence.
+    enumerate AI-generated files against a feature-specific checklist
+    and yield a per-run score reflecting required-artifact presence.
 \end{itemize}
 
 \paragraph{Directional predictions.} Each directional prediction states
