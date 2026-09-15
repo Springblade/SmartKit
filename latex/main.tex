@@ -369,12 +369,12 @@ Consequently, this research seeks to answer the following research questions:
 
 These objectives and questions give rise to two classes of claims, both
 documented as design-level pre-registrations to be exercised by the pilot
-(Section~\ref{sec:pilot}). The first class states \textbf{framework
+(§6.2). The first class states \textbf{framework
 properties}---descriptive claims about whether the framework can measure
 the dimensions it targets. The second class states \textbf{directional
 predictions}---falsifiable claims about the sign of the score difference
 between conditions, to be reported as confirmed, refuted, or inconclusive
-per Section~\ref{sec:pilot}.
+per §6.2.
 
 \paragraph{Framework properties.} The pilot is designed to demonstrate that
 the framework can be operationalised on a real artifact:
@@ -400,7 +400,7 @@ feature---the \code{isEnabled(flagKey, userId?)} utility. Predictions are
 evaluated as \emph{confirmed} (all runs in the predicted direction),
 \emph{refuted} (no runs in the predicted direction), or
 \emph{inconclusive} (intermediate), per the adaptive-N protocol
-documented in Section~\ref{sec:pilot}.
+documented in §6.2.
 
 \begin{itemize}
     \item \textbf{DP1 (Structural).} Condition~A is predicted to place the
@@ -413,7 +413,7 @@ documented in Section~\ref{sec:pilot}.
     centralized test file in the majority of runs;
     Condition~B is predicted to omit a test file in the majority of runs.
 \end{itemize}
-\noindent\textit{Formal definitions and exact expected file paths appear in Section~\ref{sec:pilot}.}
+\noindent\textit{Formal definitions and exact expected file paths appear in §6.2.}
 
 Framework properties and directional predictions serve different
 purposes. A framework property is a descriptive claim about the
@@ -421,7 +421,7 @@ framework itself; it cannot be refuted by pilot data, only supported or
 unsupported. A directional prediction is a falsifiable claim about the
 artifact and is the only class of claim to which the binary
 \emph{confirmed/refuted/inconclusive} verdict applies. The pilot
-protocol (Section~\ref{sec:pilot}) documents how each is reported. Full
+protocol (§6.2) documents how each is reported. Full
 statistical validation---including larger sample sizes, cross-tool
 replication, and developer-participant studies---remains future
 empirical work.
@@ -458,7 +458,7 @@ To keep the empirical rigor and feasibility of this research within the resource
     \item \textbf{Framework scope:} Next.js App Router only. No comparison with Nuxt, Remix, or other meta-frameworks.
     \item \textbf{AI assistants:} Cursor used for the pilot empirical case study. Broader AI assistant evaluation (GitHub Copilot, Claude Code) is future work.
     \item \textbf{Project type:} Single representative Next.js project demonstrating SaaS patterns.
-    \item \textbf{Pilot study limitation:} The empirical case study is a worked-example executed against a total of $10$ runs under a pre-registered adaptive schedule, distributed as $n=5$ Cond~A and $n=5$ Cond~B (the latter extended from $n=3$ to $n=5$ via the 2026-09-14 amendment to satisfy the comparative-CI gate) on a single representative feature, the \code{isEnabled(flagKey, userId?)} utility, which uses no service that SmartKit integrates. The pilot illustrates framework applicability and produces per-condition medians plus directional predictions (DP1--DP3), evaluated against the pre-registered verdict rule in Section~\ref{sec:pilot}. Both arms are at symmetric adaptive-$N=5$, so the comparative Bonferroni 99\% CI on the $A-B$ difference is now populated, but the per-arm sample is still far below the $n \approx 30$ required for inferential validation (Section~\ref{sec:future-work}). Cross-tool replication, larger-$N$ studies, and developer-participant validation remain future empirical work.
+    \item \textbf{Pilot study limitation:} The empirical case study is a worked-example executed against a total of $10$ runs under a pre-registered adaptive schedule, distributed as $n=5$ Cond~A and $n=5$ Cond~B (the latter extended from $n=3$ to $n=5$ via the 2026-09-14 amendment to satisfy the comparative-CI gate) on a single representative feature, the \code{isEnabled(flagKey, userId?)} utility, which uses no service that SmartKit integrates. The pilot illustrates framework applicability and produces per-condition medians plus directional predictions (DP1--DP3), evaluated against the pre-registered verdict rule in §6.2. Both arms are at symmetric adaptive-$N=5$, so the comparative Bonferroni 99\% CI on the $A-B$ difference is now populated, but the per-arm sample is still far below the $n \approx 30$ required for inferential validation (Section~\ref{sec:future-work}). Cross-tool replication, larger-$N$ studies, and developer-participant validation remain future empirical work.
 \end{enumerate}
 
 These boundaries are deliberate methodological choices. Fixing the framework, the AI assistant, and the project type removes confounding variance so that any measured difference between structured and unstructured conditions can be attributed to the SmartKit approach alone.
@@ -1029,7 +1029,7 @@ This section presents the proposed evaluation framework and pilot feasibility st
 \section{Evaluation Framework}
 \label{sec:evaluation-framework}
 
-The framework design is accompanied by a pilot evaluation protocol that exercises the framework on a representative feature. \S\ref{sec:pilot} reports the locked protocol used to produce the empirical data, and \S\ref{sec:pilot-results} reports the data itself.
+\S\ref{sec:pilot} reports the locked protocol used to produce the empirical data, and \S\ref{sec:pilot-results} reports the data itself.
 
 \subsection{Three Dimensions}
 \label{sec:dimensions}
@@ -1523,6 +1523,8 @@ The threats-to-validity taxonomy below organizes the limitations of the pilot un
 \section{Summary}
 
 This thesis proposes a three-dimensional evaluation framework (Structural Integrity, Type~\&~Contract Safety, Coverage~\&~Completeness) for assessing AI-generated Next.js boilerplate, and instantiates it in SmartKit, an open-source Next.js App Router boilerplate with feature-based modularity, explicit Server/Client boundaries, and type-safe contracts. An adaptive pilot ($n=5$ Cond~A, $n=5$ Cond~B after the Cond~B extension amendment 2026-09-14) on one representative feature produces feasibility-stage evidence that one of three directional predictions is confirmed outright (DP1, structural placement), one is confirmed as an instruction-following asymmetry rather than as a convention-encoding benefit (DP2), and one is asymmetric between its two clauses (DP3 confirmed Cond~A, refuted Cond~B); the full verdicts and disclosed protocol adaptations are in \S\ref{sec:pilot-results} and \S\ref{sec:limitations}. Quantitative claims are bounded by the Known Limitations consolidated in \S7.2 --- small per-arm samples, deferred IRR, and unblinded scoring --- which the thesis treats as the canonical reference rather than restating them at each reporting point. The framework, artefact, and executed pilot are intended as a foundation for larger-$N$ replication, cross-tool validation, and developer-participant studies, all documented in \S\ref{sec:future-work}.
+
+\medskip\noindent\textbf{Ceiling--floor pattern in the executed scores.} The per-run scores cluster in a way that should be acknowledged explicitly: Condition~A medians (Structural $5$, T\&C $4$, Coverage $3$) sit at or near the rubric ceiling, while Condition~B medians (Structural $2$, T\&C $1$, Coverage $1$) sit at or near the rubric floor, with the single exception of Condition~B's T\&C range ($0$--$3$). Three structural causes produce this pattern, none of which retracts the confirmed verdicts. First, the Condition~A Coverage score is capped at $3$ by rubric-design contradiction rather than by ceiling saturation (\S6.5.3): rubric levels $4$--$5$ require a non-stubbed per-user override path, and the no-integration selection criterion rules out that artifact by construction. Second, the Cond~A score direction is reinforced by multiple bundled signals --- \filename{AGENTS.md}, the sibling-feature layout under \filename{features/billing/} and \filename{features/auth/}, the colocated Zod configuration, and the Zod directive in the standardized prompt --- all of which push toward the same FSD path, so the directional predictions cannot separate convention-reading from instruction-following (\S6.5.4). Condition~B was bootstrapped specifically to remove SmartKit's convention envelope, so its scores aggregate near the floor of a rubric calibrated to that envelope. Third, the comparative Bonferroni 99\% CI collapses to the single point $\{1.0\}$ because every Cond~A run is in the predicted location and every Cond~B run is outside it on DP1, DP2, and the DP3-A clause; this saturation is the expected behaviour of a $k/n = 5/5$ vs.\ $5/5$ comparison at the binary-rule stage and is not an inferential estimate. The confirmed verdicts are therefore feasibility-stage binary outcomes, not parameter estimates; the bounded scope and protocol deviations are catalogued in \S\ref{sec:limitations} below.
 
 \section{Summary of Limitations}
 \label{sec:limitations}
