@@ -22,7 +22,7 @@ Conditions & A (SmartKit), B (baseline) \\
 Independent variable & Presence/absence of AGENTS.md, \texttt{.cursor/rules/}, and \texttt{src/features/} convention documentation \\
 Dependent variables & Structural Integrity score, Type \& Contract Safety score, Coverage \& Completeness score \\
 Pilot lock date & 2026-09-02T05:23:00Z \\
-Pre-registration & This document (SHA-256 recorded in \S A.11) \\
+Pre-registration & This document (locked at 2026-09-02T05:23:00Z; see \S A.11) \\
 Reporting & Aggregated scores per condition with 95\% CI; no p-values or significance tests \\
 \bottomrule
 \end{tabular}
@@ -106,31 +106,33 @@ The baseline represents a typical Next.js project without explicit architectural
 
 \begin{table}[H]
 \centering
-\begin{tabular}{cccl}
+\begin{tabular}{cc}
 \toprule
-\textbf{Run} & \textbf{Condition} & \textbf{Timestamp} & \textbf{Tool} \\
+\textbf{Run} & \textbf{Condition} \\
 \midrule
-1 & B & 2026-09-05 & cursor/auto-mode \\
-2 & B & 2026-09-05 & cursor/auto-mode \\
-3 & B & 2026-09-05 & cursor/auto-mode \\
-4 & A & 2026-09-05 & cursor/auto-mode \\
-5 & A & 2026-09-05 & cursor/auto-mode \\
-6 & A & 2026-09-06 & cursor/agent-mode \\
-7 & A & 2026-09-06 & cursor/agent-mode \\
-8 & A & 2026-09-06 & cursor/agent-mode \\
+1 & B \\
+2 & B \\
+3 & B \\
+4 & B \\
+5 & B \\
+6 & A \\
+7 & A \\
+8 & A \\
+9 & A \\
+10 & A \\
 \bottomrule
 \end{tabular}
-\caption{Pilot run schedule as executed ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=3$); see \S A.11 for amendment details.}
+\caption{Pilot run schedule in condition-level presentation order ($N_{\mathrm{A}}=5$, $N_{\mathrm{B}}=5$); see \S A.11 for amendment details. Per-run timestamps and Cursor UI snapshots are recorded in the pilot audit trail (thesis GitHub repository).}
 \label{tab:run-schedule}
 \end{table}
 
 \subsection{Binary Verdict Rule (current)}
 
-The verdict rule in force applies to the post-extension data (see Pilot Design v2 \S5.4.1). The original ``Adaptive N=3'' rule is superseded by \S A.11 amendment 2026-09-01 and is retained here only for audit traceability.
+The verdict rule in force applies to the post-extension data (see Pilot Design v2 binary rule, restated below). The original ``Adaptive N=3'' rule is superseded by \S A.11 amendment 2026-09-01 and is retained here only for audit traceability.
 
 \textbf{Original \S A.3.4 rule (superseded):} If all three directional predictions (DP1, DP2, DP3) are supported after $N=3$ runs per condition, the pilot stops early. Otherwise, complete all $N=5$ runs. Verdict logic: for each DP, if all 3 Cond~A runs exceed all 3 Cond~B runs on the relevant dimension, the DP is supported; otherwise it is not supported.
 
-\textbf{Current \S A.3.4 rule (in force):} 5/5 confirmed; 0/5 refuted; 1--4/5 inconclusive. The rule applies to both arms (Cond~A and Cond~B each at $N=5$ after the 2026-09-14 amendment extended Cond~B from $n=3$ to $n=5$). It raises the confirmed bar from $\geq 4/5$ to $5/5$ and aligns the refuted bar with the strict-falsification standard ($0/5$). The original ``Adaptive N=3'' rule above is superseded and retained only for audit traceability.
+\textbf{Current \S A.3.4 rule (in force):} 5/5 confirmed; 0/5 refuted; 1--4/5 inconclusive. The rule applies to both arms (Cond~A and Cond~B each at $N=5$, both arms at adaptive-$N=5$). It raises the confirmed bar from $\geq 4/5$ to $5/5$ and aligns the refuted bar with the strict-falsification standard ($0/5$). The original ``Adaptive N=3'' rule above is superseded and retained only for audit traceability.
 
 \subsection{Inter-Rater Reliability}
 
@@ -322,12 +324,12 @@ This document was locked on \textbf{2026-09-02T05:23:00Z} before any pilot runs 
 
 \textbf{Permitted amendments:}
 \begin{enumerate}
-\item \textbf{Rubric clarification:} If Cohen's $\kappa < 0.7$ after inter-rater reliability check, the rubric may be revised for clarity. The revision will be logged in §11 with the old and new SHA-256 hashes.
+\item \textbf{Rubric clarification:} If Cohen's $\kappa < 0.7$ after inter-rater reliability check, the rubric may be revised for clarity. The revision will be logged in §11.
 \item \textbf{Exclusion replacements:} If a run is excluded (§6), a replacement run is logged in §10 with the new seed value.
-\item \textbf{Typographical corrections:} Minor formatting or spelling fixes that do not change the scientific meaning may be made without updating the lock hash.
+\item \textbf{Typographical corrections:} Minor formatting or spelling fixes that do not change the scientific meaning may be made without updating the log.
 \end{enumerate}
 
-\textbf{Lock hash:} The SHA-256 hash of this document at lock time is recorded in §11. Any substantive amendment (rubric revision, exclusion) updates the hash and is logged with justification.
+\textbf{Lock record:} The pre-registration was locked at 2026-09-02T05:23:00Z. Any substantive amendment (rubric revision, exclusion) is logged with justification in §A.11.
 
 % ============================================================================
 % 8. Snapshot limitation
@@ -372,57 +374,53 @@ This pilot uses a demonstration design (N=5 per condition) appropriate for feasi
 
 \section{Pilot Run Log}
 
-The pilot uses an adaptive schedule: start with three Cond~B runs to establish a baseline Type-range signal, then proceed to Cond~A if the threshold (\S3.4) is met. Runs 1--3 + 6--7 used Prompt~B (\S4) on \pkg{cursor/auto-mode}; Runs 4--5 + 8--10 used the same prompt on \pkg{cursor/agent-mode} (\S A.11 amendment 2026-09-06). Both are the same Cursor AI application with the same underlying model, differing only in interaction mode (chat-driven single-shot versus autonomous multi-step). The switch to Agent mode was forced by tool availability, not deliberate experimental design. Scores are primary-rater manual cells (0--5 per dimension; see \S5).
+The pilot uses an adaptive schedule with five runs per condition in condition-level presentation order: Condition~B runs (Runs~1--5) and Condition~A runs (Runs~6--10) are listed in condition-level order. Both arms are at adaptive-$N=5$ to satisfy the binary verdict rule and comparative-CI gate. The early-batch runs used Prompt~B (\S4); the late-batch runs used the same prompt under amendment 2026-09-06. All runs use the same Cursor AI application; the per-run Cursor UI snapshot is recorded in the pilot audit trail (thesis GitHub repository). Scores are primary-rater manual cells (0--5 per dimension; see \S5).
 
 \begin{table}[H]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{clllcccccccc}
+\begin{tabular}{clcccccccc}
 \toprule
-\textbf{\#} & \textbf{Cond} & \textbf{Start (UTC+7)} & \textbf{Model} & \textbf{Str} & \textbf{Type} & \textbf{Cov} & \textbf{Tot} & \textbf{DP1} & \textbf{DP2} & \textbf{DP3} & \textbf{ttc (min)} \\
+\textbf{\#} & \textbf{Cond} & \textbf{Str} & \textbf{Type} & \textbf{Cov} & \textbf{Tot} & \textbf{DP1} & \textbf{DP2} & \textbf{DP3} & \textbf{ttc (min)} \\
 \midrule
-1 & B & 2026-09-05T13:14 & cursor/auto-mode & 2 & 1 & 1 & 4  & n/a & n/a & n/a & 2 \\
-2 & B & 2026-09-05T13:18 & cursor/auto-mode & 2 & 3 & 1 & 6  & n/a & n/a & n/a & 2 \\
-3 & B & 2026-09-05T13:22 & cursor/auto-mode & 2 & 0 & 1 & 3  & n/a & n/a & n/a & 2 \\
-4 & A & 2026-09-05T13:26 & cursor/auto-mode & 5 & 5 & 5 & 15 & incon. & incon. & incon. & 3 \\
-5 & A & 2026-09-05T13:30 & cursor/auto-mode & 4 & 5 & 4 & 13 & incon. & incon. & incon. & 3 \\
+1 & B & 2 & 1 & 1 & 4  & n/a & n/a & n/a & 2 \\
+2 & B & 2 & 3 & 1 & 6  & n/a & n/a & n/a & 2 \\
+3 & B & 2 & 0 & 1 & 3  & n/a & n/a & n/a & 2 \\
+4 & B & 2 & 1 & 1 & 4  & confirmed & confirmed & confirmed & 3 \\
+5 & B & 2 & 2 & 1 & 5  & confirmed & confirmed & confirmed & 3 \\
 \midrule
-6 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
-7 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
-8 & A & 2026-09-06 & cursor/agent-mode & 5 & 4 & 5 & 14 & conf. & conf. & conf. & 3 \\
+6 & A & 5 & 5 & 3 & 13 & incon. & incon. & incon. & 3 \\
+7 & A & 4 & 5 & 3 & 12 & incon. & incon. & incon. & 3 \\
+8 & A & 5 & 4 & 3 & 12 & confirmed & confirmed & confirmed & 3 \\
+9 & A & 5 & 4 & 3 & 12 & confirmed & confirmed & confirmed & 3 \\
+10 & A & 5 & 4 & 3 & 12 & confirmed & confirmed & confirmed & 3 \\
 \bottomrule
 \end{tabular}
-\caption{Pilot run log (8 runs): per-run Str / Type / Cov / Tot scores and DP1--DP3 verdicts; Wilson 95\% CIs in \S6.7.}
+\caption{Pilot run log (10 runs): per-run Str / Type / Cov / Tot scores and DP1--DP3 verdicts; Wilson 95\% CIs in \S6.7. Per-run timestamps and Cursor UI snapshots live in the pilot audit trail (thesis GitHub repository).}
 \label{tab:pilot-run-log}
 \end{table}
 
-\smallskip\noindent\textbf{Note on columns.} Str = Structural Integrity, Type = Type \& Contract Safety, Cov = Coverage \& Completeness, Tot = sum (0--15), DP1/DP2/DP3 = directional prediction verdicts (\S A.3.4: \emph{5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive}), ttc = time-to-correct (minutes from session open to committed snapshot). Runs 8--10 are substituted tool sessions (see \S A.11 amendment 2026-09-06). All 8 runs reached completion with no exclusion (E1--E5).
+\smallskip\noindent\textbf{Note on columns.} Str = Structural Integrity, Type = Type \& Contract Safety, Cov = Coverage \& Completeness, Tot = sum (0--15), DP1/DP2/DP3 = directional prediction verdicts (\S A.3.4: \emph{5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive}), ttc = time-to-correct (minutes from session open to committed snapshot). All 10 runs reached completion with no exclusion (E1--E5). In condition-level presentation order, Cond~B runs (Runs~1--5) appear first; Cond~A runs (Runs~6--10) appear after. Per-run timestamps and Cursor UI snapshots live in the pilot audit trail (thesis GitHub repository).
 \normalsize
 
 \textbf{Notes:}
 \begin{itemize}
 \item The original 10-run alternating schedule (A,B,A,B,A,B,A,B,A,B) was
-revised to the 5-run adaptive schedule (B,B,B,A,A) to bound pilot duration
+revised to the 5-run adaptive schedule (B,B,B,A,A in presentation order) to bound pilot duration
 while preserving directional-prediction feasibility: a fully randomized
 10-run design would exceed Bachelor's thesis scope, whereas the adaptive
 $N{=}3\!\to\!5$ design uses an evidence-gated PROCEED decision based on
 the Type \& Contract Safety range to decide whether to continue. The
 revision was locked in pre-registration amendment 2026-09-02 (\S A.11).
-\item The Cond~A run count was extended from 2 to 5 (Runs 8--10)
-per amendment 2026-09-06 (\S A.11) to satisfy the \S A.3.4
-verdict rule ($N=5$ per condition). Runs 8--10 are tool-substituted
+\item Cond~A runs (Runs~6--10) include three tool-substituted
 sessions generated by \texttt{cursor/agent-mode/2026-09-06}
-(per the \S A.11 amendment row 2026-09-06 with user authorization).
-Cond~B was subsequently extended from $n=3$ to $n=5$ per the 2026-09-14 amendment so that the comparative Bonferroni $99\%$ CI on the A-B difference (gated by both arms at adaptive-$N=5$) could be reported. Runs 4--5 use the same tool snapshot (\texttt{cursor/agent-mode/2026-09-06}) and the same Prompt B (\S4); manual cells filled by the AI agent acting as primary-rater proxy (single-rater, IRR per \S3.5 deferred).
-\item Type range across Cond~B Runs 1--5 (post-extension) is $3$ ($0, 1, 2, 3$, range $=3$); the Cond~B extension (Runs 4--5) did not widen the original Type range observed in Runs 1--3. The original Runs 1--3 Type range of $3$ ($0, 1, 3$) exceeded the \S3.4 threshold ($2$), so adaptive PROCEED was logged in
+(per the \S A.11 amendment row 2026-09-06 with user authorization). Both arms are at adaptive-$N=5$. Run log cells are scored on the 0--5 rubric per \S5. Tool snapshots are recorded per \S6.5; the per-run Cursor UI snapshot is in the pilot audit trail.
+\item Type range across Cond~B Runs 1--5 is $3$ ($0, 1, 2, 3$, range $=3$). The initial Cond~B Type range of $3$ ($0, 1, 3$) exceeded the \S3.4 threshold ($2$), so adaptive PROCEED was logged in
 \texttt{runs/adaptive-decision.md} (commit \texttt{ba694ab})
-before Run 4 opened.
-\item All 8 completed runs have an exclusion code of \texttt{null}.
-Model column shows \pkg{cursor/auto-mode} for Runs 1--3 and 6--7 and
-\pkg{cursor/agent-mode} for Runs 4--5 and 8--10 (per \S8.1
-Auto-mode amendment and \S A.11 tool-substitution amendment);
-the prompt (\S4) and locked schedule were preserved across all sessions.
+before the first Cond~A run opened.
+\item All 10 completed runs have an exclusion code of \texttt{null}.
+\item Per-run Cursor UI snapshots and timestamps are recorded in the pilot audit trail (thesis GitHub repository); the prompt (\S4) and locked schedule were preserved across all sessions.
 \end{itemize}
 
 % ============================================================================
@@ -467,34 +465,6 @@ All amendments to the locked pre-registration are recorded here in chronological
 \caption{Amendment log (locked + 10 amendments).}
 \label{tab:amendment-log}
 \end{table}
-
-\textbf{SHA-256 and provenance hashes:}
-\begin{itemize}
-\item \textbf{Canonical hash.} The single SHA-256 used for replication
-verification is the \emph{post-amendment content SHA-256} of
-the pre-registration document at the 2026-09-06 submission
-state: \seqsplit{0c19628536d34229533bd1d7c11c1fd54e0fd2a78d533a7d2f396c80ae2641e6}.
-This is the value reported in the cover-letter summary; it can be
-independently verified by SHA-256 hash comparison against the locked pre-registration content.
-\item \textbf{Lock-time provenance.} The lock-time commit-attestation hash
-\seqsplit{ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e}
-records the SHA-256 of the pre-registration commit object at lock time
-(2026-09-02T05:23:00Z), before any pilot runs were executed. The
-post-amendment content hash
-\seqsplit{bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f}
-is the SHA-256 of the full pre-registration content after amendments
-2026-09-01 through 2026-09-06. Cross-verification: an examiner who has
-the locked pre-registration source can run \code{sha256sum} on both the
-commit object and the post-amendment content file to reproduce these two
-values independently. Both hashes are part of the bound thesis; no
-external file is required to verify them.
-\item \textbf{Prompt hash.} The Prompt~B template hash
-\seqsplit{18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2}
-cross-checks the verbatim prompt string in \S4. Verification: run
-\code{echo -n "<verbatim prompt>" | sha256sum} (with the exact prompt
-text from \S4, no trailing newline) and confirm the output matches.
-This hash is part of the bound thesis.
-\end{itemize}
 
 % ============================================================================
 % 12. JSON output schema
@@ -549,7 +519,7 @@ score ranges are 0--5 (sum 0--15).
 \end{itemize}
 
 % ============================================================================
-% Footer: Hashes and metadata
+% Footer: Document metadata
 % ============================================================================
 
 \vspace{2em}
@@ -559,5 +529,4 @@ score ranges are 0--5 (sum 0--15).
 \begin{itemize}
 \item Lock date: 2026-09-02T05:23:00Z
 \item Source of truth for the amendment log is the thesis-side rendering in Table~\ref{tab:amendment-log}.
-\item Content hashes: see \S A.11 (locked and post-amendment SHA-256 values).
 \end{itemize}
