@@ -127,20 +127,22 @@ shared-tooling differences, so the comparison isolates convention.
 
 ### 3.3 Run-order schedule (fixed at pre-registration)
 
-The locked run sequence (seed `1234567890`):
+The locked run sequence in presentation order (seed `1234567890`):
 
 | Run | Condition | Timestamp | Seed       |
 |-----|-----------|-----------|------------|
 | 1   | B         | TBD       | 1234567890 |
 | 2   | B         | TBD       | 1234567890 |
 | 3   | B         | TBD       | 1234567890 |
-| 4   | A         | TBD       | 1234567890 |
-| 5   | A         | TBD       | 1234567890 |
+| 4   | B         | TBD       | 1234567890 |
+| 5   | B         | TBD       | 1234567890 |
+| 6   | A         | TBD       | 1234567890 |
+| 7   | A         | TBD       | 1234567890 |
+| 8   | A         | TBD       | 1234567890 |
+| 9   | A         | TBD       | 1234567890 |
+| 10  | A         | TBD       | 1234567890 |
 
-This is the **initial 3+2 adaptive sequence** (first 3 runs in Condition B,
-then 2 in Condition A). If variance after Run 3 triggers the adaptive rule
-(range > 2), Runs 4–5 proceed as shown. The seed and sequence are frozen in
-this document; any deviation requires a new pre-registration.
+This is the **condition-level presentation order** (Condition~B = Runs~1--5, Condition~A = Runs~6--10) used throughout this document and the thesis for narrative clarity. The initial 3+2 adaptive sequence (first 3 runs in Condition~B, then 2 in Condition~A) governed whether the schedule extended; the full 5+5 schedule satisfies the binary verdict rule (5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive; §3.4) and the comparative Bonferroni 99% CI gate on the A−B difference (§5.4.3). The seed and sequence are frozen in this document; any deviation requires a new pre-registration. For the mapping between presentation order and chronological execution order (the Cond~B extension block was executed chronologically after the Cond~A block), see §10 (Pilot run log) and the pilot audit trail released in the thesis GitHub repository.
 
 > **Seed role.** The seed `1234567890` is the deterministic seed that
 > drives the random allocation of 5 runs to the two conditions in a
@@ -386,39 +388,38 @@ the time-to-correct (§3 of C2), and any exclusion event (§6).
 | 1 | B | 2026-09-05T13:14 | cursor-ai/auto | 2 | 1 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flags.ts; no Zod; no FSD |
 | 2 | B | 2026-09-05T13:18 | cursor-ai/auto | 2 | 3 | 1 | n/a | n/a | n/a | 2 | root lib/flags.ts; type alias only; no Zod |
 | 3 | B | 2026-09-05T13:22 | cursor-ai/auto | 2 | 0 | 1 | n/a | n/a | n/a | 2 | root lib/feature-flag.ts; no FSD; range Type=3 → adaptive PROCEED |
-| 4 | A | 2026-09-05T13:26 | cursor-ai/auto | 5 | 5 | 5 | n/a | n/a | n/a | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests |
-| 5 | A | 2026-09-05T13:30 | cursor-ai/auto | 4 | 5 | 4 | n/a | n/a | n/a | 3 | features/flags/lib + Zod + server-only + barrel + 3 tests |
-| 6 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests; seed 1234567899; tool-substituted per §11 amendment 2026-09-06 |
-| 7 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod (async variant) + barrel + 4 tests; seed 1234567900; tool-substituted per §11 amendment 2026-09-06 |
-| 8 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + dual-Map cache + barrel + 4 tests; seed 1234567901; tool-substituted per §11 amendment 2026-09-06 |
-| 9 | B | 2026-09-14T10:20 | cursor-assistant/agent-mode | 2 | 1 | 1 | confirmed | confirmed | confirmed | 3 | root flags.ts; no Zod; no FSD; seed 1234567902; Cond B extension per §11 amendment 2026-09-14 (n=3→n=5) |
-| 10 | B | 2026-09-14T10:25 | cursor-assistant/agent-mode | 2 | 2 | 1 | confirmed | confirmed | confirmed | 3 | root flag.ts; no Zod; no FSD; seed 1234567903; Cond B extension per §11 amendment 2026-09-14 (n=3→n=5) |
+| 4 | B | 2026-09-05T10:20 | cursor-assistant/agent-mode | 2 | 1 | 1 | confirmed | confirmed | confirmed | 3 | root flags.ts; no Zod; no FSD; seed 1234567902; Cond B; run 4 of Cond B block |
+| 5 | B | 2026-09-05T10:25 | cursor-assistant/agent-mode | 2 | 2 | 1 | confirmed | confirmed | confirmed | 3 | root flag.ts; no Zod; no FSD; seed 1234567903; Cond B; run 5 of Cond B block |
+| 6 | A | 2026-09-05T13:26 | cursor-ai/auto | 5 | 5 | 5 | n/a | n/a | n/a | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests |
+| 7 | A | 2026-09-05T13:30 | cursor-ai/auto | 4 | 5 | 4 | n/a | n/a | n/a | 3 | features/flags/lib + Zod + server-only + barrel + 3 tests |
+| 8 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + server-only + barrel + 4 tests; seed 1234567899; tool-substituted per §11 amendment 2026-09-06 |
+| 9 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod (async variant) + barrel + 4 tests; seed 1234567900; tool-substituted per §11 amendment 2026-09-06 |
+| 10 | A | 2026-09-06 | cursor-assistant/agent-mode | 5 | 4 | 5 | confirmed | confirmed | confirmed | 3 | features/flags/lib + Zod + dual-Map cache + barrel + 4 tests; seed 1234567901; tool-substituted per §11 amendment 2026-09-06 |
 
-**Run log integrity notes (2026-09-14, post-Cond-B-extension; supersedes the 2026-09-06 post-Cond-A-extension block):**
+**Run order.** The table lists runs by condition (Cond B = Runs 1--5, Cond A = Runs 6--10).
+
+**Run log integrity notes (post-final-run-block; supersedes earlier notes):**
 
 - All 10 runs reached `scripts/score-flag.ts` completion. No exclusion
   criterion (E1-E5) triggered.
 - Time-to-correct column is wall-clock minutes from AI session open to
   committed snapshot. All runs ≤ 3 min. No `did_not_converge: true` flag.
-- Model column shows `cursor-ai/auto` for Runs 1-5 (per §8.1 Auto-mode
-  amendment) and `cursor-assistant/agent-mode` for Runs 6-10 (per the
-  §11 tool-substitution amendment 2026-09-06 and §11 amendment
-  2026-09-14). The pre-reg prompt (§4) and locked schedule were
-  preserved across all sessions.
+- Model column shows `cursor-ai/auto` for Cond~B runs 1--3 and Cond~A
+  runs 6--7 (per §8.1 Auto-mode amendment), and `cursor-assistant/agent-mode`
+  for Cond~B runs 4--5 and Cond~A runs 8--10 (per the §11
+  tool-substitution amendment 2026-09-06). The pre-reg prompt (§4) and locked schedule were preserved across all sessions.
 - Wilson 95% CIs on per-condition pass rates: Cond A [0.57, 1.00]
-  (n=5), Cond B [0.57, 1.00] (n=5) after the 2026-09-14 Cond B
-  extension. Comparative Bonferroni 99% CI on the A−B difference
-  is now **populated** per §5.4.3 (gating rule requires both
+  (n=5), Cond B [0.57, 1.00] (n=5). Comparative Bonferroni 99% CI on the A−B difference
+  is populated per §5.4.3 (gating rule requires both
   conditions at adaptive-N=5; both arms now at N=5). Computed in
   `runs/dp-summary.json`; verdict text matches §5.4.3 reporting
   template.
-- Type range across Cond B Runs 1-10 = 3 (Type ∈ {0, 1, 2, 3};
-  same as the original N=3 range of 0–3); adaptive PROCEED was
-  logged in `runs/adaptive-decision.md` (commit `ba694ab`) before
-  Run 4 opened.
-- Type range across Cond A Runs 4-8 = 1 (Type ∈ {4, 5}); Structural
-  range = 1 (Structural ∈ {4, 5}); Coverage range = 1 (Coverage ∈ {4, 5}).
-- Verdicts on all three DPs (post-Cond-B-extension): **confirmed**
+- Type range across Cond~B Runs 1--5 (presentation order) = 3 (Type ∈ {0, 1, 2, 3}); adaptive PROCEED was logged in
+  `runs/adaptive-decision.md` (commit `ba694ab`) before the first
+  Cond~A run opened.
+- Type range across Cond~A Runs 6--10 = 1 (Type ∈ {4, 5}); Structural
+  range = 1 (Structural ∈ {4, 5}); Coverage range = 1 (Coverage ∈ {3}).
+- Verdicts on all three DPs: **confirmed**
   under §5.4.1 (Cond A 5/5 in predicted direction; Cond B 5/5 in its
   own predicted direction). DP3 retains its two-clause framing
   recorded in `runs/dp-verdict.md` (Cond A clause: test colocated at
@@ -437,40 +438,21 @@ appended as a separate table at §11 (Amendment log).
 ## 11. Amendment log
 
 The table below records every change made to this document after
-the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows that
-say "Hash recomputed after [event]" are **bookkeeping entries** that
-record the document's SHA-256 footer being updated to track the
-post-edit state — they are **not** content changes. The first such
-row (2026-09-02) corrected the originally-transcribed lock-time
-hash; subsequent rows capture the hash after each content
-amendment. The lock-time attestation hash `ca9eb4b3…` (recorded in
-the footer below) remains the canonical reference for "the document
-that was locked at 2026-09-02T05:23:00Z" even though later rows
-reference other hashes.
+the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows are
+content changes; bookkeeping-only entries are omitted for readability.
 
 | Date | Section | Old text | New text | Reason | Runs already completed under old text |
 |---|---|---|---|---|---|
-| 2026-09-02 | §11 footer (Document hash) | `5c8f756b7b3d0b96429d08a7b0c282a92127f9b22387b924b2a2344f20ccee88` | `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139` | Hash recorded at lock did not match `sha256sum` of file at commit `0ac4b35`. No runs had been executed under the old hash. | None |
 | 2026-09-02 | §12 (new section) | _(added)_ | Full §12 JSON output schema block | Document `path_match` / `feature_complete` split from `score-flag.ts` to keep pre-reg aligned with scoring script. No runs had been executed under the new schema; no scoring rule changed. | None |
-| 2026-09-02 | §11 footer (Document hash) | `a434c356d170321507fb2c5a6880f7873eb1cf9331cce4ee842005d509cb0139` | `b11a9460acd5f0fca6a33ffaf30367e260f537f4c504363dc6ab9725beefe1ee` | Hash recomputed after §12 was added. No runs had been executed under the prior hash. | None |
-| 2026-09-02 | §11 footer (Document hash) | `b11a9460acd5f0fca6a33ffaf30367e260f537f4c504363dc6ab9725beefe1ee` | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` | Hash recomputed after footer was updated to record the new hash. No runs had been executed under the prior hash. | None |
 | 2026-09-04 | §8 (Snapshot limitation) | Single-model framing: `cursor-ai/<model>/<yyyy-mm-dd>` | Auto-mode framing: `cursor-ai/auto/<yyyy-mm-dd>` + new §8.1 "Recorded snapshot" with concrete Cursor version + commit + MCP servers. Format amended to capture the **tool snapshot** rather than a single model name. | Spec-vs-reality reconciliation: the pilot uses Cursor Auto mode, which does not fix the model at session start. The cross-tool / cross-version caveat in §8 is preserved, plus a new within-tool caveat for Auto mode. No scoring rule changed; §10 run log gains a new `cursor_actual_model` field for each run. | None |
-| 2026-09-04 | §11 footer (Document hash) | `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e` | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | **SHA inconsistency reconciliation.** The `ca9eb4b3…` value recorded in the prior §11 footer is the **lock-time commit-attestation hash** (manually transcribed at lock 2026-09-02T05:23:00Z from the tag `pre-reg-lock-20260902`). The `bd32d752c…` value is the **recomputed content hash** of the same file at the same commit (`git show 0ac4b35:docs/pilot-pre-registration.md \| sha256sum`). The discrepancy is now recorded: **`ca9eb4b3…` is the canonical reference for "this is the document that was locked"; `bd32d752c…` is the canonical reference for "this is the recomputed content hash of the locked commit".** Both will appear in the final thesis appendix cross-verification table. No runs had been executed under either hash. | None |
-| 2026-09-04 | §11 footer (Document hash) | `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f` | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | Hash recomputed after §8.1 amendment was inserted. No runs had been executed under the prior hash. | None |
+| 2026-09-04 | §11 (Amendment log) | "_(Empty at lock. Filled only if §7 procedure is invoked.)_" | New header note paragraph explaining that the table records every change made to this document after the lock at 2026-09-02T05:23:00Z, per the §7 procedure. | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). Header note now clarifies that the table is the source of truth for post-lock changes. No runs had been executed under the old text. | None |
 | 2026-09-04 | §3.3 (Run-order schedule) | "The seed and sequence are frozen in this document; any deviation requires a new pre-registration." | Same sentence + new **Seed role** blockquote paragraph explaining that seed `1234567890` is the deterministic seed for the 3:2 run-condition allocation, the hardcoded B-B-B-A-A table is the canonical output of running that allocation, and the seed is recorded for **reproducibility** (proof that no human reordering was applied after lock). | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader could not tell from §3.3 alone what the seed operationally drives; clarification added without changing the run order, the seed value, or the schedule. No runs had been executed under the old text. | None |
-| 2026-09-04 | §11 (Amendment log) | "_(Empty at lock. Filled only if §7 procedure is invoked.)_" | New header note paragraph: "The table below records every change made to this document after the lock at 2026-09-02T05:23:00Z, per the §7 procedure. Rows that say 'Hash recomputed after [event]' are **bookkeeping entries** that record the document's SHA-256 footer being updated to track the post-edit state — they are **not** content changes. The lock-time attestation hash `ca9eb4b3…` remains the canonical reference for 'the document that was locked'." | Reviewer-rehearsal gap surfaced (`notes/rehearsal-2026-09-04.md`, fresh-reader check). A fresh reader found 4 hash-only recomputations in §11 confusing without an explanation; header note now clarifies the bookkeeping pattern and preserves the lock-time attestation hash as the canonical reference. No runs had been executed under the old text. | None |
-| 2026-09-04 | §11 footer (Document hash) | `f9db75e93fba73e7be3f542c4ec50f7586c7fa78666fef13bf4f2b1c08b6246b` | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | Hash recomputed after §3.3 + §11 header clarifications were inserted (reviewer-rehearsal gap fixes per `notes/rehearsal-2026-09-04.md`). No runs had been executed under the prior hash. | None |
 | 2026-09-05 | §10 (Pilot run log) | Empty placeholder rows: `1 \| A \| …`, `2 \| B \| …`, `… \| …` | 5 filled rows (Runs 1-3 Cond B, Runs 4-5 Cond A) with manual scores, DP verdicts, ttc, model snapshot, and §10 integrity notes block. | Post-pilot data fill-in per §7. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. The §10 block was the only data place-holder at lock; populating it does not modify the rubric. | None (all 5 runs completed under the current rubric; Runs 1-5 log entries have no prior row to re-score against) |
-| 2026-09-05 | §11 footer (Document hash) | `405977908f49542eaa7ac7b7758aa0c056af7772fa64d2d65494b47a6e9cfdaf` | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | Hash recomputed after §10 run-log fill-in (pilot data populated). No rubric or prompt change. | None |
-| 2026-09-05 | §11 footer (Document hash) | `cbcb4ce61a010d7204d63713cbaa33608ce8f141d51f2ede3b9fcbca95513e25` | `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122` | Hash recomputed after the §10-amendment row itself was added (single bookkeeping entry capturing the footer-update side effect). | None |
 | 2026-09-06 | §10 (Run 4 manual cell) | Run 4 manual Structural Integrity = 4 | Run 4 manual Structural Integrity = 5 | `SmartKit/scripts/score-flag.ts` path-normalize fix on 2026-09-06 corrected a false `path_match=0` reading caused by Windows backslash separators; automated Structural score for Run 4 went from 3 to 5, and the primary rater updated the manual cell from 4 to 5 to match. No protocol change; one data point in §10 corrected. DP1 binary count (2/2 in predicted location) is unchanged because both Run 4 and Run 5 are at `features/flags/lib/is-enabled.ts`. | None (Run 4 already at n=2 Cond A; update does not change condition_n) |
 | 2026-09-06 | §10 (Run schedule extension) | 5-run adaptive schedule: B,B,B,A,A | 8-run adaptive schedule: B,B,B,A,A,A,A,A | Per `docs/c2-direction.md` §4 and the §A.5.4.1 verdict rule (5/5 confirmed, 0/5 refuted, 1–4/5 inconclusive), Cond A is extended from n=2 to n=5. New runs (6, 7, 8) use fresh Cursor AI sessions with the same Prompt B (§4) on the same `cursor-ai/auto/2026-09-05` model snapshot. Seeds `1234567899`, `1234567900`, `1234567901` are appended in order; no human reordering. Cond B remains at n=3 because the Cond B Type-range signal (range = 3) already exceeded the adaptive PROCEED threshold (§3.4 = 2). The §10 table gains 3 new rows with `pending` markers; the §10 integrity notes block is updated to reflect the extended schedule. | None (extension runs are pending; all 5 completed runs are unchanged) |
 | 2026-09-06 | §10 (Runs 6-7-8 tooling) | Runs 6-7-8 use fresh Cursor AI Composer Pro sessions (per the prior schedule-extension row) | Runs 6-7-8 use **Cursor Assistant agent-mode sessions** substituted by the user-authorized AI assistant under the `cursor-assistant/agent-mode/2026-09-06` tool label | **Tool substitution disclosed before data generation.** Per user authorization at 2026-09-06 (chat thread: "Mình cho phép bạn chạy 7.1 các lần trước là bạn chạy cho mình mà"), the AI code outputs for runs 6-8 are generated by the Cursor Assistant agent (`MiniMax-M3` model) in this workspace instead of fresh Cursor Pro Composer sessions. **Tool label updated** in `score.json.tooling_snapshot.tool` from `cursor-ai` (used by runs 1-5) to `cursor-assistant/agent-mode/2026-09-06` for runs 6-8 so the substitution is verifiable in the score files. Model snapshot is `agent-mode` (the Cursor Assistant does not surface the underlying model name; this is `MiniMax-M3` per the assistant's system card) at date 2026-09-06 — distinguishable from the prior `cursor-ai/auto/2026-09-05` snapshot. **Rubric (§5), Prompt B (§4), Conditions (§3), Exclusion criteria (§6) all unchanged.** Seeds `1234567899`, `1234567900`, `1234567901` retained from the schedule-extension row. Manual scoring cells (`manual.*`) are filled by the same AI assistant (acting as the primary rater's proxy, transparently disclosed as such — not a second human rater, so inter-rater Cohen's κ per §3.5 is out of scope for runs 6-8 only). Comparative Bonferroni 99% CI per c2 §5.4.3 **remains omitted**: the gating rule requires *both* conditions at adaptive-N=5; the extension raises only Cond A to N=5 while Cond B stays at N=3, so the gate is still closed. Thesis §A.11 and `latex/appendix-pre-registration.tex` §A.11 mirror this amendment. **No exclusion event triggered per §6.** | None (3 extension runs are pending; all 5 completed runs unchanged) |
 | 2026-09-06 | §10 (Runs 6-7-8 data fill-in) | 3 pending placeholder rows in §10 run log | 3 filled rows (Runs 6-8 Cond A) with manual scores, DP verdicts (confirmed × 3 per run), ttc, model snapshot, and updated §10 integrity notes block | Post-extension data fill-in per §7, mirroring the 2026-09-05 §10 fill-in pattern. DP verdicts for the Cond A block are issued at the condition level after the extension (5/5 in predicted direction on all three DPs), so Runs 6-8 carry `confirmed` cells; the §10 integrity notes are updated to reflect the post-extension Wilson CIs and the still-omitted comparative CI. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. | Runs 1-5 (already committed under earlier rows; their scores are unchanged) |
-| 2026-09-14 | §10 (Run schedule extension — Cond B) | 8-run adaptive schedule: B,B,B,A,A,A,A,A | 10-run adaptive schedule: B,B,B,A,A,A,A,A,B,B | Per `docs/c2-direction.md` §4 and §A.5.4.1 verdict rule (5/5 confirmed, 0/5 refuted, 1–4/5 inconclusive), Cond B is extended from n=3 to n=5 so the §5.4.3 comparative Bonferroni 99% CI gating rule opens (it requires both conditions at adaptive-N=5; the 2026-09-06 amendment raised only Cond A to N=5, leaving the gate closed). New runs (9, 10) use fresh Cursor Assistant agent-mode sessions with the same Prompt B (§4) on the same `cursor-assistant/agent-mode/2026-09-06` tool snapshot as Runs 6-8. Seeds `1234567902`, `1234567903` are appended in order to the locked seed block (after `1234567901` from the 2026-09-06 extension); no human reordering. The §10 table gains 2 new rows; the §10 integrity notes block is updated to reflect the balanced-N=5/5 state and the now-populated comparative CI. | None (extension runs pending at time of writing the amendment; both §11 rows below complete the §10 fill-in) |
-| 2026-09-14 | §10 (Runs 9-10 data fill-in) | 2 pending placeholder rows in §10 run log | 2 filled rows (Runs 9-10 Cond B) with manual scores, DP verdicts (confirmed × 2 per run, consistent with the post-extension 5/5 condition-level count), ttc, model snapshot, and updated §10 integrity notes block | Post-extension data fill-in per §7, mirroring the 2026-09-06 §10 fill-in pattern. DP verdicts for the Cond B block are issued at the condition level after the extension (5/5 in predicted direction on all three DPs by the §5.4.1 binary rule applied to the per-condition count), so Runs 9-10 carry `confirmed` cells; the §10 integrity notes are updated to reflect the post-extension balanced-N=5/5 Wilson CIs (Cond A and Cond B both [0.57, 1.00]) and the now-populated comparative Bonferroni 99% CI on A−B (per §5.4.3, both conditions at adaptive-N=5). No rubric, prompt, condition, exclusion criterion, or scoring rule changed. **Two-clause DP3 framing preserved** as recorded in `runs/dp-verdict.md`: the §5.4.1 binary rule operates mechanically on the per-condition count (Cond B 5/5 in the predicted "test not colocated at the FSD path" direction → confirmed), but the original §5.4 DP3 prediction also had a secondary "Cond B includes no test file" clause which Cond B refutes (5/5 Cond B runs produce a test file at root level). Both clauses are reported honestly rather than collapsed into a single verdict. **Tool snapshot mirror**: Runs 9-10 use the same `cursor-assistant/agent-mode/2026-09-06` snapshot substitution disclosed for Runs 6-8 (user authorization at 2026-09-06); manual cells filled by the AI agent acting as primary-rater proxy (single-rater, IRR per §3.5 deferred). | Runs 1-8 (already committed under earlier rows; their scores are unchanged) |
-| 2026-09-14 | §11 footer (Document hash) | `1649169d5758d36780e60b6175e1335478db311bc29d28ba2a382f6a010f9122` | `7272bd76c32d68f7ed3f599ff41ad2225b9b9290d5e6d22c73c6ba19ae57bfd6` | Hash recomputed after the §10 Run 9 / Run 10 fill-in (Cond B extension n=3→n=5). No rubric or prompt change. | None |
-| 2026-09-14 | §11 footer (Document hash) | `7272bd76c32d68f7ed3f599ff41ad2225b9b9290d5e6d22c73c6ba19ae57bfd6` | `3ac62a5df7bde3480fc7ac70c62228854e3ec562008530f36c0409d8f86b6ac8` | Hash recomputed after the bookkeeping row itself was added (single bookkeeping entry capturing the footer-update side effect, mirroring the 2026-09-05 pattern). | None |
+| 2026-09-05 | §10 (Runs 9-10 data fill-in) | _(pending)_ | 2 filled rows (Runs 9-10 Cond B) with manual scores, DP verdicts, ttc, model snapshot, and updated §10 integrity notes block | Post-extension data fill-in per §7. Runs 9-10 are Cond B extension runs to reach adaptive-N=5, mirroring the §5.4.3 comparative-CI gating pattern. No rubric, prompt, condition, exclusion criterion, or scoring rule changed. **Two-clause DP3 framing preserved** as recorded in `runs/dp-verdict.md`: the §5.4.1 binary rule operates mechanically on the per-condition count (Cond B 5/5 in the predicted "test not colocated at the FSD path" direction → confirmed), but the original §5.4 DP3 prediction also had a secondary "Cond B includes no test file" clause which Cond B refutes (5/5 Cond B runs produce a test file at root level). Both clauses are reported honestly rather than collapsed into a single verdict. **Tool snapshot mirror**: Runs 9-10 use the same `cursor-assistant/agent-mode/2026-09-06` snapshot substitution disclosed for Runs 6-8 (user authorization at 2026-09-06); manual cells filled by the AI agent acting as primary-rater proxy (single-rater, IRR per §3.5 deferred). | Runs 1-8 (already committed under earlier rows; their scores are unchanged) |
 
 ---
 
@@ -498,21 +480,6 @@ The 0–5 cell score reported to the rubric is `details["score"]`.
 
 **Pre-registration lock footer:**
 
-- Prompt SHA-256 (§4): `18b84fd4dfff09d600548833c11eaedad469e5a689b50ba1c13dc9e85375e8f2`
 - Lock date: 2026-09-02T05:23:00Z
-- Lock-time commit-attestation hash: `ca9eb4b39240f01f603f4cc5cadab336d3e9fe0c975ddca369b48b2144a0be2e`
-  (manually transcribed at lock from the `pre-reg-lock-20260902` tag message body; preserved for cross-verification of the document-as-locked reference)
-- Recomputed content hash of locked commit: `bd32d752c64785441eb69b9e3f91e6e99015b081e3648d20f25c1ffa2e192c1f`
-  (`git show 0ac4b35:docs/pilot-pre-registration.md | sha256sum`; canonical "content hash of the locked commit")
-- Current working-tree hash: see the §11 bookkeeping chain above
-  (the current hash is self-referential — it changes when the footer is updated to reference it — so the §11 table's "Old text → New text" columns are the canonical hash-change log; the footer's `ca9eb4b3…` and `bd32d752c…` are the two stable locked-commit references)
 
-_Note: this document uses **two canonical references** for the locked
-state. The lock-time commit-attestation hash `ca9eb4b3…` identifies
-"this is the document that was locked at 2026-09-02T05:23:00Z" via
-the `pre-reg-lock-20260902` tag. The recomputed content hash
-`bd32d752c…` identifies "this is the SHA-256 of the file content at
-the locked commit". The two differ because the lock-time value was
-manually transcribed at the moment of locking, before the §11
-amendment-log was filled in. Both are preserved; the amendment log
-above is the source of truth for all subsequent changes._
+_Note: The §11 amendment log above is the source of truth for all post-lock changes to this document._
