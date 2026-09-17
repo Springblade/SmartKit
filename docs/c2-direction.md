@@ -163,20 +163,22 @@ seeded schedule (e.g. CRD — completely randomized design) with the seed
 documented in the pre-registration (§11). Without this, a reviewer cannot
 distinguish a real Condition effect from a session-order effect.
 
-The locked run sequence (seed `1234567890`):
+The locked run sequence in condition-level presentation order (seed `1234567890`):
 
 | Run | Condition | Timestamp | Seed       |
 |-----|-----------|-----------|------------|
 | 1   | B         | TBD       | 1234567890 |
 | 2   | B         | TBD       | 1234567890 |
 | 3   | B         | TBD       | 1234567890 |
-| 4   | A         | TBD       | 1234567890 |
-| 5   | A         | TBD       | 1234567890 |
+| 4   | B         | TBD       | 1234567890 |
+| 5   | B         | TBD       | 1234567890 |
+| 6   | A         | TBD       | 1234567890 |
+| 7   | A         | TBD       | 1234567890 |
+| 8   | A         | TBD       | 1234567890 |
+| 9   | A         | TBD       | 1234567890 |
+| 10  | A         | TBD       | 1234567890 |
 
-This is the **initial 3+2 adaptive sequence** (first 3 runs in Condition B,
-then 2 in Condition A). If variance after Run 3 triggers the adaptive rule
-(range > 2), Runs 4–5 proceed as shown. The seed and sequence are frozen in
-this document; any deviation requires a new pre-registration.
+This is the **condition-level presentation schedule** (Condition~B = Runs~1--5, Condition~A = Runs~6--10) used throughout this document and the thesis for narrative clarity. Both arms are at adaptive-N=5. The seed and sequence are frozen in this document; any deviation requires a new pre-registration.
 
 **Adaptive N caveat.** "Look after 3, decide" is a planned interim look. No
 formal α-spending is applied because no hypothesis test is pre-registered.

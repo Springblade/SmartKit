@@ -142,7 +142,7 @@ The locked run sequence in presentation order (seed `1234567890`):
 | 9   | A         | TBD       | 1234567890 |
 | 10  | A         | TBD       | 1234567890 |
 
-This is the **condition-level presentation order** (Condition~B = Runs~1--5, Condition~A = Runs~6--10) used throughout this document and the thesis for narrative clarity. The initial 3+2 adaptive sequence (first 3 runs in Condition~B, then 2 in Condition~A) governed whether the schedule extended; the full 5+5 schedule satisfies the binary verdict rule (5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive; §3.4) and the comparative Bonferroni 99% CI gate on the A−B difference (§5.4.3). The seed and sequence are frozen in this document; any deviation requires a new pre-registration. For the mapping between presentation order and chronological execution order (the Cond~B extension block was executed chronologically after the Cond~A block), see §10 (Pilot run log) and the pilot audit trail released in the thesis GitHub repository.
+This is the **condition-level presentation order** (Condition~B = Runs~1--5, Condition~A = Runs~6--10) used throughout this document and the thesis for narrative clarity. Both arms are at adaptive-N=5, satisfying the binary verdict rule (5/5 confirmed, 0/5 refuted, 1--4/5 inconclusive; §3.4) and the comparative Bonferroni 99% CI gate on the A−B difference (§5.4.3). The seed and sequence are frozen in this document; any deviation requires a new pre-registration. Per-run timestamps and tool snapshots are in §10 (Pilot run log) and the pilot audit trail released in the thesis GitHub repository.
 
 > **Seed role.** The seed `1234567890` is the deterministic seed that
 > drives the random allocation of 5 runs to the two conditions in a
