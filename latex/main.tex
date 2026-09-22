@@ -1617,6 +1617,15 @@ Three alternative explanations for the ceiling--floor pattern are worth stating 
 
 \textbf{Alternative C (coincidental alignment):} Cond~B's consistent floor scores could be an unlucky draw from a wider distribution rather than a systematic convention-naive scaffold effect. The binary rule (5/5 vs.\ 0/5) mitigates this concern on the two dimensions where the verdict was extreme. Population-level inference still requires the larger-$N$ replication in Future Work item~2, because the binary rule at $n=5$ cannot distinguish a true proportion of 0.50 from 0.80 within Wilson 95\% confidence intervals.
 
+\subsection{Comparison to AI-Code-Generation Literature}
+\label{sec:literature-comparison}
+
+The pilot results map onto the broader AI-code-generation literature in two ways.
+
+HumanEval and SWE-bench measure problem-solving and bug-fixing capability; neither assesses whether AI-generated code adheres to framework conventions. The ceiling--floor pattern in Table~\ref{tbl:pilot-actual} indicates that convention adherence is a distinct dimension from algorithmic correctness. Cond~A scored 5/5 on Structural Integrity (correct file placement) and 4/5 on Type \& Contract Safety (non-trivial Zod usage). Cond~B scored 2/5 on Structural Integrity (root-level placement) and 0/5 on Coverage (no test file). A benchmark that assessed only algorithmic correctness would not detect this contrast. The two conditions would both produce correctly implemented utility functions. The three-dimensional rubric captures a quality dimension that existing benchmarks do not.
+
+Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct and 20.1\% incorrect~\parencite{yetistiren2022assessing}. Their failure mode concerns functional correctness on algorithmic tasks. The SmartKit framework addresses structural correctness and convention adherence on boilerplate-generation tasks. Both failure modes apply to production-ready AI-assisted development. The framework complements functional-correctness benchmarks rather than replacing them.
+
 \section{Threats to Validity}
 \label{sec:threats}
 
