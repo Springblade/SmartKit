@@ -1592,6 +1592,19 @@ Two findings are consistent across predictions. DP1 and DP3-A both show Cond~A p
 
 \paragraph{Scope of these verdicts.} Verdicts are binary-rule outcomes, not parameter estimates. The Wilson 95\% confidence interval at five runs has a half-width of approximately 0.21, too wide to support frequentist hypothesis testing at this sample size. The comparison is an ecosystem-level demonstration (SmartKit vs convention-naive scaffold), not an isolated test of any single convention-encoding mechanism; the bundled-effect limitation, the per-arm coverage design consequence for Cond~A, and the cross-arm coverage consequence for Cond~B are consolidated in \autoref{sec:threats} together with the rubric-level $4$--$5$ per-user-override caveat that does not affect the placement verdicts.
 
+\subsubsection*{Analytical Discussion}
+The four subsections below analyse the pilot results beyond the verdict descriptions in \S\ref{sec:pilot-results}. Each subsection addresses one analytical question: mechanism (which convention-encoding effect did the pilot actually exercise), alternative explanations (which the pilot cannot rule out), comparison to the AI-code-generation literature (what the results add on top of HumanEval and SWE-bench), and implications (what the framework tells practitioners and researchers to do next).
+
+\subsection{Mechanism Interpretation}
+\label{sec:mechanism-interpretation}
+
+The ceiling--floor pattern (Cond~A medians at rubric ceiling: Str 5, T\&C 4, Cov 5; Cond~B medians near floor: Str 2, T\&C 1, Cov 0) warrants interpretation beyond the verdict descriptions. Three mechanisms are consistent with the observed pattern, and the pilot design separates which mechanisms it can and cannot test.
+
+\textbf{Structural-convention signals orient placement when they are present.} DP1 (structural placement) and DP3-A (centralized test path) both show Cond~A placements matching the predicted FSD paths in all five runs. Cond~B places these at root-level paths. AGENTS.md, sibling features, and the FSD layout are visible in Cond~A and absent in Cond~B. The consistent 5/5 contrast on placement dimensions indicates that the visible codebase structure does orient AI-generated file placement.
+
+\textbf{The ecosystem reinforces directives that match its existing patterns.} DP2 (Zod-derived FlagKey) produced the predicted contrast (Cond~A Zod, Cond~B raw string), but the pilot cannot attribute this to convention encoding alone. The Cond~A prompt bundles the Zod directive with three reinforcing signals: the AGENTS.md directive, the colocated Zod schemas in sibling features, and the Zod patterns in the database schema. This thesis answers the question \emph{whether} convention encoding works at the ecosystem level. It does not answer \emph{which component} drives the effect. The bundled-effect isolation experiment (Future Work item~4) is designed to answer that follow-up question.
+
+\textbf{The ecosystem does not suppress default generation behaviour on dimensions it does not prime.} DP3-B (Cond~B test placement) was refuted: Cond~B placed tests at the repository root in all five runs, opposite of the prediction. This result is consistent with DP1 and DP2. The SmartKit ecosystem's contribution is bounded to conventions that are explicitly encoded or pattern-matched. It does not actively redirect AI default generation behaviour on dimensions where the AI has not been primed.
 
 \section{Threats to Validity}
 \label{sec:threats}
