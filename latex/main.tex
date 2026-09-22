@@ -1626,6 +1626,13 @@ HumanEval and SWE-bench measure problem-solving and bug-fixing capability; neith
 
 Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct and 20.1\% incorrect~\parencite{yetistiren2022assessing}. Their failure mode concerns functional correctness on algorithmic tasks. The SmartKit framework addresses structural correctness and convention adherence on boilerplate-generation tasks. Both failure modes apply to production-ready AI-assisted development. The framework complements functional-correctness benchmarks rather than replacing them.
 
+\subsection{Implications}
+\label{sec:implications}
+
+\textbf{For practitioners.} Developers using AI coding assistants with Next.js App Router should expect that framework conventions (Server/Client boundaries, file placement, Zod typing) are not automatically followed by AI assistants unless the conventions are explicitly encoded in the project structure. A boilerplate that encodes conventions at the file-system level (SmartKit's approach) produces measurable convention adherence in AI output. A bare scaffold does not. Teams adopting AI-assisted Next.js development should consider structural convention encoding (AGENTS.md, FSD layout, colocated type patterns) as part of their AI-tooling setup.
+
+\textbf{For researchers.} The ceiling--floor pattern across five runs per condition provides preliminary evidence that framework-convention adherence is measurable with a rubric that operates on real generated artifacts. The bundled-effect limitation means that the mechanism (AGENTS.md, FSD layout, Zod patterns, or their combination) cannot be isolated from the current pilot design. Future research on AI-framework alignment should design experiments that isolate individual convention-encoding mechanisms. The bundled-effect isolation experiment in Future Work item~4 is the minimum next step.
+
 \section{Threats to Validity}
 \label{sec:threats}
 
