@@ -1606,6 +1606,17 @@ The ceiling--floor pattern (Cond~A medians at rubric ceiling: Str 5, T\&C 4, Cov
 
 \textbf{The ecosystem does not suppress default generation behaviour on dimensions it does not prime.} DP3-B (Cond~B test placement) was refuted: Cond~B placed tests at the repository root in all five runs, opposite of the prediction. This result is consistent with DP1 and DP2. The SmartKit ecosystem's contribution is bounded to conventions that are explicitly encoded or pattern-matched. It does not actively redirect AI default generation behaviour on dimensions where the AI has not been primed.
 
+\subsection{Alternative Interpretations}
+\label{sec:alternative-interpretations}
+
+Three alternative explanations for the ceiling--floor pattern are worth stating explicitly so the reader can see which the pilot rules out and which it leaves open.
+
+\textbf{Alternative A (instruction-following reinforcement):} Cond~A's advantage could reflect the explicit directive cues (AGENTS.md instruction, Zod directive in prompt, sibling Zod schemas) rather than structural convention encoding. Under this explanation, a Cond~A run with AGENTS.md removed but the directive intact would still produce the ceiling effect. The pilot cannot adjudicate this. Future Work item~4 re-runs DP2 with the Cond~B prompt removing the shared Zod directive, which is the minimum experiment that can distinguish directive reinforcement from convention encoding.
+
+\textbf{Alternative B (tool-specific behaviour):} The ceiling--floor pattern could be specific to Cursor's context-awareness features (AGENTS.md parsing, codebase indexing) rather than a generalizable convention-encoding effect. Under this explanation, GitHub Copilot and Claude Code would not reproduce the pattern. Cross-tool replication (Future Work item~1) is the minimum experiment that can rule out tool specificity.
+
+\textbf{Alternative C (coincidental alignment):} Cond~B's consistent floor scores could be an unlucky draw from a wider distribution rather than a systematic convention-naive scaffold effect. The binary rule (5/5 vs.\ 0/5) mitigates this concern on the two dimensions where the verdict was extreme. Population-level inference still requires the larger-$N$ replication in Future Work item~2, because the binary rule at $n=5$ cannot distinguish a true proportion of 0.50 from 0.80 within Wilson 95\% confidence intervals.
+
 \section{Threats to Validity}
 \label{sec:threats}
 
