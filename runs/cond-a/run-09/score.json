@@ -1,9 +1,9 @@
 {
-  "run_id": "run-04",
+  "run_id": "run-07",
   "tooling_snapshot": {
-    "tool": "unknown",
-    "model": "unknown",
-    "date": "unknown"
+    "tool": "cursor-assistant",
+    "model": "agent-mode",
+    "date": "2026-09-06"
   },
   "automated": {
     "structural_integrity": {
@@ -43,10 +43,10 @@
   },
   "manual": {
     "structural_integrity": 5,
-    "type_contract_safety": 5,
+    "type_contract_safety": 4,
     "coverage_completeness": 5,
     "naming_quality": 5,
-    "notes": "Run 4 Condition A: AI generated full FSD layout — features/flags/lib/is-enabled.ts (server-only import), features/flags/types/flags.ts (Zod-derived FlagKey enum via z.enum), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema), src/tests/features/flags/is-enabled.test.ts (4 cases including Zod validation throw). Cache implemented (5-min in-memory Map). public API reachable as isEnabled and FlagKey is exported as Zod-derived enum. SmartKit conventions (FSD, server-only, Zod in types/, colocated test, barrel) all observed. (Manual score updated to 5/5/5 after score-flag.ts path-normalize fix on 2026-09-06; previously 4/5/5 due to false path_match=0 from Windows backslash detection.)"
+    "notes": "Run 7 Condition A: AI generated full FSD layout, this time as an async function (matches SmartKit's data-access async pattern) — features/flags/lib/is-enabled.ts (async isEnabled, server-only import, three-layer override, 5-min in-memory cache via Map with per-entry TTL), features/flags/types/flags.ts (Zod-derived FlagKey enum with 5 entries: new_pricing, sepay_checkout, ai_assistant_v1, audit_log, graphql_endpoint — different set from prior runs, snake_case naming shows independent AI naming choice), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema + getFlagKeys + isValidFlagKey type guard), src/tests/features/flags/is-enabled.test.ts (4 async cases: env=true, env=false overrides true fallback (precursor to env precedence assertion), default value, cache hit across env change). Per-user DB override path stubbed async (returns null, falls through to env/default), matching the async signature. Tool snapshot `cursor-assistant/agent-mode/2026-09-06` per §11 amendment; manual cells filled by AI agent acting as primary-rater proxy (transparently disclosed)."
   },
   "time_to_correct_minutes": 3,
   "edit_list": [

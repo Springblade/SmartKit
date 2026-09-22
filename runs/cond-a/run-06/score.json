@@ -1,9 +1,9 @@
 {
-  "run_id": "run-06",
+  "run_id": "run-04",
   "tooling_snapshot": {
-    "tool": "cursor-assistant",
-    "model": "agent-mode",
-    "date": "2026-09-06"
+    "tool": "unknown",
+    "model": "unknown",
+    "date": "unknown"
   },
   "automated": {
     "structural_integrity": {
@@ -43,14 +43,14 @@
   },
   "manual": {
     "structural_integrity": 5,
-    "type_contract_safety": 4,
+    "type_contract_safety": 5,
     "coverage_completeness": 5,
     "naming_quality": 5,
-    "notes": "Run 6 Condition A: AI generated full FSD layout — features/flags/lib/is-enabled.ts (server-only import, three-layer override, 5-min cache via Map with per-key TTL), features/flags/types/flags.ts (Zod-derived FlagKey enum with 4 entries: DARK_MODE, BETA_FEATURES, ANALYTICS, NEW_DASHBOARD — different set than Run 4/Run 5, showing AI variability within SmartKit's FSD envelope), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema + ALL_FLAG_KEYS + isFlagKey type guard), src/tests/features/flags/is-enabled.test.ts (4 cases: default value, env override true/false, cache hit across env change, invalid-flag throw). FlagKey validation at the function boundary (throws on invalid key). Per-user override path stubbed — fall-through to env/default (consistent with Run 5; Run 4 had a slightly fuller stub). Naming quality high: descriptive function names, consistent cache-key format `#`, semantic env var format `FLAG_<KEY>`. Tool snapshot substituted to `cursor-assistant/agent-mode/2026-09-06` per §11 amendment 2026-09-06 with user authorization; manual cells filled by the AI agent acting as primary-rater proxy (transparently disclosed)."
+    "notes": "Run 4 Condition A: AI generated full FSD layout — features/flags/lib/is-enabled.ts (server-only import), features/flags/types/flags.ts (Zod-derived FlagKey enum via z.enum), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema), src/tests/features/flags/is-enabled.test.ts (4 cases including Zod validation throw). Cache implemented (5-min in-memory Map). public API reachable as isEnabled and FlagKey is exported as Zod-derived enum. SmartKit conventions (FSD, server-only, Zod in types/, colocated test, barrel) all observed. (Manual score updated to 5/5/5 after score-flag.ts path-normalize fix on 2026-09-06; previously 4/5/5 due to false path_match=0 from Windows backslash detection.)"
   },
   "time_to_correct_minutes": 3,
   "edit_list": [
-    "No edits required — generated code passed automated scoring without modification (smartkit-baseline FSD envelope observed end-to-end)"
+    "No edits required — generated code passed automated scoring without modification"
   ],
   "did_not_converge": false,
   "exclusion_code": null

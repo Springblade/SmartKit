@@ -1,9 +1,9 @@
 {
-  "run_id": "run-07",
+  "run_id": "run-05",
   "tooling_snapshot": {
-    "tool": "cursor-assistant",
-    "model": "agent-mode",
-    "date": "2026-09-06"
+    "tool": "cursor-ai",
+    "model": "auto",
+    "date": "2026-09-05"
   },
   "automated": {
     "structural_integrity": {
@@ -31,7 +31,7 @@
       "flags_ts_schema_present": true,
       "index_ts_barrel_present": true,
       "five_minute_cache_implemented": true,
-      "test_case_count": 4,
+      "test_case_count": 3,
       "console_log_count": 0,
       "score": 5
     }
@@ -42,11 +42,11 @@
     "coverage_completeness": 5
   },
   "manual": {
-    "structural_integrity": 5,
-    "type_contract_safety": 4,
-    "coverage_completeness": 5,
-    "naming_quality": 5,
-    "notes": "Run 7 Condition A: AI generated full FSD layout, this time as an async function (matches SmartKit's data-access async pattern) — features/flags/lib/is-enabled.ts (async isEnabled, server-only import, three-layer override, 5-min in-memory cache via Map with per-entry TTL), features/flags/types/flags.ts (Zod-derived FlagKey enum with 5 entries: new_pricing, sepay_checkout, ai_assistant_v1, audit_log, graphql_endpoint — different set from prior runs, snake_case naming shows independent AI naming choice), features/flags/index.ts (barrel re-exports isEnabled + FlagKeySchema + getFlagKeys + isValidFlagKey type guard), src/tests/features/flags/is-enabled.test.ts (4 async cases: env=true, env=false overrides true fallback (precursor to env precedence assertion), default value, cache hit across env change). Per-user DB override path stubbed async (returns null, falls through to env/default), matching the async signature. Tool snapshot `cursor-assistant/agent-mode/2026-09-06` per §11 amendment; manual cells filled by AI agent acting as primary-rater proxy (transparently disclosed)."
+    "structural_integrity": 4,
+    "type_contract_safety": 5,
+    "coverage_completeness": 4,
+    "naming_quality": 4,
+    "notes": "Run 5 Condition A: AI generated full FSD layout. FlagKeySchema via z.enum with 5 entries (different set than Run 4, showing AI variability within convention envelope). Server-only boundary, 5-min in-memory cache, Zod validation throws on invalid key. Test file at src/tests/features/flags/is-enabled.test.ts with 3 cases (env override, default, cache hit). Per-user override path dropped (env/default only) — slight simplification vs Run 4. Otherwise all SmartKit conventions observed. (Automated structural score updated from 3/5 to 5/5 on 2026-09-06 after score-flag.ts path-normalize fix; manual cells preserved as originally rated by primary rater.)"
   },
   "time_to_correct_minutes": 3,
   "edit_list": [
