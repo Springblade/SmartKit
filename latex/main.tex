@@ -649,10 +649,9 @@ This structure allows AI systems to predict where to place new code within a fea
 
 \section{Server/Client Boundary Conventions}
 
-React Server Components introduce an explicit boundary between server-only and client-accessible code. SmartKit uses Next.js's native Server/Client boundary mechanism through the \usec directive for Client Components and the \pkg{server-only} import for server-only utilities. The pattern extends Next.js's convention-based routing to component architecture.
+React Server Components introduce an explicit boundary between server-only and client-accessible code, and \S4.1 motivates why SmartKit relies on Next.js's native mechanism (the `\usec` directive and the `\pkg{server-only}` import) rather than a library such as tRPC. This section therefore focuses on how those two primitives are applied in practice: where they live in the source tree, and what data-flow shape they impose on AI-generated code.
 
-Server/Client boundaries affect data flow design. Server Components can access databases and environment variables directly, while Client Components must receive data through props or server actions. AI systems can invoke type-safe server actions from Client Components, which keeps
-data flow consistent as new components are generated.
+The boundary affects data-flow design. Server Components can read databases and environment variables directly, while Client Components receive data through props or invoke server actions. AI systems can therefore call type-safe server actions from a Client Component, which keeps the data path consistent as new components are generated.
 
 \autoref{lst:agents-md} shows a representative excerpt from the SmartKit \filename{AGENTS.md} file, which encodes the conventions that Cursor reads when operating inside the project. The file defines project-level rules that are intended to be persistent and high-priority within Cursor's instruction hierarchy, and includes specific conventions for file placement, Server/Client boundaries, and schema sharing. The pilot does not independently confirm the relative priority of AGENTS.md rules versus inline comments or tool outputs; this boundary is discussed further in \S\ref{sec:internal-validity}.
 
