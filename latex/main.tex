@@ -67,7 +67,8 @@
 
 % --- TikZ for org chart ---
 \usepackage{tikz}
-\usetikzlibrary{positioning, shapes.geometric, fit}
+\usetikzlibrary{positioning, shapes.geometric, fit, calc}
+
 % Externalize disabled - not well supported on Overleaf
 % \usepgfplotslibrary{external}
 % \tikzexternalize
@@ -77,7 +78,6 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage[table]{xcolor}
-\usepackage{float}
 \usepackage{longtable}
 
 % --- Code listings ---
@@ -265,15 +265,13 @@ Finally, my thanks go to my \textbf{university peers and friends} who shared thi
 \addcontentsline{toc}{chapter}{Abstract}
 
 % --- Abstract ---
-AI coding assistants produce Next.js App Router code that violates framework conventions such as Server/Client boundaries, yet no evaluation framework measures this adherence. Existing benchmarks (HumanEval, SWE-bench) score algorithmic capability, not framework-convention compliance.
+AI coding assistants generate Next.js App Router code that violates framework conventions such as Server/Client boundaries. Existing benchmarks---HumanEval and SWE-bench---measure algorithmic capability, not framework-convention adherence.
 
-This thesis presents a three-dimensional evaluation framework for AI-generated Next.js boilerplate, instantiated in SmartKit, an open-source Next.js boilerplate. The framework scores each generated feature on Structural Integrity, Type \& Contract Safety, and Coverage \& Completeness on a 0--5 scale.
+This thesis designs a three-dimensional evaluation framework for AI-generated Next.js boilerplate. The framework scores Structural Integrity, Type \& Contract Safety, and Coverage \& Completeness on a 0--5 scale. The primary contribution is the framework design. SmartKit, an open-source Next.js boilerplate, instantiates the framework's conventions; a bounded feasibility pilot with five runs per condition demonstrates that the framework produces measurable scores on real AI-generated code.
 
-The primary contribution is the three-dimensional evaluation framework. Two instantiations support it. The SmartKit artifact embodies the framework's conventions through a working implementation. A bounded feasibility pilot, with five runs per condition, demonstrates that the framework produces measurable scores on real AI-generated code.
+The pilot produces three verdicts under the pre-registered binary rule. Structural placement (DP1) and centralized test path in Condition~A (DP3-A) confirm outright: Condition~A passes in all five runs and Condition~B passes in zero. Type \& Contract Safety (DP2) confirms as an instruction-following asymmetry rather than as a pure convention-encoding benefit: Condition~A produces Zod-derived \code{FlagKey} types in all five runs and Condition~B produces raw \code{string} types in all five runs, but the pilot cannot attribute this contrast to convention encoding alone. Test placement in Condition~B (DP3-B) refutes: Condition~B places test files at the repository root in all five runs, opposite of the prediction.
 
-Under the pre-registered binary rule, two directional predictions are confirmed outright (structural placement at 5/5 vs.\ 0/5, centralized test path in Cond~A), one is refuted (Cond~B placed test files at the repository root in 5/5 runs, opposite of the prediction), and one is confirmed as an instruction-following asymmetry rather than as a pure convention-encoding benefit (Zod-derived FlagKey type at 5/5 vs.\ 0/5, with the causal attribution pending Future Work item~4).
-
-Findings are restricted to one tool, one feature, and a feasibility-stage sample, and do not support population-level claims.
+Findings are bounded by one tool, one feature, and a feasibility-stage sample ($N=5$ per condition). Population-level claims require a validation-stage replication with approximately 30 runs per arm.
 
 \clearpage
 
@@ -313,11 +311,9 @@ The chapter opens with the recent wave of AI coding assistants and the parallel 
 
 \section{Overview}
 
-Controlled studies report substantial productivity gains from AI coding assistants. Peng et al. showed that developers using GitHub Copilot completed tasks 55.8\% faster than control groups \parencite{peng2023impact}, while Yetiştiren et al. reported that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct, 51.2\% partially correct, and 20.1\% incorrect \parencite{yetistiren2022assessing}. Next.js has emerged as the dominant React meta-framework for production web applications, with its App Router architecture introduced in version 13 fundamentally changing application structure through React Server Components and explicit Server/Client boundaries \parencite{nextjsdocs}. The failure mode that motivates this thesis is concrete (Figure~\autoref{fig:motivated-example}): when an AI coding assistant generates a Server Component that imports a Client Component and passes an event handler as a prop, Next.js produces the runtime error ``Event handlers cannot be passed to Client Component props''---a failure that \code{tsc --noEmit} cannot catch because it has no type-level representation. During SmartKit's development, recurring AI generation errors were observed firsthand in Next.js App Router code, including authentication security flaws, component boundary violations, and outdated API usage from older training data; these are development-time observations rather than measured prevalence figures. Without systematic evaluation, developers cannot assess whether AI-generated Next.js code adheres to framework conventions or will fail in production.
+Controlled studies report substantial productivity gains from AI coding assistants. Peng et al. showed that developers using GitHub Copilot completed tasks 55.8\% faster than control groups \parencite{peng2023impact}, while Yetiştiren et al. reported that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct, 51.2\% partially correct, and 20.1\% incorrect \parencite{yetistiren2022assessing}. Next.js has emerged as the dominant React meta-framework for production web applications, with its App Router architecture introduced in version 13 fundamentally changing application structure through React Server Components and explicit Server/Client boundaries \parencite{nextjsdocs}. The failure mode that motivates this thesis is concrete (\autoref{fig:motivated-example}): when an AI coding assistant generates a Server Component that imports a Client Component and passes an event handler as a prop, Next.js produces the runtime error ``Event handlers cannot be passed to Client Component props''---a failure that \code{tsc --noEmit} cannot catch because it has no type-level representation. During SmartKit's development, recurring AI generation errors were observed firsthand in Next.js App Router code, including authentication security flaws, component boundary violations, and outdated API usage from older training data; these are development-time observations rather than measured prevalence figures. Without systematic evaluation, developers cannot assess whether AI-generated Next.js code adheres to framework conventions or will fail in production.
 
 Existing benchmarks address algorithmic problem-solving and bug-fixing capabilities but not framework convention adherence. HumanEval evaluates Python code generation for standalone functions \parencite{chen2021evaluating}; SWE-bench assesses AI ability to resolve GitHub issues \parencite{jimenez2024swebench}; a systematic review of 395 LLM-for-SE studies found that framework-convention adherence is not separately tracked as an evaluation category --- the SLR's metric inventory organizes evaluation by problem type (generation, classification, recommendation, regression) rather than by benchmark-versus-human-evaluation split, and 338 of 395 studies (~86\%) used generation-task metrics such as BLEU-4 (62 studies), Pass@k (54), and Accuracy@k (39) to assess code-synthesis quality \parencite{hou2024llmse}. None of these capture the specific architectural requirements of Next.js App Router, such as Server/Client component boundaries, type-safe contracts, or file-system routing conventions. The gap means developers have no framework-specific quantitative basis for comparing AI tools on these tasks.
-
-\textbf{Intended users.} SmartKit targets solo developers and small teams (2--5 members) working on Next.js projects with AI coding assistants. They are intermediate developers who already understand React and TypeScript fundamentals and want to reduce boilerplate setup time while enforcing consistent conventions in AI-assisted development. The framework supports incremental adoption: teams can apply the feature-based folder structure and Server/Client boundary conventions without committing to the full stack.
 
 The primary contribution of this thesis is the design of a three-dimensional evaluation framework that measures AI-generated Next.js boilerplate adherence to framework conventions. Two supporting instantiations demonstrate the framework's utility. The SmartKit artifact provides a working implementation that embodies the framework's conventions. A bounded feasibility pilot provides an empirical demonstration that the framework produces measurable scores on real AI-generated code. The pilot evidences measurability; it does not estimate the framework's empirical effect size. Inferring the latter requires a larger-$N$ replication ($n \approx 30$ per arm); this validation-stage replication is part of the future-work section at the end of this thesis.
 
@@ -325,7 +321,7 @@ The primary contribution of this thesis is the design of a three-dimensional eva
 
 This thesis addresses a concrete problem: AI coding assistants consistently generate Next.js App Router code that violates framework conventions, producing runtime errors and technical debt, yet no evaluation framework exists to measure this adherence. Three principal challenges shape the framework design.
 
-First, framework conventions are implicit and distributed across documentation, error messages, and community patterns. Enumerating them into testable metrics is itself an open problem. Second, AI-generated code failures in Next.js manifest at runtime rather than compile time --- the Server/Client boundary error ``Event handlers cannot be passed to Client Component props'' only fires when the component is executed, so the framework needs dynamic analysis rather than static linting alone. Third, the three evaluation dimensions are designed to be orthogonal: a structural-integrity violation does not imply a type error, and a coverage gap operates independently of both. Collapsing them into a single composite score would hide which dimension is actually regressing. The orthogonality of the three dimensions is asserted at design stage and awaits empirical validation; the executed pilot's per-arm sample is far below the $n \approx 30$ required to confirm that the dimensions vary independently in practice (a Pearson correlation matrix on $n \geq 30$ per condition would distinguish genuine orthogonality from subtle coupling, and this analysis is part of the validation-stage work described at the end of this thesis).
+First, framework conventions are implicit and distributed across documentation, error messages, and community patterns. Enumerating them into testable metrics is itself an open problem. Second, AI-generated code failures in Next.js manifest at runtime rather than compile time --- the Server/Client boundary error ``Event handlers cannot be passed to Client Component props'' only fires when the component is executed, so the framework needs dynamic analysis rather than static linting alone. Third, the three evaluation dimensions are designed to be orthogonal: a structural-integrity violation does not imply a type error, and a coverage gap operates independently of both. Collapsing them into a single composite score would hide which dimension is actually regressing. The orthogonality of the three dimensions is asserted at design stage and awaits empirical validation; a larger per-arm replication ($n \approx 30$) would be required to confirm that the dimensions vary independently in practice, and this validation-stage work is part of \autoref{sec:future-work}.
 
 The focus on Next.js App Router is deliberate. First, market dominance makes it the primary target: community surveys consistently place Next.js among the most widely adopted React meta-frameworks \parencite{nextjsdocs}; in the Stack Overflow 2025 Developer Survey, Next.js is reported at 20.8\% in the web-frameworks-and-technologies category, ahead of Express (19.9\%) and Angular (18.2\%) \parencite[1, Stack Overflow Developer Survey]{stackoverflow2025}. Second, training-data mismatch is a recognized failure mode of LLM-based code assistants: Wu et al.\ introduced VersiCode, a benchmark spanning 300 Python libraries and 2{,}000+ versions over 9 years, and showed that version-controllable code generation (version-specific completion and version-aware migration) is a significant challenge even for frontier models \parencite{versicode2024}. Third, practical feasibility applies: the author has existing Next.js expertise, enabling direct testing of enforcement mechanisms. The pilot targets Cursor because its AGENTS.md feature implements documentation-based guidance, an approach consistent with prior research suggesting that explicit context and structured prompts improve AI coding-assistant output quality \parencite{barke2022grounded,zhang2023practices}.
 
@@ -367,7 +363,7 @@ Consequently, this research seeks to answer the following research questions:
 
 These objectives and questions yield two classes of claims, both
 documented as design-level pre-registrations to be exercised by the
-pilot (§6.2).
+pilot section.
 
 \begin{description}
   \item[Framework properties (FP)] describe what the framework can
@@ -381,55 +377,17 @@ pilot (§6.2).
     \emph{confirmed}, \emph{refuted}, or \emph{inconclusive}.
 \end{description}
 
-\paragraph{Framework properties (descriptive).} The pilot demonstrates
-that the framework operates on a real artifact:
-\begin{itemize}
-    \item \textbf{FP1 (Structural Integrity).} The framework can measure
-    the dimension it targets---file placement, Server/Client boundary
-    usage, and naming patterns---on AI-generated Next.js code, yielding
-    a per-run score on a representative feature.
-    \item \textbf{FP2 (Type \& Contract Safety).} The framework can measure
-    the dimension it targets on AI-generated Next.js code, yielding a
-    per-run score on a representative feature by combining Type-Safety
-    and Contract-Safety sub-scores under the framework's weakest-link
-    combination rule.
-    \item \textbf{FP3 (Coverage \& Completeness).} The framework can
-enumerate AI-generated files against a feature-specific checklist
-and yield a per-run score reflecting required-artifact presence,
-demonstrated on the no-integration subset of the convention envelope;
-the integration-using subset (e.g.\ a feature that integrates Drizzle)
-is structurally excluded from this pilot and is documented in
-\S\ref{sec:threats} as a future-validation target.
-\end{itemize}
-
-\paragraph{Directional predictions (falsifiable hypotheses).} Each
-prediction asks whether Condition~A outperforms Condition~B on one
-dimension. The pilot uses the \code{isEnabled(flagKey, userId?)}
-utility as the representative feature and evaluates the prediction as
+\paragraph{Directional predictions (falsifiable hypotheses).}
+The pilot uses the \code{isEnabled(flagKey, userId?)} utility as the
+representative feature and assigns each prediction a binary verdict of
 \emph{confirmed} (all runs agree with the predicted direction),
-\emph{refuted} (no runs agree), or \emph{inconclusive} (mixed),
-following the adaptive-N protocol in §6.2.
-
-\begin{itemize}
-    \item \textbf{DP1 (Structural).} Condition~A is predicted to place the
-    utility in the SmartKit feature-based layout in the majority of runs;
-    Condition~B is predicted to use a root-level or flat structure.
-    \item \textbf{DP2 (Type \& Contract).} Condition~A is predicted to
-    produce Zod-typed schema definitions in the majority of runs;
-    Condition~B is predicted to use raw string types.
-    \item \textbf{DP3 (Coverage).} Condition~A is predicted to include a
-    centralized test file in the majority of runs;
-    Condition~B is predicted to omit a test file in the majority of runs.
-\end{itemize}
-
-The pilot reports each framework property as \emph{supported} or
-\emph{unsupported} and each directional prediction as one of the three
-binary verdicts. Full statistical validation, including larger
-per-arm samples, cross-tool replication, and developer-participant
+\emph{refuted} (no runs agree), or \emph{inconclusive} (mixed).
+Verdicts and mechanism interpretation are reported in
+\S\ref{sec:dp1-results}, \S\ref{sec:dp2-results}, and
+\S\ref{sec:dp3-results}; full statistical validation, including
+larger per-arm samples, cross-tool replication, and developer-participant
 studies, remains future empirical work (see \autoref{sec:threats}
 for threats to validity).
-
-Designing an evaluation framework for AI-generated Next.js boilerplate encounters three key challenges that distinguish it from existing code generation benchmarks. First, framework conventions are implicit and distributed across documentation, error messages, and community patterns, requiring deliberate extraction into enumerable, testable rules rather than relying on predefined quality criteria. Second, convention violations in Next.js App Router manifest primarily at runtime. Server/Client boundary violations produce errors only when executed, so evaluation must go beyond static analysis to capture dynamic execution behaviour. Third, the evaluation dimensions are orthogonal: structural integrity violations do not imply type errors, and coverage gaps operate independently of both, demanding a multi-dimensional framework rather than a single composite score. Pearson correlation analysis across runs would empirically test whether the three dimensions are genuinely orthogonal or merely weakly coupled; the executed pilot's small per-arm sample precludes such analysis.
 
 This thesis makes one primary contribution and two supporting contributions.
 
@@ -448,7 +406,7 @@ The second supporting contribution is the bounded feasibility pilot protocol, co
 
 \noindent\textbf{Note.} Boundary violations produce runtime errors that static analysis cannot detect; the CORRECT panel passes children as nested content inside \code{<ClientForm>...</ClientForm>}, not as a JSX prop attribute.
 
-Figure~\autoref{fig:evaluation-framework} summarizes the resulting evaluation-framework architecture. Each of the three dimensions is paired with an automated measurement: Structural Integrity is measured through parsed-AST rule violations, Type \& Contract Safety through TypeScript compiler output, and Coverage through a rule-coverage matrix checked against the convention catalog. The three measurements are applied to a shared corpus of AI-generated artifacts and produce a per-tool violation matrix, type-error rates, and coverage scores. Because the dimensions are deliberately independent, no single composite score can substitute for examining all three independently.
+\autoref{fig:evaluation-framework} summarizes the resulting evaluation-framework architecture. Each of the three dimensions is paired with an automated measurement: Structural Integrity is measured through parsed-AST rule violations, Type \& Contract Safety through TypeScript compiler output, and Coverage through a rule-coverage matrix checked against the convention catalog. The three measurements are applied to a shared corpus of AI-generated artifacts and produce a per-tool violation matrix, type-error rates, and coverage scores. Because the dimensions are deliberately independent, no single composite score can substitute for examining all three independently.
 
 \begin{figure}[H]
   \centering
@@ -576,8 +534,6 @@ The structural approach taken by SmartKit addresses these limitations by encodin
 
 \autoref{tbl:starter-comparison} positions SmartKit qualitatively against five established Next.js starter templates on seven dimensions relevant to AI-assisted boilerplate generation. The comparison is descriptive rather than empirical: cells summarise publicly documented features of each template, not measured outcomes, and no performance claim should be drawn from them.
 
-\newpage
-
 \begin{table}[htbp]
 \centering
 \footnotesize
@@ -621,6 +577,12 @@ Empirical findings on developer practices inform the SmartKit design. Zhang et a
 
 \textbf{Zod schemas as the single source of truth across the Server/Client boundary.} React Server Components and Client Components communicate through typed props, but there is no built-in mechanism to ensure that the type on the server matches the type on the client. SmartKit uses Zod schemas, defined once in \filename{features/<name>/types/}, parsed at the server action boundary, and reused on the client via \pkg{z.infer}. This means a single schema definition is the source of truth for both runtime validation (server action) and TypeScript type inference (client component props), and the AI can read and extend the schema using the same Zod syntax it encounters in existing features. The trade-off is that Zod adds a runtime dependency and a learning curve for developers unfamiliar with schema-first validation.
 
+\subsection{Intended Users and Adoption Path}
+
+SmartKit targets solo developers and small teams of two to five members who build Next.js projects with AI coding assistants. These developers already understand React and TypeScript fundamentals; they want to reduce boilerplate setup time and to keep AI-generated code consistent with project conventions.
+
+The framework supports incremental adoption. A team can apply the feature-based folder structure and the Server/Client boundary conventions without committing to the full SmartKit stack. This lower adoption cost lets teams validate the conventions in an existing codebase before they adopt the billing, authentication, or email integrations.
+
 \section{Feature-Based Modular Architecture}
 
 Many Next.js projects organize code by technical layer (components/, lib/, hooks/) or by page structure. SmartKit instead adopts feature-based modularity, where each feature contains all code necessary for its functionality. An authentication feature, for instance, includes database schemas, API routes, React components, form validation schemas, and email templates within a single directory.
@@ -653,7 +615,7 @@ React Server Components introduce an explicit boundary between server-only and c
 Server/Client boundaries affect data flow design. Server Components can access databases and environment variables directly, while Client Components must receive data through props or server actions. AI systems can invoke type-safe server actions from Client Components, which keeps
 data flow consistent as new components are generated.
 
-Listing~\autoref{lst:agents-md} shows a representative excerpt from the SmartKit \filename{AGENTS.md} file, which encodes the conventions that Cursor reads when operating inside the project. The file defines project-level rules that are intended to be persistent and high-priority within Cursor's instruction hierarchy, and includes specific conventions for file placement, Server/Client boundaries, and schema sharing. The pilot does not independently confirm the relative priority of AGENTS.md rules versus inline comments or tool outputs; this boundary is discussed further in \S\ref{sec:internal-validity}.
+\autoref{lst:agents-md} shows a representative excerpt from the SmartKit \filename{AGENTS.md} file, which encodes the conventions that Cursor reads when operating inside the project. The file defines project-level rules that are intended to be persistent and high-priority within Cursor's instruction hierarchy, and includes specific conventions for file placement, Server/Client boundaries, and schema sharing. The pilot does not independently confirm the relative priority of AGENTS.md rules versus inline comments or tool outputs; this boundary is discussed further in \S\ref{sec:internal-validity}.
 
 \begin{lstlisting}[
   language={},
@@ -712,12 +674,12 @@ This chapter describes the technical implementation of the SmartKit framework, c
 \section{Technology Stack}
 \label{sec:technology-stack}
 
-This section describes the technical implementation of the SmartKit framework using Next.js 16.2.12 and associated technologies. The implementation shows how the design principles translate into working code. The pilot evaluation (Chapter 6) exercises a single representative feature --- the \code{isEnabled(flagKey, userId?)} flag utility --- that touches none of SmartKit's integrated services. The billing (§5.5), authentication, and email integrations documented below are not exercised by the pilot; they are documented here as part of SmartKit's second role --- a usable SaaS boilerplate --- independent of the evaluation framework. The relationship between the integrations and the pilot feature is described in the next chapter.
+This section describes the technical implementation of the SmartKit framework using Next.js 16.2.12 and associated technologies. The implementation shows how the design principles translate into working code. The pilot evaluation (Chapter 6) exercises a single representative feature --- the \code{isEnabled(flagKey, userId?)} flag utility --- that touches none of SmartKit's integrated services. The billing, authentication, and email integrations documented below are not exercised by the pilot; they are documented here as part of SmartKit's second role --- a usable SaaS boilerplate --- independent of the evaluation framework. The relationship between the integrations and the pilot feature is described in the next chapter.
 
 \subsection{Stack Selection Rationale}
 \label{sec:stack-rationale}
 
-Each component of the stack was chosen because it reinforces one of the three evaluation dimensions rather than for its own sake. The selection rests on three guiding principles:
+Each component of the SmartKit stack reinforces one of the three evaluation dimensions; the design rationale---including the comparison with alternative choices (tRPC versus native Server/Client boundary, Prisma versus Drizzle, raw types versus Zod)---is given in §4.1. The selection instantiates three guiding principles:
 
 \begin{enumerate}
   \item \textbf{App Router-first.} Next.js~16's App Router is the architectural surface that Structural Integrity measures directly: Server/Client boundaries, file-system routing, and the \usec/\pkg{server-only} primitives are framework defaults rather than library conventions, which means the rules encoded in the rubric transfer to plain Next.js projects rather than coupling them to SmartKit.
@@ -787,7 +749,6 @@ smartkit/
 |   |   +-- db.ts         # Drizzle client
 |   +-- lib/              # Shared utilities
 |   +-- config/           # Site and environment config
-+-- docs/                 # Documentation
 \end{lstlisting}
 
 The \filename{app/} directory is placed at \filename{src/app/} because that is the path Next.js~16's App Router reads as the routing surface. Pages and layouts live here, not feature code, so the route composition that the Structural Integrity rubric inspects (server-only imports, \usec directives, file-system routing) is read directly from this directory by the framework itself rather than from a custom layout the AI would have to learn. Each route imports feature modules from \filename{src/features/} but never the other way around, which is what keeps the page-vs-feature separation enforceable by static analysis: a feature module cannot accidentally import from a route, because that would invert the dependency direction the App Router expects.
@@ -803,7 +764,7 @@ Internally, \filename{features/flags/} follows the same conventions as \filename
 \subsection{Feature-Based Organization}
 \label{sec:feature-organization}
 
-The SmartKit project follows a feature-based folder structure (FSD) that groups related code by domain rather than technical role. This organization maps directly to the Structural Integrity dimension: each feature folder contains its own server/client boundary, making violations localized and detectable.
+The SmartKit codebase implements the feature-based folder structure described in §4.1 and detailed in §4.2. The implementation reuses the same six-subdirectory convention (\filename{components/}, \filename{hooks/}, \filename{actions/}, \filename{lib/}, \filename{types/}, \filename{emails/}) across every feature, with the Structural Integrity rubric reading each convention as a per-feature boundary marker.
 
 \begin{figure}[htbp]
   \centering
@@ -826,7 +787,7 @@ src/features/auth/
 +-- components/           ('use client')
 +-- types/                (Zod schemas)
     \end{verbatim}
-    \caption{Feature-based folder structure.}
+    \caption{Feature-based folder structure used by SmartKit: the \filename{features/flags/} subtree is the pilot feature's directory layout, and the \filename{src/features/auth/} subtree shows the full six-subdirectory convention that production features follow.}
     \label{fig:fsd-structure}
   \end{minipage}
 
@@ -846,13 +807,10 @@ src/features/auth/
       \filename{index.ts} & Public API barrel \\
       \bottomrule
     \end{tabular}
-    \caption{Convention mapping.}
+    \caption{Convention mapping for the SmartKit feature directory layout: each subdirectory under \filename{src/features/<name>/} has a designated role that AI assistants use to locate and extend feature code.}
     \label{tbl:fsd-conventions}
   \end{minipage}
 \end{figure}
-
-\bigskip\noindent\textbf{Why FSD?}
-Feature-based organization complements the convention encoding principle. Rather than scattering server code across a monolithic \filename{server/} folder, each feature encapsulates its server logic alongside its UI. This makes the Structural Integrity rubric enforceable: violations are confined to the feature folder where they occur.
 
 \section{Core Feature Implementation}
 \label{sec:core-feature-implementation}
@@ -951,8 +909,8 @@ export function isEnabled(
 }
 \end{lstlisting}
 
-\bigskip\noindent\textbf{Why this structure?}
-The tiered design serves two purposes: (1) it mirrors the production pattern where feature flags support gradual rollouts via environment variables before per-user targeting, and (2) it creates a clear server-side boundary that the Structural Integrity dimension reads---the function is marked \pkg{server-only} in the barrel export, never accessible to client components without a typed prop interface. The 5-minute TTL prevents unbounded memory growth while keeping flag values reasonably fresh for environment-driven rollouts.
+\bigskip\noindent\textbf{Design rationale.}
+The tiered design mirrors the production pattern where feature flags support gradual rollouts via environment variables before per-user targeting. The 5-minute TTL prevents unbounded memory growth while keeping flag values reasonably fresh for environment-driven rollouts. The server-side boundary rationale---why the function lives behind \pkg{server-only} rather than crossing the Server/Client boundary---is given in §4.3.
 
 \subsection{Server/Client Boundary Enforcement}
 \label{sec:server-client-boundary}
@@ -976,8 +934,8 @@ export async function getServerData() {
 }
 \end{lstlisting}
 
-\bigskip\noindent\textbf{Why this pattern?}
-The \pkg{server-only} import serves two purposes: (1) it mirrors the production pattern where server utilities must never cross to the client, and (2) it creates a clear server-side boundary that the Structural Integrity dimension reads. The function is marked \pkg{server-only} in the barrel export, never accessible to client components without a typed prop interface.
+\bigskip\noindent\textbf{Cross-reference.}
+§\ref{sec:server-client-boundary} gives the full rationale for using \pkg{server-only} and \usec{} as the boundary primitives. This section shows the implementation: the import statement and the build-time error that Next.js produces when a Client Component attempts to import this module.
 
 \subsection{Evaluation Infrastructure}
 \label{sec:eval-infrastructure}
@@ -1114,11 +1072,11 @@ The three dimensions capture distinct, non-overlapping aspects of boilerplate qu
 
 \textbf{Unit of analysis.} Scoring is performed per generated file: each file receives one score per dimension, and feature-level scores are computed as the median across constituent files. The median is used rather than the mean because individual files within a feature may exhibit extreme outlier scores due to edge-case generation failures (e.g., a single malformed file), and the median is robust to such outliers.
 
-\textbf{Structural Integrity} assesses whether generated code follows Next.js conventions for file location, naming, Server/Client component boundaries, and App Router patterns. Automated checking uses the \texttt{score-flag.ts} script (file-placement checks, \texttt{server-only} import detection, \usec{} directive checks, barrel-file verification) specific to Next.js structural conventions. The dimension captures violations such as incorrect file placement in the \filename{features/} directory, missing \usec directives on client components, and non-standard naming patterns that break routing.
+\textbf{Structural Integrity} assesses whether generated code follows Next.js conventions for file location, naming, Server/Client component boundaries, and App Router patterns. Automated checking uses the \filename{score-flag.ts} script. The dimension captures violations such as incorrect file placement in the \filename{features/} directory, missing \usec directives on client components, and non-standard naming patterns that break routing.
 
-\textbf{Type \& Contract Safety} captures two related but distinct quality signals, treated as sub-scores that combine into a single Type \& Contract Safety score on the 0--5 rubric. \emph{Type Safety sub-score} focuses on compile-time checks: \code{tsc --noEmit} error counts and \pkg{@typescript-eslint/}\pkg{no-explicit-any} occurrences signal whether generated code introduces type regressions into the codebase. \emph{Contract Safety sub-score} focuses on runtime validation: the proportion of API route handlers that include Zod schemas for request/response validation indicates whether the generated feature is schema-validated at the API boundary (input parsing and type narrowing enforced at runtime via Zod), not production-deployment-ready without additional hardening such as security review and load testing. Sub-score combination rule: the Type \& Contract Safety dimension score equals the lower of (Type Safety sub-score, Contract Safety sub-score) on the 0--5 scale, reflecting that a single weak sub-signal is not offset by a strong other. This combination rule is an inferred design choice (alternative rules such as arithmetic mean or weighted product could be substituted without changing the underlying sub-scores); the chosen lower-of rule privileges robustness against hidden weakness in either sub-dimension.
+\textbf{Type \& Contract Safety} combines two sub-scores on the 0--5 rubric. The Type Safety sub-score reads \code{tsc --noEmit} error counts and \pkg{@typescript-eslint/}\pkg{no-explicit-any} occurrences; these indicate whether generated code introduces type regressions. The Contract Safety sub-score reads the proportion of API route handlers that include Zod schemas for request/response validation. The two sub-scores combine under the lower-of rule: the dimension score equals the smaller of the two sub-scores.
 
-\textbf{Coverage \& Completeness} evaluates whether generated boilerplate includes all necessary artifacts for a functional feature. \autoref{tbl:coverage-checklist} shows the reference checklist for the \code{isEnabled} feature flag utility used in the pilot. Completeness is measured by enumerating generated files against the checklist and computing a coverage ratio (files present divided by required files). Missing artifacts indicate incomplete boilerplate that requires additional developer effort to make functional.
+\textbf{Coverage \& Completeness} evaluates whether generated boilerplate includes all necessary artifacts for a functional feature. \autoref{tbl:coverage-checklist} shows the reference checklist for the \code{isEnabled} feature flag utility used in the pilot. Completeness is measured by enumerating generated files against the checklist and computing a coverage ratio.
 
 \subsubsection{Relationship between SmartKit Integrations and the Pilot Feature}
 \label{sec:integrations-and-pilot}
@@ -1303,7 +1261,7 @@ The control comparison addresses the primary threat to internal validity: that o
 \subsection{Standardized Prompt}
 \label{sec:standardized-prompt}
 
-The executed pilot applied the standardized prompt (Listing~\autoref{lst:control-prompt}) verbatim to both codebases.
+The executed pilot applied the standardized prompt (\autoref{lst:control-prompt}) verbatim to both codebases.
 
 \begin{lstlisting}[
   language={},
@@ -1448,12 +1406,12 @@ Coverage \& Completeness is the aspirational proxy dimension; the level definiti
 \toprule
 \textbf{Level} & \textbf{Label} & \textbf{Description (all must hold)} \\
 \midrule
-0 & No test & No \texttt{is-enabled.test.ts} file. \\
+0 & No test & No \filename{is-enabled.test.ts} file. \\
 1 & Minimal & Test file present but $<$ 3 cases, or 3 cases but all \code{expect(true).toBe(true)} style. \\
 2 & Incomplete & $\geq 3$ test cases but no cache hit case. \\
 3 & Adequate & $\geq 3$ cases including env override + default value + cache hit. Cache implementation present (5-minute TTL, but the timing logic may be approximate). \\
-4 & Per-user covered & Level 3 + per-user override path is implemented (not stubbed --- i.e. returns a value derived from the database, not a hard-coded \texttt{undefined} --- and has a test. \\
-5 & Excellent & Level 4 + no \code{console.log} left in production path + test file at centralized path \filename{src/tests/features/flags/is-enabled.test.ts} (not in \texttt{\_\_tests\_\_/}). \\
+4 & Per-user covered & Level 3 + per-user override path is implemented (not stubbed --- i.e. returns a value derived from the database, not a hard-coded \code{undefined} --- and has a test. \\
+5 & Excellent & Level 4 + no \code{console.log} left in production path + test file at centralized path \filename{src/tests/features/flags/is-enabled.test.ts} (not in \filename{\_\_tests\_\_/}). \\
 \bottomrule
 \end{tabular}
 \caption{Coverage \& Completeness scoring rubric (0--5).}
@@ -1487,7 +1445,13 @@ All 10 executed runs completed without triggering E1--E5; the criteria are docum
 
 The pilot applied the three-dimensional framework to one representative task: generating the \seqsplit{isEnabled(flagKey, userId?)} utility using Cursor. The demonstration ran five runs under the SmartKit condition and five runs under the convention-naive scaffold condition. Two of three directional predictions are confirmed, one is confirmed as an instruction-following asymmetry, and one clause is refuted.
 
-\textbf{Scoring.} \textit{Structural Integrity} was scored by running the \texttt{score-flag.ts} script against the generated files, counting violations per category. \textit{Type \& Contract Safety} was scored by running \code{tsc --noEmit} on the generated code and counting type errors and \emph{any}-type occurrences. \textit{Coverage \& Completeness} was scored by enumerating generated files against a reference checklist. Each dimension is reported on the 0--5 rubric described earlier in this chapter.
+\textbf{What the reader should expect.}
+The pilot's directional predictions anticipate a clear contrast on two of three dimensions. Cond~A is predicted to score at or near the rubric ceiling because its convention envelope (AGENTS.md, sibling features, FSD layout, Zod patterns) is designed to produce exactly those outputs. Cond~B is predicted to score at or near the floor because its scaffold lacks every convention-encoding signal the framework measures. The binary verdict rule classifies a 5/5 pass rate as confirmed, a 0/5 pass rate as refuted, and 1--4 out of 5 as inconclusive.
+
+\textbf{How to read the ceiling--floor pattern.}
+Cond~A's medians sit at rubric ceiling (Structural Integrity 5, Type \& Contract Safety 4, Coverage \& Completeness 5). Cond~B's medians sit near floor (Structural Integrity 2, Type \& Contract Safety 0--3, Coverage \& Completeness 0). Cond~B's Type \& Contract Safety dimension shows the widest within-condition spread (range 0--3); the other two dimensions are stable within each condition. The pattern is feasibility-stage evidence that the framework produces the predicted contrast; population-level inference remains future work.
+
+\textbf{Scoring.} \textit{Structural Integrity} was scored by running the \filename{score-flag.ts} script against the generated files, counting violations per category. \textit{Type \& Contract Safety} was scored by running \code{tsc --noEmit} on the generated code and counting type errors and \emph{any}-type occurrences. \textit{Coverage \& Completeness} was scored by enumerating generated files against a reference checklist. Each dimension is reported on the 0--5 rubric described earlier in this chapter.
 
 \begin{table}[H]
 \centering
@@ -1542,12 +1506,12 @@ Verdicts use the binary rule: five passing runs confirms, zero passing runs refu
 
 This section reads the executed scores against the rubric mechanics and issues three directional-prediction verdicts: confirmed, refuted, or inconclusive based on whether all, none, or some runs met the passing threshold.
 
-\subsection{DP1 -- Structural Placement}
+\subsection{DP1 -- Structural Integrity Placement}
 \label{sec:dp1-results}
 
 \textbf{Confirmed.} Cond~A placed the utility at the predicted path \filename{features/flags/lib/is-enabled.ts} in all five runs. Cond~B placed it at root \filename{lib/} in all five runs. The pattern is consistent with an ecosystem-level mechanism: the SmartKit codebase exposes \filename{AGENTS.md}, sibling features under \filename{features/}, and the established placement in adjacent features; the convention-naive scaffold exposes none of these, so generated output falls back to root-level placement.
 
-\subsection{DP2 -- Zod-derived FlagKey}
+\subsection{DP2 -- Type \& Contract Safety (Zod-derived FlagKey)}
 \label{sec:dp2-results}
 
 \textbf{Confirmed as instruction-following asymmetry}: Cond~A
@@ -1579,7 +1543,7 @@ incidentally provides. Resolving this attribution requires isolating the
 Zod directive from the ecosystem effect, which is the purpose of the
 bundled-effect experiment planned as Future Work item 4.
 
-\subsection{DP3 -- Centralized Test Path}
+\subsection{DP3 -- Coverage \& Completeness (Centralized Test Path)}
 \label{sec:dp3-results}
 
 \textbf{DP3-A: confirmed.} The SmartKit condition placed a test file at the predicted centralized path in all five runs.
@@ -1590,7 +1554,7 @@ bundled-effect experiment planned as Future Work item 4.
 
 Two findings are consistent across predictions. DP1 and DP3-A both show Cond~A placements matching the predicted FSD paths in all 5 runs, indicating that structural-convention signals (AGENTS.md, sibling features, FSD layout) orient placement when present. DP2's confirmed-asymmetry verdict and DP3-B's refutation together show that the SmartKit ecosystem's contribution is not uniform: the ecosystem reinforces directives that match its existing patterns (DP2) and produces consistent placement (DP1, DP3-A), but does not suppress default test-generation behaviour in Cond~B (DP3-B). The DP3-B refutation is read as a positive finding about the framework's discriminative capacity rather than as a contradiction of the DP1/DP2 outcomes.
 
-\paragraph{Scope of these verdicts.} Verdicts are binary-rule outcomes, not parameter estimates. The Wilson 95\% confidence interval at five runs has a half-width of approximately 0.21, too wide to support frequentist hypothesis testing at this sample size. The comparison is an ecosystem-level demonstration (SmartKit vs convention-naive scaffold), not an isolated test of any single convention-encoding mechanism; the bundled-effect limitation, the per-arm coverage design consequence for Cond~A, and the cross-arm coverage consequence for Cond~B are consolidated in \autoref{sec:threats} together with the rubric-level $4$--$5$ per-user-override caveat that does not affect the placement verdicts.
+\paragraph{Scope of these verdicts.} Verdicts are binary-rule outcomes, not parameter estimates. The Wilson 95\% confidence interval at five runs has a half-width of approximately 0.21, too wide to support frequentist hypothesis testing at this sample size. The comparison is an ecosystem-level demonstration (SmartKit vs convention-naive scaffold), not an isolated test of any single convention-encoding mechanism; the bundled-effect limitation, the per-arm coverage design consequence for Cond~A, and the cross-arm coverage consequence for Cond~B are consolidated in \autoref{sec:threats} together with a caveat that applies only to the Coverage \& Completeness dimension and does not affect the Structural Integrity placement verdicts in DP1 and DP3-A.
 
 \subsubsection*{Analytical Discussion}
 The four subsections below analyse the pilot results beyond the verdict descriptions in \S\ref{sec:pilot-results}. Each subsection addresses one analytical question: mechanism (which convention-encoding effect did the pilot actually exercise), alternative explanations (which the pilot cannot rule out), comparison to the AI-code-generation literature (what the results add on top of HumanEval and SWE-bench), and implications (what the framework tells practitioners and researchers to do next).
@@ -1600,7 +1564,7 @@ The four subsections below analyse the pilot results beyond the verdict descript
 
 The ceiling--floor pattern (Cond~A medians at rubric ceiling: Str 5, T\&C 4, Cov 5; Cond~B medians near floor: Str 2, T\&C 1, Cov 0) warrants interpretation beyond the verdict descriptions. Three mechanisms are consistent with the observed pattern, and the pilot design separates which mechanisms it can and cannot test.
 
-\textbf{Structural-convention signals orient placement when they are present.} DP1 (structural placement) and DP3-A (centralized test path) both show Cond~A placements matching the predicted FSD paths in all five runs. Cond~B places these at root-level paths. AGENTS.md, sibling features, and the FSD layout are visible in Cond~A and absent in Cond~B. The consistent 5/5 contrast on placement dimensions indicates that the visible codebase structure does orient AI-generated file placement.
+\textbf{Structural-convention signals orient placement when they are present.} DP1 (Structural Integrity placement) and DP3-A (Coverage \& Completeness, centralized test path) both show Cond~A placements matching the predicted FSD paths in all five runs. Cond~B places these at root-level paths. AGENTS.md, sibling features, and the FSD layout are visible in Cond~A and absent in Cond~B. The consistent 5/5 contrast on placement dimensions indicates that the visible codebase structure does orient AI-generated file placement.
 
 \textbf{The ecosystem reinforces directives that match its existing patterns.} DP2 (Zod-derived FlagKey) produced the predicted contrast (Cond~A Zod, Cond~B raw string), but the pilot cannot attribute this to convention encoding alone. The Cond~A prompt bundles the Zod directive with three reinforcing signals: the AGENTS.md directive, the colocated Zod schemas in sibling features, and the Zod patterns in the database schema. This thesis answers the question \emph{whether} convention encoding works at the ecosystem level. It does not answer \emph{which component} drives the effect. The bundled-effect isolation experiment (Future Work item~4) is designed to answer that follow-up question.
 
@@ -1622,7 +1586,7 @@ Three alternative explanations for the ceiling--floor pattern are worth stating 
 
 The pilot results map onto the broader AI-code-generation literature in two ways.
 
-HumanEval and SWE-bench measure problem-solving and bug-fixing capability; neither assesses whether AI-generated code adheres to framework conventions. The ceiling--floor pattern in Table~\ref{tbl:pilot-actual} indicates that convention adherence is a distinct dimension from algorithmic correctness. Cond~A scored 5/5 on Structural Integrity (correct file placement) and 4/5 on Type \& Contract Safety (non-trivial Zod usage). Cond~B scored 2/5 on Structural Integrity (root-level placement) and 0/5 on Coverage (no test file). A benchmark that assessed only algorithmic correctness would not detect this contrast. The two conditions would both produce correctly implemented utility functions. The three-dimensional rubric captures a quality dimension that existing benchmarks do not.
+HumanEval and SWE-bench measure problem-solving and bug-fixing capability; neither assesses whether AI-generated code adheres to framework conventions. The ceiling--floor pattern in Table~\ref{tbl:pilot-actual} indicates that convention adherence is a distinct dimension from algorithmic correctness. Cond~A scored 5/5 on Structural Integrity (correct file placement) and 4/5 on Type \& Contract Safety (non-trivial Zod usage). Cond~B scored 2/5 on Structural Integrity (root-level placement) and 0/5 on Coverage \& Completeness (no test file). A benchmark that assessed only algorithmic correctness would not detect this contrast. The two conditions would both produce correctly implemented utility functions. The three-dimensional rubric captures a quality dimension that existing benchmarks do not.
 
 Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct and 20.1\% incorrect~\parencite{yetistiren2022assessing}. Their failure mode concerns functional correctness on algorithmic tasks. The SmartKit framework addresses structural correctness and convention adherence on boilerplate-generation tasks. Both failure modes apply to production-ready AI-assisted development. The framework complements functional-correctness benchmarks rather than replacing them.
 
@@ -1655,7 +1619,7 @@ This section is the analytical taxonomy, with each category discussed against th
 
 \textbf{Rubric cutoffs and scoring protocol.} The pilot's three rubric dimensions produce ordinal, reproducible scores on the framework's Structural Integrity, Type \& Contract Safety, and Coverage \& Completeness dimensions. The cutoffs (0--1: serious violations, 1--2: minor, 2--3: acceptable, 3--4: good, 4--5: excellent) are design choices; the mapping from rubric levels to developer-relevant outcomes is not empirically calibrated. IRR validation of the rubric (item 3, \S\ref{sec:future-work}) is required before rubric scores can be claimed to track developer-relevant quality grades.
 
-\textbf{Coverage rubric operationalization gap.} The Coverage rubric is calibrated to the full convention envelope: levels $4$--$5$ require a non-stubbed per-user override path and centralised test path, which the no-integration pilot feature structurally cannot produce via automated file-presence detection. Automated scoring reaches Cov $= 5$ for Cond~A across all 5 runs (file-presence enumeration); the gap between the automated ceiling and the rubric's Levels 4--5 design intent (per-user DB override) is documented in \autoref{sec:pilot-rubric} and addressed as future work.
+\textbf{Coverage \& Completeness rubric operationalization gap.} The Coverage rubric is calibrated to the full convention envelope: levels $4$--$5$ require a non-stubbed per-user override path and centralised test path, which the no-integration pilot feature structurally cannot produce via automated file-presence detection. Automated scoring reaches Cov $= 5$ for Cond~A across all 5 runs (file-presence enumeration); the gap between the automated ceiling and the rubric's Levels 4--5 design intent (per-user DB override) is documented in \autoref{sec:pilot-rubric} and addressed as future work.
 
 \subsection{Internal Validity}
 \label{sec:internal-validity}
