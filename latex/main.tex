@@ -700,9 +700,9 @@ Better~Auth supplies the shared identity tables (\code{user}, \code{session}, \c
 
 \section{Type-Safe API Contracts}
 
-API routes in SmartKit use Zod schemas for request and response validation. These schemas serve dual purposes: runtime validation of incoming requests and TypeScript type inference for handler code. AI systems can examine Zod schemas to understand API contracts, generating code that respects type constraints without requiring explicit type annotations.
+API routes in SmartKit use Zod schemas for request and response validation. Schemas are defined once per feature (in \filename{features/<name>/types/}, as introduced in \S4.1) and \pkg{z.infer} derives the matching TypeScript type, so the same definition is the source of truth for both runtime validation and TypeScript inference. AI systems can examine a Zod schema to understand the contract on both sides of the boundary and generate code that respects it without needing separate type annotations.
 
-The shared schema pattern enables consistent validation across frontend form components and backend API handlers. The same Zod schemas validate both client-submitted forms and server-handled requests. The match between frontend and backend validation reduces the gap between AI-generated client-side and server-side code, producing more coherent implementations.
+Because the schemas are shared, the validation logic on the client and the server stays in lockstep. The same Zod object validates a client-submitted form before submission and a server-handled request inside a route handler or action. The match closes the gap between AI-generated client-side and server-side code, producing more coherent implementations across the boundary.
 
 \chapter{Implementation}
 \label{sec:implementation}
