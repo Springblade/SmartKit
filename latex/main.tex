@@ -624,9 +624,9 @@ The framework supports incremental adoption. A team can adopt the feature-based 
 
 \section{Feature-Based Modular Architecture}
 
-Many Next.js projects organize code by technical layer (components/, lib/, hooks/) or by page structure. SmartKit instead adopts feature-based modularity, where each feature contains all code necessary for its functionality. An authentication feature, for instance, includes database schemas, API routes, React components, form validation schemas, and email templates within a single directory.
+Many Next.js projects organize code by technical layer (components/, lib/, hooks/) or by page structure. SmartKit instead uses feature-based modularity, where each feature contains everything needed for its functionality: an authentication feature, for instance, holds database schemas, API routes, React components, form validation schemas, and email templates inside one directory.
 
-This organization improves AI comprehension by narrowing the search space for relevant context when AI generates code for a specific feature. The scope of changes becomes explicit, which reduces the risk of AI-generated code violating feature encapsulation. The organization also creates natural boundaries for testing and deployment that align with developer mental models.
+This organisation improves AI comprehension by narrowing the search space for relevant context when code is generated for one feature. The scope of any change becomes explicit, which lowers the risk of AI-generated code violating feature encapsulation. The directory boundary also serves as a natural test and deployment unit that matches developer mental models.
 
 The feature directory structure follows a consistent pattern across all features:
 
