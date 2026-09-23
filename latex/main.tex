@@ -313,19 +313,20 @@ The chapter opens with the recent wave of AI coding assistants and the parallel 
 
 Controlled studies report substantial productivity gains from AI coding assistants. Peng et al. showed that developers using GitHub Copilot completed tasks 55.8\% faster than control groups \parencite{peng2023impact}, while Yetiştiren et al. reported that GitHub Copilot generated valid code for 91.5\% of HumanEval problems ($n=164$), with 28.7\% fully correct, 51.2\% partially correct, and 20.1\% incorrect \parencite{yetistiren2022assessing}. Next.js has emerged as the dominant React meta-framework for production web applications, with its App Router architecture introduced in version 13 fundamentally changing application structure through React Server Components and explicit Server/Client boundaries \parencite{nextjsdocs}. The failure mode that motivates this thesis is concrete (\autoref{fig:motivated-example}): when an AI coding assistant generates a Server Component that imports a Client Component and passes an event handler as a prop, Next.js produces the runtime error ``Event handlers cannot be passed to Client Component props''---a failure that \code{tsc --noEmit} cannot catch because it has no type-level representation. During SmartKit's development, recurring AI generation errors were observed firsthand in Next.js App Router code, including authentication security flaws, component boundary violations, and outdated API usage from older training data; these are development-time observations rather than measured prevalence figures. Without systematic evaluation, developers cannot assess whether AI-generated Next.js code adheres to framework conventions or will fail in production.
 
-Existing benchmarks address algorithmic problem-solving and bug-fixing capabilities but not framework convention adherence. HumanEval evaluates Python code generation for standalone functions \parencite{chen2021evaluating}; SWE-bench assesses AI ability to resolve GitHub issues \parencite{jimenez2024swebench}; a systematic review of 395 LLM-for-SE studies found that framework-convention adherence is not separately tracked as an evaluation category --- the SLR's metric inventory organizes evaluation by problem type (generation, classification, recommendation, regression) rather than by benchmark-versus-human-evaluation split, and 338 of 395 studies (~86\%) used generation-task metrics such as BLEU-4 (62 studies), Pass@k (54), and Accuracy@k (39) to assess code-synthesis quality \parencite{hou2024llmse}. None of these capture the specific architectural requirements of Next.js App Router, such as Server/Client component boundaries, type-safe contracts, or file-system routing conventions. The gap means developers have no framework-specific quantitative basis for comparing AI tools on these tasks.
+Existing benchmarks---HumanEval, SWE-bench---score algorithmic correctness and bug-fixing capability, but none of them measure framework convention adherence \parencite{chen2021evaluating,jimenez2024swebench}; a recent SLR of 395 LLM-for-SE studies confirmed that framework-convention adherence is not separately tracked as an evaluation category, with 338 of 395 studies (~86\%) relying on generation-task metrics such as BLEU-4, Pass@k, and Accuracy@k \parencite{hou2024llmse}. None of these capture the specific architectural requirements of Next.js App Router, such as Server/Client component boundaries, type-safe contracts, or file-system routing conventions. The practical consequence is that developers have no quantitative basis for comparing AI tools on these architectural tasks. This thesis proposes a three-dimensional evaluation framework---structural integrity, type \& contract safety, and coverage \& completeness---designed to fill that gap.
 
-The primary contribution of this thesis is the design of a three-dimensional evaluation framework that measures AI-generated Next.js boilerplate adherence to framework conventions. Two supporting instantiations demonstrate the framework's utility. The SmartKit artifact provides a working implementation that embodies the framework's conventions. A bounded feasibility pilot provides an empirical demonstration that the framework produces measurable scores on real AI-generated code. The pilot evidences measurability; it does not estimate the framework's empirical effect size. Inferring the latter requires a larger-$N$ replication ($n \approx 30$ per arm); this validation-stage replication is part of the future-work section at the end of this thesis.
+This overview has sketched the problem from a practitioner angle. The next section formalises the technical challenges that make convention adherence hard to measure; the formal research objectives, contribution list, and framework definition follow in \S\ref{sec:research-objectives}.
 
 \section{The Problem: AI Convention Violations in Next.js}
 
 This thesis addresses a concrete problem: AI coding assistants consistently generate Next.js App Router code that violates framework conventions, producing runtime errors and technical debt, yet no evaluation framework exists to measure this adherence. Three principal challenges shape the framework design.
 
-First, framework conventions are implicit and distributed across documentation, error messages, and community patterns. Enumerating them into testable metrics is itself an open problem. Second, AI-generated code failures in Next.js manifest at runtime rather than compile time --- the Server/Client boundary error ``Event handlers cannot be passed to Client Component props'' only fires when the component is executed, so the framework needs dynamic analysis rather than static linting alone. Third, the three evaluation dimensions are designed to be orthogonal: a structural-integrity violation does not imply a type error, and a coverage gap operates independently of both. Collapsing them into a single composite score would hide which dimension is actually regressing. The orthogonality of the three dimensions is asserted at design stage and awaits empirical validation; a larger per-arm replication ($n \approx 30$) would be required to confirm that the dimensions vary independently in practice, and this validation-stage work is part of \autoref{sec:future-work}.
+First, framework conventions are implicit and distributed across documentation, error messages, and community patterns. Enumerating them into testable metrics is itself an open problem. Second, AI-generated code failures in Next.js manifest at runtime rather than compile time --- the Server/Client boundary error ``Event handlers cannot be passed to Client Component props'' only fires when the component is executed, so the framework needs dynamic analysis rather than static linting alone. Third, the three evaluation dimensions are designed to be orthogonal: a structural-integrity violation does not imply a type error, and a coverage gap operates independently of both. Collapsing them into a single composite score would hide which dimension is actually regressing. The orthogonality of the three dimensions is asserted at design stage and awaits empirical validation; the executed pilot's per-arm sample is far below the $n \approx 30$ required to confirm that the dimensions vary independently in practice (a Pearson correlation matrix on $n \geq 30$ per condition would distinguish genuine orthogonality from subtle coupling, and this analysis is part of the validation-stage work described at the end of this thesis).
 
-The focus on Next.js App Router is deliberate. First, market dominance makes it the primary target: community surveys consistently place Next.js among the most widely adopted React meta-frameworks \parencite{nextjsdocs}; in the Stack Overflow 2025 Developer Survey, Next.js is reported at 20.8\% in the web-frameworks-and-technologies category, ahead of Express (19.9\%) and Angular (18.2\%) \parencite[1, Stack Overflow Developer Survey]{stackoverflow2025}. Second, training-data mismatch is a recognized failure mode of LLM-based code assistants: Wu et al.\ introduced VersiCode, a benchmark spanning 300 Python libraries and 2{,}000+ versions over 9 years, and showed that version-controllable code generation (version-specific completion and version-aware migration) is a significant challenge even for frontier models \parencite{versicode2024}. Third, practical feasibility applies: the author has existing Next.js expertise, enabling direct testing of enforcement mechanisms. The pilot targets Cursor because its AGENTS.md feature implements documentation-based guidance, an approach consistent with prior research suggesting that explicit context and structured prompts improve AI coding-assistant output quality \parencite{barke2022grounded,zhang2023practices}.
+The focus on Next.js App Router is deliberate. First, market dominance makes it the primary target: Next.js is reported at 20.8\% in the Stack Overflow 2025 Developer Survey's web-frameworks-and-technologies category, ahead of Express (19.9\%) and Angular (18.2\%) \parencite[1, Stack Overflow Developer Survey]{stackoverflow2025}. Second, training-data mismatch is a recognized failure mode of LLM-based code assistants: Wu et al.\ introduced VersiCode, a benchmark spanning 300 Python libraries and 2{,}000+ versions over 9 years, and showed that version-controllable code generation (version-specific completion and version-aware migration) is a significant challenge even for frontier models \parencite{versicode2024}. Third, practical feasibility applies: the author has existing Next.js expertise, enabling direct testing of enforcement mechanisms. The pilot targets Cursor because its AGENTS.md feature implements documentation-based guidance, an approach consistent with prior research suggesting that explicit context and structured prompts improve AI coding-assistant output quality \parencite{barke2022grounded,zhang2023practices}.
 
 \section{Research Objectives and Questions}
+\label{sec:research-objectives}
 
 While Next.js dominates React meta-framework adoption and AI coding assistants such as GitHub Copilot and Cursor have demonstrated substantial productivity gains, there is a distinct gap at the intersection of these two areas: a systematic, operationalizable evaluation framework that measures how closely AI-generated Next.js boilerplate code adheres to framework-specific conventions. Existing benchmarks---HumanEval, SWE-bench---address algorithmic problem-solving and bug-fixing capability, but none capture the architectural requirements of Next.js App Router such as Server/Client component boundaries, type-safe contracts, or file-system routing conventions \parencite{chen2021evaluating,jimenez2024swebench}. This thesis targets precisely that gap.
 
@@ -377,17 +378,55 @@ pilot section.
     \emph{confirmed}, \emph{refuted}, or \emph{inconclusive}.
 \end{description}
 
-\paragraph{Directional predictions (falsifiable hypotheses).}
-The pilot uses the \code{isEnabled(flagKey, userId?)} utility as the
-representative feature and assigns each prediction a binary verdict of
+\paragraph{Framework properties (descriptive).} The pilot demonstrates
+that the framework operates on a real artifact:
+\begin{itemize}
+    \item \textbf{FP1 (Structural Integrity).} The framework can measure
+    the dimension it targets---file placement, Server/Client boundary
+    usage, and naming patterns---on AI-generated Next.js code, yielding
+    a per-run score on a representative feature.
+    \item \textbf{FP2 (Type \& Contract Safety).} The framework can measure
+    the dimension it targets on AI-generated Next.js code, yielding a
+    per-run score on a representative feature by combining Type-Safety
+    and Contract-Safety sub-scores under the framework's weakest-link
+    combination rule.
+    \item \textbf{FP3 (Coverage \& Completeness).} The framework can
+enumerate AI-generated files against a feature-specific checklist
+and yield a per-run score reflecting required-artifact presence,
+demonstrated on the no-integration subset of the convention envelope;
+the integration-using subset (e.g.\ a feature that integrates Drizzle)
+is structurally excluded from this pilot and is documented in
+\S\ref{sec:threats} as a future-validation target.
+\end{itemize}
+
+\paragraph{Directional predictions (falsifiable hypotheses).} Each
+prediction asks whether Condition~A outperforms Condition~B on one
+dimension. The pilot uses the \code{isEnabled(flagKey, userId?)}
+utility as the representative feature and evaluates the prediction as
 \emph{confirmed} (all runs agree with the predicted direction),
-\emph{refuted} (no runs agree), or \emph{inconclusive} (mixed).
-Verdicts and mechanism interpretation are reported in
-\S\ref{sec:dp1-results}, \S\ref{sec:dp2-results}, and
-\S\ref{sec:dp3-results}; full statistical validation, including
-larger per-arm samples, cross-tool replication, and developer-participant
+\emph{refuted} (no runs agree), or \emph{inconclusive} (mixed),
+following the adaptive-$N$ pilot protocol.
+
+\begin{itemize}
+    \item \textbf{DP1 (Structural Integrity).} Condition~A is predicted to place the
+    utility in the SmartKit feature-based layout in the majority of runs;
+    Condition~B is predicted to use a root-level or flat structure.
+    \item \textbf{DP2 (Type \& Contract).} Condition~A is predicted to
+    produce Zod-typed schema definitions in the majority of runs;
+    Condition~B is predicted to use raw string types.
+    \item \textbf{DP3 (Coverage).} Condition~A is predicted to include a
+    centralized test file in the majority of runs;
+    Condition~B is predicted to omit a test file in the majority of runs.
+\end{itemize}
+
+The pilot reports each framework property as \emph{supported} or
+\emph{unsupported} and each directional prediction as one of the three
+binary verdicts. Full statistical validation, including larger
+per-arm samples, cross-tool replication, and developer-participant
 studies, remains future empirical work (see \autoref{sec:threats}
 for threats to validity).
+
+Designing an evaluation framework for AI-generated Next.js boilerplate encounters three key challenges that distinguish it from existing code generation benchmarks. First, framework conventions are implicit and distributed across documentation, error messages, and community patterns, requiring deliberate extraction into enumerable, testable rules rather than relying on predefined quality criteria. Second, convention violations in Next.js App Router manifest primarily at runtime. Server/Client boundary violations produce errors only when executed, so evaluation must go beyond static analysis to capture dynamic execution behaviour. Third, because the three dimensions are orthogonal, the evaluation demands a multi-dimensional framework rather than a single composite score: collapsing them would hide which dimension is actually regressing. The orthogonality of these dimensions is asserted at design stage and awaits empirical validation; Pearson correlation analysis across runs would test whether the three dimensions are genuinely orthogonal or merely weakly coupled, but the executed pilot's small per-arm sample precludes such analysis at this stage.
 
 This thesis makes one primary contribution and two supporting contributions.
 
@@ -426,7 +465,7 @@ To keep the empirical rigor and feasibility of this research within the resource
     \item \textbf{Pilot study limitation:} The feasibility demonstration runs one representative task (\code{isEnabled(flagKey, userId?)}) with five independent runs per condition, yielding ten runs total. The demonstration uses a pre-registered rule: five passing runs confirms a prediction, zero passing runs refutes it, and one to four passing runs marks it inconclusive. Findings are bounded by the small per-arm sample; a population-level estimate would require approximately 30 runs per condition. Cross-tool replication and larger-$N$ studies remain future work.
 \end{enumerate}
 
-These boundaries are deliberate methodological choices. Fixing the framework, the AI assistant, and the project type removes confounding variance so that any measured difference between structured and unstructured conditions can be attributed to the SmartKit approach alone.
+These four boundaries are deliberate: fixing them isolates the SmartKit effect from confounding variance.
 
 
 \chapter{Background}
@@ -438,7 +477,7 @@ Understanding the intersection of AI coding assistants and Next.js development r
 
 GitHub Copilot, Anthropic's Claude, and Cursor all use transformer-based LLMs fine-tuned for code understanding and generation. GitHub Copilot provides inline code completions and entire function generation within supported editors (using OpenAI's GPT series and Anthropic's Claude series models, with specific model versions varying over time). Anthropic's Claude offers conversational code assistance through the Claude Code CLI and IDE integrations. Cursor combines Claude with a custom codebase indexing system that enables context-aware suggestions across entire projects.
 
-These assistants share common architectural elements. They process code through transformer-based models trained on large corpora of publicly available source code, learning statistical patterns that inform code generation. When producing completions, they consider surrounding code context, natural language comments, and project-wide information to generate relevant suggestions. Their effectiveness varies with programming language, task complexity, and code structure \parencite[code quality evaluation study]{yetistiren2023evaluating}.
+These assistants are context-aware: completions draw on surrounding code, comments, and project-wide signals such as the codebase index used by Cursor \parencite[code quality evaluation study]{yetistiren2023evaluating}.
 
 Research documents both strengths and limitations. Dakhel et al.\ found that AI assistance benefits expert developers who can filter suboptimal suggestions but may harm novice developers who lack the expertise to identify incorrect or inefficient code \parencite{dakhel2023github}. Liu et al.\ documented that ChatGPT performs better on older problems (pre-2021) than newer ones, with a 48.14\% advantage on the Accepted rate, though it struggles with complex algorithms and domain-specific code, frequently generating solutions with security vulnerabilities and inefficient implementations \parencite{liu2024chatgpt}.
 
