@@ -676,7 +676,7 @@ This structure allows AI systems to predict where to place new code within a fea
 
 \section{Server/Client Boundary Conventions}
 
-React Server Components introduce an explicit boundary between server-only and client-accessible code, and section 4.1 motivates why SmartKit relies on Next.js's native mechanism (the \usec{} directive and the \pkg{server-only} import) rather than a library such as tRPC. This section focuses on how those two primitives are applied in practice: where they live in the source tree, and what data-flow shape they impose on AI-generated code.
+React Server Components introduce an explicit boundary between server-only and client-accessible code, and \autoref{sec:stack-rationale} motivates why SmartKit relies on Next.js's native mechanism (the \usec{} directive and the \pkg{server-only} import) rather than a library such as tRPC. This section focuses on how those two primitives are applied in practice: where they live in the source tree, and what data-flow shape they impose on AI-generated code.
 
 The boundary shapes data-flow design. Server Components can read databases and environment variables directly, while Client Components receive data through props or invoke server actions. AI systems can therefore call type-safe server actions from a Client Component, which keeps the data path consistent as new components are generated.
 
@@ -727,7 +727,7 @@ Better~Auth supplies the shared identity tables (\code{user}, \code{session}, \c
 
 \section{Type-Safe API Contracts}
 
-API routes in SmartKit use Zod schemas for request and response validation. Schemas are defined once per feature (in \filename{features/<name>/types/}, as introduced in section 4.1) and \pkg{z.infer} derives the matching TypeScript type, so the same definition is the source of truth for both runtime validation and TypeScript inference. AI systems can examine a Zod schema to understand the contract on both sides of the boundary and generate code that respects it without separate type annotations.
+API routes in SmartKit use Zod schemas for request and response validation. Schemas are defined once per feature (in \filename{features/<name>/types/}, as introduced in \autoref{sec:stack-rationale}) and \pkg{z.infer} derives the matching TypeScript type, so the same definition is the source of truth for both runtime validation and TypeScript inference. AI systems can examine a Zod schema to understand the contract on both sides of the boundary and generate code that respects it without separate type annotations.
 
 Because the schemas are shared, the validation logic on the client and the server stays in lockstep. The same Zod object validates a client-submitted form before submission and a server-handled request inside a route handler or action. The match closes the gap between AI-generated client-side and server-side code, producing more coherent implementations across the boundary.
 
@@ -744,7 +744,7 @@ This section documents the SmartKit stack (Next.js 16, Drizzle ORM, Zod, and the
 \subsection{Stack Selection Rationale}
 \label{sec:stack-rationale}
 
-Each component of the SmartKit stack reinforces one of the three evaluation dimensions. The comparison with alternative choices (tRPC versus native Server/Client boundary, Prisma versus Drizzle, raw types versus Zod) is given in §4.1. Three guiding principles follow from that comparison:
+Each component of the SmartKit stack reinforces one of the three evaluation dimensions. The comparison with alternative choices (tRPC versus native Server/Client boundary, Prisma versus Drizzle, raw types versus Zod) is given in \autoref{sec:stack-rationale}. Three guiding principles follow from that comparison:
 
 \begin{enumerate}
   \item \textbf{App Router as the structural surface.} Next.js~16's App Router exposes the conventions Structural Integrity measures: Server/Client boundaries, file-system routing, and the \usec/\pkg{server-only} primitives are framework defaults. These rules therefore transfer to plain Next.js projects rather than coupling the rubric to SmartKit-specific library conventions.
@@ -834,7 +834,7 @@ Internally, \filename{features/flags/} follows the same conventions as \filename
 \subsection{Feature-Based Organization}
 \label{sec:feature-organization}
 
-The SmartKit codebase follows the feature-based folder structure described in §4.1 and detailed in section 4.2. Each feature reuses the same six-subdirectory convention (\filename{components/}, \filename{hooks/}, \filename{actions/}, \filename{lib/}, \filename{types/}, \filename{emails/}), which Structural Integrity reads as a per-feature boundary marker.
+The SmartKit codebase follows the feature-based folder structure described in \autoref{sec:stack-rationale} and detailed in \autoref{sec:feature-organization}. Each feature reuses the same six-subdirectory convention (\filename{components/}, \filename{hooks/}, \filename{actions/}, \filename{lib/}, \filename{types/}, \filename{emails/}), which Structural Integrity reads as a per-feature boundary marker.
 
 \begin{figure}[htbp]
   \centering
@@ -972,7 +972,7 @@ export function isEnabled(
 \end{lstlisting}
 
 \bigskip\noindent\textbf{Design rationale.}
-The tiered design supports gradual rollouts via environment variables before per-user targeting. The 5-minute TTL bounds memory growth while keeping flag values fresh for environment-driven rollouts. The server-side boundary rationale, why the function lives behind \pkg{server-only} rather than crossing the Server/Client boundary, is given in §4.3.
+The tiered design supports gradual rollouts via environment variables before per-user targeting. The 5-minute TTL bounds memory growth while keeping flag values fresh for environment-driven rollouts. The server-side boundary rationale, why the function lives behind \pkg{server-only} rather than crossing the Server/Client boundary, is given in \autoref{sec:server-client-boundary}.
 
 \subsection{Server/Client Boundary Enforcement}
 \label{sec:server-client-boundary}
@@ -996,7 +996,7 @@ export async function getServerData() {
 }
 \end{lstlisting}
 
-\bigskip\noindent The rationale for using \pkg{server-only} and \usec{} as the boundary primitives is given in §4.3; the listing above shows the import statement and the build-time error that Next.js produces when a Client Component attempts to import this module.
+\bigskip\noindent The rationale for using \pkg{server-only} and \usec{} as the boundary primitives is given in \autoref{sec:server-client-boundary}; the listing above shows the import statement and the build-time error that Next.js produces when a Client Component attempts to import this module.
 
 \subsection{Evaluation Infrastructure}
 \label{sec:eval-infrastructure}
@@ -1522,7 +1522,7 @@ B (Runs 1--5)   & $2\ [2, 2]$ & $3\ [0, 3]$ & $0\ [0, 1]$ \\
 
 \textbf{Score pattern.} Cond~A scored Structural Integrity 5 in all 5 runs and Type \& Contract Safety 4 in all 5 runs. Coverage \& Completeness scored 3 in all 5 Cond~A runs: the pilot feature's no-integration design excludes the per-user DB override path required by the rubric's Levels 4--5, so the score sits at the Level~3 design-stage ceiling rather than reflecting a Level~5 developer-experience outcome. Cond~B scored Structural Integrity 2 in all 5 runs and Coverage 0 or 1 in all 5 runs. Cond~B Type \& Contract shows the largest within-condition spread ($0$--$3$, observed values: 0, 3, 3, 3, 3); the other two dimensions are stable within each condition. This pattern is read as feasibility-stage evidence that the framework can produce the predicted contrast; the directional predictions are evaluated against this pattern in the next section.
 
-Verdicts use the binary rule: five passing runs confirms, zero passing runs refutes, one to four passing runs marks inconclusive. The Wilson 95\% CI at five runs has half-width ~0.21 (see \autoref{eq:wilson}); no inferential claim about population proportions is supported at this sample size. All limitations are listed in Section 7.
+Verdicts use the binary rule: five passing runs confirms, zero passing runs refutes, one to four passing runs marks inconclusive. The Wilson 95\% CI at five runs has half-width ~0.21 (see \autoref{eq:wilson}); no inferential claim about population proportions is supported at this sample size. All limitations are listed in \autoref{sec:threats}.
 
 \section{Discussion}
 \label{sec:discussion}
