@@ -1171,7 +1171,7 @@ The standardised prompt's first resolution-order rule (``Per-user DB override, o
 \renewcommand{\arraystretch}{1}
 \end{table}
 
-\subsection{Rubric interpretation: what the scores measure and what they do not}
+\subsection{Rubric Interpretation}
 \label{sec:rubric-interpretation}
 
 The three rubric dimensions introduced and detailed in this chapter carry different epistemic statuses with respect to the underlying constructs they are taken to represent. This subsection makes those statuses explicit so that pilot results are read within the framework's validated scope, and not beyond it.
@@ -1487,6 +1487,8 @@ E5 & AI assistant explicitly states it cannot complete the task due to missing d
 
 All 10 executed runs completed without triggering E1--E5; the criteria are documented for replication rather than retrospective use.
 
+The following section presents the pilot scores, evaluates the directional predictions against the binary verdict rule, and discusses the observed ceiling--floor pattern across the three rubric dimensions.
+
 \section{Results}
 \label{sec:pilot-results}
 
@@ -1617,6 +1619,8 @@ Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\
 \textbf{For practitioners.} Developers using AI coding assistants with Next.js App Router should expect that framework conventions (Server/Client boundaries, file placement, Zod typing) are not automatically followed by AI assistants unless the conventions are explicitly encoded in the project structure. A boilerplate that encodes conventions at the file-system level (SmartKit's approach) produces measurable convention adherence in AI output. A bare scaffold does not. Teams adopting AI-assisted Next.js development should consider structural convention encoding (AGENTS.md, FSD layout, colocated type patterns) as part of their AI-tooling setup.
 
 \textbf{For researchers.} The ceiling--floor pattern across five runs per condition provides preliminary evidence that framework-convention adherence is measurable with a rubric that operates on real generated artifacts. The bundled-effect limitation means that the mechanism (AGENTS.md, FSD layout, Zod patterns, or their combination) cannot be isolated from the current pilot design. Future research on AI-framework alignment should design experiments that isolate individual convention-encoding mechanisms. The bundled-effect isolation experiment in Future Work item~4 is the minimum next step.
+
+The following section consolidates the pilot's limitations under a four-category threats-to-validity taxonomy, followed by a summary of contributions and future work directions.
 
 \section{Threats to Validity}
 \label{sec:threats}
