@@ -1628,6 +1628,19 @@ Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\
 
 \textbf{For researchers.} The ceiling--floor pattern across five runs per condition provides preliminary evidence that framework-convention adherence is measurable with a rubric that operates on real generated artifacts. The bundled-effect limitation means that the mechanism (AGENTS.md, FSD layout, Zod patterns, or their combination) cannot be isolated from the current pilot design. Future research on AI-framework alignment should design experiments that isolate individual convention-encoding mechanisms. The bundled-effect isolation experiment in Future Work item~4 is the minimum next step.
 
+\subsection{Zero Within-Condition Variance}
+\label{sec:zero-variance}
+
+A notable pattern in the pilot results (\autoref{tbl:pilot-aggregate}) is zero within-condition variance on multiple dimensions: Condition A shows median [min, max] of $5\ [5, 5]$ for Structural Integrity, $4\ [4, 4]$ for Type \& Contract Safety, and $3\ [3, 3]$ for Coverage \& Completeness. Condition B shows zero variance on two dimensions: Structural Integrity $2\ [2, 2]$ and Coverage $0\ [0, 0]$ (Type \& Contract has range $[0, 3]$).
+
+This pattern is consistent with deterministic generation when conventions are sufficiently explicit. Ouyang et al.\ documented non-determinism in LLM code generation, reporting variation across temperature settings and repeated sampling \parencite{ouyang2025nondeterminism}. However, their work focuses on algorithmic tasks where multiple valid solutions exist. The pilot's task---generating a feature-flag utility following explicit structural and type-safety conventions---may constrain the solution space enough that the AI assistant produces identical outputs across runs when the convention envelope is unambiguous.
+
+The zero-variance pattern does not rule out session-level dependencies. The pilot's run-order design (Condition B runs 1--5, Condition A runs 6--10, sequential execution) creates a potential confound: if the AI assistant maintains state or context across runs within a session, the observed consistency could reflect session-level carryover rather than true determinism. \autoref{sec:threats} (Internal Validity) discusses this run-order confound in detail, including the argument that the between-condition contrast (5/5 vs 0/5) remains interpretable because both conditions followed the same protocol.
+
+The zero-variance finding is task-specific. The pilot tests a simple utility function (boolean flag lookup with caching); more complex features involving business logic, edge-case handling, or multi-component integration may exhibit variance even under explicit conventions. Future work should test whether the deterministic pattern generalizes to complex features or whether variance reappears as task complexity increases.
+
+\textbf{Interpretation.} Zero within-condition variance is not a weakness of the pilot; it is an observation about the interaction between convention explicitness and generation consistency. Explicit conventions may override the stochastic behavior documented in Ouyang et al.'s work, at least for simple boilerplate tasks. This finding raises a testable hypothesis for future research: convention-driven generation is more deterministic than algorithmic problem-solving, and the degree of determinism scales with convention explicitness.
+
 The following section consolidates the pilot's limitations under a four-category threats-to-validity taxonomy, followed by a summary of contributions and future work directions.
 
 \section{Threats to Validity}
