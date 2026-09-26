@@ -1355,6 +1355,27 @@ For a pilot of this scale ($n=5$ per condition), we report raw proportions ($k/n
 A pre-registered plan called for a second rater to independently score 2 runs (1 per condition) using the same rubric, with Cohen's $\kappa \geq 0.7$ as the threshold for rubric revision. The pilot executed with automated-only scoring; the IRR pass was therefore not run, and the rubric has not been empirically cross-checked against a human rater. Re-executing the IRR pass on a representative slice of runs is documented as future-work item~3 (\autoref{sec:future-work}).
 \label{sec:pilot-irr}
 
+\subsection{Two-Tier Verdict System}
+\label{sec:two-tier-verdict}
+
+This pilot reports verdicts on two separate dimensions to distinguish empirical score contrasts from causal mechanism attribution. The two-tier system addresses a fundamental limitation: a bounded pilot can measure association (score patterns) but cannot isolate the causal mechanism without component ablation.
+
+\textbf{Directional verdict} (empirical score contrast): Does the predicted score pattern appear in the data?
+\begin{itemize}
+    \item \textbf{Confirmed}: Predicted contrast observed (e.g., 5/5 vs 0/5 in the predicted direction)
+    \item \textbf{Refuted}: Opposite of prediction observed (e.g., 0/5 vs 5/5, reversed from prediction)
+    \item \textbf{Inconclusive}: Ambiguous or no clear contrast (1--4/5)
+\end{itemize}
+
+\textbf{Mechanistic verdict} (causal mechanism attribution): Can we identify which component caused the observed pattern?
+\begin{itemize}
+    \item \textbf{Attributed}: Mechanism identified and isolated (e.g., DP3-B --- Cursor's default test-placement convention, independent of SmartKit)
+    \item \textbf{Partially Attributed}: Mechanism identified but bundled; cannot isolate individual components (e.g., DP1 --- repository structure + AGENTS.md ecosystem work together)
+    \item \textbf{Unresolved}: Mechanism cannot be determined from current design (e.g., DP2 --- cannot separate structure from directive effects without ablation)
+\end{itemize}
+
+For a bounded pilot, mechanistic verdicts remain tentative. Full mechanism isolation requires ablation studies (e.g., structure-only vs directive-only conditions) documented as Future Work. The directional verdict answers ``does the ecosystem predict scores?'' while the mechanistic verdict answers ``why?''
+
 \subsection{Scoring Rubric}
 \label{sec:pilot-rubric}
 
