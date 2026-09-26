@@ -1539,32 +1539,20 @@ This section reads the executed scores against the rubric mechanics and issues t
 \subsection{DP2 -- Type \& Contract Safety (Zod-derived FlagKey)}
 \label{sec:dp2-results}
 
-\textbf{Confirmed as instruction-following asymmetry}. Condition A produced a Zod-derived \code{FlagKey} enum in all 5 runs and Condition B produced a raw \code{string} type alias in all 5 runs.
-The standardized prompt, the dependency surface, and the explicit
-Zod directive (``use a Zod schema to derive'') were identical
-across conditions, so the asymmetry is not attributable to a
-missing-package effect on Condition B. The attribution question that
-remains is whether the asymmetry reflects the SmartKit
-convention-encoding effect or instruction-following reinforcement
-that the ecosystem incidentally enables: Condition A's prompt bundles
-the directive with three ecosystem-level reinforcement signals
-absent from Condition B (AGENTS.md, colocated Zod schemas in
-\filename{features/auth/} and \filename{features/billing/}, and
-the Zod patterns in \filename{src/database/schema/}), and a
-compliant Condition A run cannot be attributed to the directive, the
-ecosystem, or the dependency in isolation. Adjudicating between
-the two explanations requires the bundled-effect isolation
-experiment (future-work item~4), which re-runs DP2 with the
-Condition B prompt removing the shared Zod directive.
+\textbf{Directional verdict: Confirmed.} Condition A produced a Zod-derived \code{FlagKey} enum in all 5 runs (5/5); Condition B produced a raw \code{string} type alias in all 5 runs (0/5). The observed score contrast (Condition A median Type \& Contract = 4, Condition B median = 3) aligns with the directional prediction: the SmartKit ecosystem condition produces higher type safety scores than the convention-naive scaffold.
 
-\textbf{What this verdict means.} The framework detected a difference between
-conditions on Type \& Contract Safety: Condition~A consistently produced Zod-derived
-types while Condition~B produced raw string types. The pilot cannot
-determine whether this outcome stems from convention encoding in the SmartKit
-ecosystem or from instruction-following reinforcement that the ecosystem
-incidentally provides. Resolving this attribution requires isolating the
-Zod directive from the ecosystem effect, which is the purpose of the
-bundled-effect experiment planned as Future Work item 4.
+\textbf{Mechanistic verdict: Unresolved.} The current design cannot separate the causal mechanism. Two candidate explanations are consistent with the 5/5 vs 0/5 pattern:
+
+\begin{enumerate}
+    \item \textbf{Convention-encoding hypothesis}: The SmartKit ecosystem (AGENTS.md + colocated Zod schemas in \filename{features/auth/} and \filename{features/billing/} + Zod patterns in \filename{src/database/schema/}) encodes the type-safety convention, reinforcing the Zod directive independently of the directive's presence.
+    \item \textbf{Instruction-following hypothesis}: The explicit Zod directive in the standardized prompt (``use a Zod schema to derive \code{FlagKey}'') is sufficient, and the ecosystem merely reinforces instruction-following rather than encoding the convention itself.
+\end{enumerate}
+
+The standardized prompt, the dependency surface (Zod installed in both conditions), and the explicit Zod directive were identical across conditions, so the asymmetry is not attributable to a missing-package effect. However, Condition A's prompt bundles the directive with three ecosystem-level reinforcement signals absent from Condition B, and a compliant Condition A run cannot be attributed to the directive, the ecosystem, or the dependency in isolation.
+
+Adjudicating between these two explanations requires the bundled-effect isolation experiment (Future Work item 4), which re-runs DP2 with Condition B's prompt \emph{removing} the shared Zod directive. If Condition A still produces Zod-derived types without the directive, the convention-encoding hypothesis is supported; if both conditions fail without the directive, the instruction-following hypothesis is supported.
+
+\textbf{Interpretation.} DP2 is directionally confirmed (score contrast observed) but mechanistically unresolved (cannot separate structure from directive effects). This distinction is standard in causal inference: association is not causation. Component ablation will isolate the mechanism.
 
 \subsection{DP3 -- Coverage \& Completeness (Centralized Test Path)}
 \label{sec:dp3-results}
