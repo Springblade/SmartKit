@@ -1534,7 +1534,9 @@ This section reads the executed scores against the rubric mechanics and issues t
 \subsection{DP1 -- Structural Integrity Placement}
 \label{sec:dp1-results}
 
-\textbf{Confirmed.} Condition A placed the utility at the predicted path \filename{features/flags/lib/is-enabled.ts} in all five runs. Condition B placed it at root \filename{lib/} in all five runs. The pattern is consistent with an ecosystem-level mechanism: the SmartKit codebase exposes \filename{AGENTS.md}, sibling features under \filename{features/}, and the established placement in adjacent features; the convention-naive scaffold exposes none of these, so generated output falls back to root-level placement.
+\textbf{Directional verdict: Confirmed.} Condition A placed the utility at the predicted path \filename{features/flags/lib/is-enabled.ts} in all five runs (5/5). Condition B placed it at root \filename{lib/} in all five runs (0/5). The score contrast (Condition A median Structural Integrity = 5, Condition B median = 2) aligns with the directional prediction.
+
+\textbf{Mechanistic verdict: Partially Attributed.} The observed pattern is consistent with an ecosystem-level mechanism, but the SmartKit ecosystem is bundled: the repository structure (\filename{features/} directory with sibling features), AGENTS.md documentation, and established placement patterns in adjacent features all work together. The current design cannot isolate which component (structure alone, AGENTS.md alone, or their combination) is necessary or sufficient for the placement effect. Future ablation studies could test structure-only vs AGENTS.md-only conditions to decompose the bundled mechanism.
 
 \subsection{DP2 -- Type \& Contract Safety (Zod-derived FlagKey)}
 \label{sec:dp2-results}
@@ -1557,8 +1559,17 @@ Adjudicating between these two explanations requires the bundled-effect isolatio
 \subsection{DP3 -- Coverage \& Completeness (Centralized Test Path)}
 \label{sec:dp3-results}
 
-\textbf{DP3-A: confirmed.} Condition~A placed a test file at the predicted centralised path in all five runs.
-\textbf{DP3-B: refuted.} The convention-naive scaffold placed a test file at the repository root in all five runs, the opposite of the prediction.
+\textbf{DP3-A (Condition A test placement).}
+
+\textbf{Directional verdict: Confirmed.} Condition A placed a test file at the predicted centralized path \filename{src/tests/features/flags/is-enabled.test.ts} in all five runs (5/5).
+
+\textbf{Mechanistic verdict: Partially Attributed.} Same ecosystem bundling as DP1: the SmartKit repository structure, AGENTS.md, and sibling feature examples work together. The current design cannot isolate individual components.
+
+\textbf{DP3-B (Condition B test placement).}
+
+\textbf{Directional verdict: Refuted.} The original prediction was that Condition B (convention-naive scaffold) would produce no test file or place it in a non-standard location. Instead, Condition B placed a test file at the repository root in all five runs (5/5), the opposite of the ``no test'' prediction.
+
+\textbf{Mechanistic verdict: Attributed.} The observed pattern reflects Cursor's default test-placement convention (root-level test files when no explicit convention is present), which is independent of the SmartKit ecosystem. This mechanism is attributed rather than bundled: Cursor's default behavior is externally documented and operates independently of SmartKit's structure or AGENTS.md. The refutation demonstrates that Condition B is not a ``no convention'' baseline but rather exposes a different convention (Cursor's defaults) that the pilot did not anticipate.
 
 \subsection{Synthesis}
 \label{sec:discussion-synthesis}
