@@ -305,7 +305,7 @@ AI coding assistants can generate Next.js App Router code that violates framewor
 
 I designed a three-dimensional evaluation framework for AI-generated Next.js boilerplate. The framework scores Structural Integrity, Type \& Contract Safety, and Coverage \& Completeness on a 0--5 rubric. The pilot validates measurement on Structural Integrity and Type \& Contract Safety across the full range; Coverage \& Completeness is validated across the 0--3 range (pilot feature deliberately excludes integrations to isolate convention effect). SmartKit, an open-source Next.js boilerplate I released alongside the thesis, instantiates the framework's conventions. A bounded feasibility pilot with five runs per condition produced measurable scores on real AI-generated code.
 
-Three directional predictions carried pre-registered verdicts. DP1, structural placement, confirmed at 5/5 in Condition~A and 0/5 in Condition~B. DP3-A, centralized test path, confirmed under the same rule. DP2, Type \& Contract Safety, confirmed the predicted ecosystem-level contrast (bundled conventions + directive reinforcement); component isolation remains future work. DP3-B refuted: Condition~B placed test files at the repository root in all five runs, the opposite of the prediction.
+Three directional predictions carried pre-registered verdicts. DP1, structural placement, confirmed directionally at 5/5 in Condition~A and 0/5 in Condition~B (mechanism partially attributed: structure + AGENTS.md bundled). DP3-A, centralized test path, confirmed directionally under the same rule (mechanism partially attributed). DP2, Type \& Contract Safety, confirmed directionally (5/5 vs 0/5 contrast observed) but mechanism remains unresolved (cannot separate structure from directive effects; component isolation is future work). DP3-B refuted: Condition~B placed test files at the repository root in all five runs, the opposite of the prediction (mechanism attributed to Cursor's default convention). See \autoref{sec:two-tier-verdict} for verdict category definitions.
 
 The pilot uses one tool, one feature, and five runs per condition; its scope and threats are set out in \autoref{sec:threats}.
 
@@ -1508,7 +1508,7 @@ Condition~A medians were 5 for Structural Integrity, 4 for Type \& Contract Safe
 
 \begin{table}[H]
 \centering
-\caption{Per-condition aggregate (median [min, max]) across 10 runs. Note: Coverage \& Completeness ceiling = 3 for this pilot feature (no integrations exercised, see \autoref{sec:integrations-and-pilot}).}
+\caption{Per-condition aggregate (median [min, max]) across 10 runs.}
 \label{tbl:pilot-aggregate}
 \small
 \begin{tabular}{@{}l ccc@{}}
