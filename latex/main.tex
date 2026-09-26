@@ -1358,12 +1358,7 @@ The same per-run pipeline was applied to all ten runs, with per-run scores plott
 
 The pilot followed a pre-registered adaptive schedule: five runs in Condition~B (Runs~1--5) and five runs in Condition~A (Runs~6--10). Both arms reached adaptive-$N=5$ to satisfy the binary verdict rule and open the comparative-CI gate. The verdict rule in force: 5 out of 5 passing runs resolves as confirmed; 0 out of 5 resolves as refuted; 1 to 4 out of 5 resolves as inconclusive. The full schedule with tool snapshots, verdict counts, and timestamps is in the pilot audit trail released in the thesis GitHub repository.
 
-For each run treated as a binary outcome (pass = score $\geq 3/5$; fail = score $< 3/5$), the Wilson 95\% confidence interval on the proportion of passing runs is computed by:
-\begin{equation}
-\frac{k + \frac{z^2}{2}}{n + z^2} \pm \frac{z}{n + z^2} \sqrt{\frac{k(n-k)}{n} + \frac{z^2}{4}}
-\label{eq:wilson}
-\end{equation}
-where $k$ is the number of passing runs, $n=5$, and $z = 1.96$ for 95\% confidence. The Wilson interval is preferred over the normal approximation (Wald interval) for small $n$ because it never produces bounds outside $[0, 1]$ and has better coverage properties when the true proportion is near 0 or 1. At $n=5$ the 95\% CI half-width is approximately $0.21$, so the binary verdict rule (5/5 vs 0/5) is the only inferentially safe read at this sample size; per-arm rates between these extremes are not distinguishable from chance fluctuation. Results are reported as median [min, max] with Wilson 95\% confidence interval (CI) for the pass rate. The formula is in \autoref{eq:wilson}.
+For each run treated as a binary outcome (pass = score $\geq 3/5$; fail = score $< 3/5$), the Wilson 95\% confidence interval on the proportion of passing runs is computed as described in \autoref{app:wilson}. The Wilson interval is preferred over the normal approximation (Wald interval) for small $n$ because it never produces bounds outside $[0, 1]$ and has better coverage properties when the true proportion is near 0 or 1. At $n=5$ the 95\% CI half-width is approximately $0.21$, so the binary verdict rule (5/5 vs 0/5) is the only inferentially safe read at this sample size; per-arm rates between these extremes are not distinguishable from chance fluctuation. Results are reported as median [min, max] with Wilson 95\% confidence interval (CI) for the pass rate.
 
 A pre-registered plan called for a second rater to independently score 2 runs (1 per condition) using the same rubric, with Cohen's $\kappa \geq 0.7$ as the threshold for rubric revision. The pilot executed with automated-only scoring; the IRR pass was therefore not run, and the rubric has not been empirically cross-checked against a human rater. Re-executing the IRR pass on a representative slice of runs is documented as future-work item~3 (\autoref{sec:future-work}).
 \label{sec:pilot-irr}
@@ -1708,4 +1703,16 @@ in the pilot extends to real developer workflows.
 
 
 
+
+\appendix
+
+\section{Wilson Score Confidence Interval}
+\label{app:wilson}
+
+For each run treated as a binary outcome (pass = score $\geq 3/5$; fail = score $< 3/5$), the Wilson 95\% confidence interval on the proportion of passing runs is computed by:
+\begin{equation}
+\frac{k + \frac{z^2}{2}}{n + z^2} \pm \frac{z}{n + z^2} \sqrt{\frac{k(n-k)}{n} + \frac{z^2}{4}}
+\label{eq:wilson}
+\end{equation}
+where $k$ is the number of passing runs, $n=5$, and $z = 1.96$ for 95\% confidence. The Wilson interval is preferred over the normal approximation (Wald interval) for small $n$ because it never produces bounds outside $[0, 1]$ and has better coverage properties when the true proportion is near 0 or 1.
 \end{document}
