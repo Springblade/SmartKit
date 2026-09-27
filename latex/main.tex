@@ -1200,14 +1200,6 @@ The prompt's per-user database override is intentionally stubbed: \seqsplit{read
 
 The three rubric dimensions introduced and detailed in this chapter carry different epistemic statuses with respect to the underlying constructs they are taken to represent. This subsection makes those statuses explicit so that pilot results are read within the framework's validated scope, and not beyond it.
 
-\paragraph{Three dimensions, three epistemic statuses.} Each dimension is grounded in a distinct form of evidence, and the strength of the inference from a score to a substantive claim differs accordingly.
-
-Structural Integrity: \emph{directly measured}. The score counts the presence or absence of artifacts at expected paths in the SmartKit feature-sliced layout (file placement, \code{server-only} import detection, \usec{} directive checks, barrel-file verification). Differences between conditions reflect observed counts across runs (e.g.\ on the central artifact path, Condition A confirmed with all 5 runs passing and Condition B refuted with 0 out of 5 runs passing), not estimates or judgements, so the dimension-level score is reproducible from the run artefacts without calibration against an external construct.
-
-For Type \& Contract Safety, the score is a \emph{justified proxy for production quality}. The sub-scores combine \code{tsc --noEmit} error counts and Zod-schema coverage at API boundaries; these signals are well-motivated indicators of compile-time and contract-level safety. The cutoffs are asserted design choices; Security review, load testing, observability, and runtime hardening remain outside this dimension's scope.
-
-Coverage \& Completeness reads as an \emph{aspirational developer-experience proxy}. The pilot validates the dimension's measurement capability across the 0--3 range (file-presence and basic artifact structure). Levels 4--5 (DB-backed integrations, deployed instances) require a pilot feature that exercises SmartKit's existing integrations; the current pilot excludes integrations in order to isolate structural convention effect (\autoref{sec:integrations-and-pilot}).
-
 \paragraph{Score-range interpretation table.}
 \autoref{tab:rubric-interpretation} maps the integer score range to a brief description of what is observed at each level for each dimension, with the dimension's epistemic status marked in square brackets. The table is intended as a reading guide for the per-run scores reported in the next section, not as a normative grading scheme.
 
@@ -1266,7 +1258,7 @@ The demonstration runs one task (generating a feature-flag utility) across two c
     \item \textbf{Inconclusive}: one to four runs score $\geq 3/5$.
 \end{itemize}
 
-This binary classification answers a feasibility question: can the framework detect a difference between the bundled effect and the convention-naive baseline? It does \emph{not} measure how large that difference is. The limits of this classification are discussed in \autoref{sec:conclusion-validity}.
+This binary classification answers a feasibility question: can the framework detect a difference between the bundled effect and the convention-naive baseline? It does \emph{not} measure how large that difference is. At this sample size, a single deviating run in either condition would shift the classification from Confirmed or Refuted to Inconclusive; the rule therefore reports unanimity within five runs, not a population-level estimate. The limits of this classification are discussed in \autoref{sec:conclusion-validity}.
 
 The representative feature (\code{isEnabled(flagKey, userId?)}) was selected because it exercises none of SmartKit's integrated services; this choice isolates the convention-encoding effect from service-specific patterns (see \autoref{sec:integrations-and-pilot}). The evaluation scenario measures AI-generated boilerplate quality directly: AI systems receive task descriptions, and the generated code is measured against the framework dimensions. The demonstration focuses on Cursor as the primary case study, consistent with the scope defined in the introduction. All evaluations use multiple runs to address non-determinism concerns raised by Ouyang et al.\ \parencite{ouyang2025nondeterminism}; the Cursor tool does not expose user-settable temperature (the snapshot used in the demonstration does not surface this control), so multi-run evaluation substitutes for temperature variation as the determinism-handling mechanism. Results report per-condition medians and ranges, plus pass rate ($k/n$) for dimensions where a binary threshold is defined.
 
@@ -1544,7 +1536,7 @@ B (Runs 1--5)   & $2\ [2, 2]$ & $3\ [0, 3]$ & $0\ [0, 1]$ \\
 
 \subsection{Pilot Scores}
 
-The aggregate pattern is reported in the table and interpreted against the directional predictions in the following subsections. Verdicts use the binary rule defined above (5/5 = Confirmed, 0/5 = Refuted, 1-4/5 = Inconclusive), and limitations are consolidated in \autoref{sec:threats}.
+The aggregate pattern is reported in the table and interpreted against the directional predictions in the following subsections. Results are reported per the sequential block schedule described in \autoref{sec:pilot-overview}; the run-order confound this introduces is discussed in \autoref{sec:internal-validity}. Verdicts use the binary rule defined above (5/5 = Confirmed, 0/5 = Refuted, 1-4/5 = Inconclusive), and limitations are consolidated in \autoref{sec:threats}.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -1698,7 +1690,7 @@ Two distinct issues affect the Coverage \& Completeness dimension, and they are 
 
 \textbf{Ecosystem-level measurement.} Condition~A combines AGENTS.md directives, FSD layout, and sibling Zod patterns. The confirmed DP1, DP2, and DP3-A verdicts describe the contrast for that combined bundled effect; they cannot assign the difference to one component. A component-level ablation is proposed in \autoref{sec:future-work} (item~4).
 
-\textbf{Run-order confound.} All five Condition~B runs preceded the five Condition~A runs. Time-of-day or experimenter familiarity could therefore contribute to the observed contrast, and two tool snapshots within the Condition~A block complicate attribution further. The zero-variance pattern within each block (\autoref{sec:zero-variance}) is consistent with both deterministic convention-driven generation and potential session-level dependencies; the current design cannot separate these explanations. However, the between-condition contrast (5/5 vs 0/5) remains interpretable because both conditions followed the same protocol, and any session-level confound would affect both arms. Future replications should use randomized run order, separate operators, and fresh Cursor sessions to isolate the mechanism. The locked schedule is described in \autoref{sec:pilot-overview}.
+\textbf{Run-order confound.} All five Condition~B runs preceded the five Condition~A runs. Time-of-day or experimenter familiarity could therefore contribute to the observed contrast, and two tool snapshots within the Condition~A block complicate attribution further. The zero-variance pattern within each block (\autoref{sec:zero-variance}) is consistent with both deterministic convention-driven generation and potential session-level dependencies; the current design cannot separate these explanations. A symmetric, order-independent confound (e.g., general model variability) would affect both arms similarly; however, a monotonic confound (e.g., the model becoming more or less convention-adherent as the session progresses) would be fully confounded with condition assignment, since Condition~B always precedes Condition~A. The pilot cannot distinguish these two cases from the current data. Future replications should use randomized run order, separate operators, and fresh Cursor sessions to isolate the mechanism. The locked schedule is described in \autoref{sec:pilot-overview}.
 
 \subsection{Conclusion Validity}
 \label{sec:conclusion-validity}
