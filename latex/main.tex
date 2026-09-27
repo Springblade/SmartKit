@@ -486,12 +486,12 @@ The second supporting contribution is the bounded feasibility pilot protocol, co
 
 \noindent\textbf{Note.} Boundary violations produce runtime errors that static analysis cannot detect; the CORRECT panel passes children as nested content inside \code{<ClientForm>...</ClientForm>}, not as a JSX prop attribute.
 
-\autoref{fig:evaluation-framework} summarizes the resulting evaluation-framework architecture. Each of the three dimensions is paired with an automated measurement: Structural Integrity is measured through parsed-AST rule violations, Type \& Contract Safety through TypeScript compiler output, and Coverage through a rule-coverage matrix checked against the convention catalog. The three measurements are applied to a shared corpus of AI-generated artifacts and produce a per-tool violation matrix, type-error rates, and coverage scores. Because the dimensions are deliberately independent, no single composite score can substitute for examining all three independently.
+\autoref{fig:evaluation-framework} summarizes the resulting evaluation-framework architecture. Each of the three dimensions is paired with an automated measurement: Structural Integrity is measured through parsed-AST rule violations, Type \& Contract Safety through TypeScript compiler output, and Coverage through a rule-coverage matrix checked against the convention catalog. The three measurements are applied to a shared corpus of AI-generated artifacts and produce a per-tool violation matrix, type-error rates, and coverage scores. Because the dimensions are designed as independent (working assumption), no single composite score can substitute for examining all three independently. If the dimensions prove correlated in practice, reporting them separately still serves a diagnostic purpose: identifying which dimension regresses, similar to reporting precision and recall separately even when they correlate.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.88\textwidth]{figs/fig-evaluation-framework.pdf}
-  \caption{Three-dimensional evaluation framework for AI-generated Next.js code: structural integrity, type safety, and coverage completeness}
+  \caption{Three-dimensional evaluation framework for AI-generated Next.js code: structural integrity, type safety, and coverage completeness. Orthogonality asserted at design stage; empirical validation awaits $n \geq 30$.}
   \label{fig:evaluation-framework}
 \end{figure}
 
