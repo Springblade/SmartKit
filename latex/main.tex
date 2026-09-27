@@ -305,7 +305,7 @@ AI coding assistants can generate Next.js App Router code that violates framewor
 
 I designed a three-dimensional evaluation framework for AI-generated Next.js boilerplate. The framework scores Structural Integrity, Type \& Contract Safety, and Coverage \& Completeness on a 0--5 rubric. The pilot validates measurement on Structural Integrity and Type \& Contract Safety across the full range; Coverage \& Completeness is validated across the 0--3 range (pilot feature deliberately excludes integrations to isolate convention effect). SmartKit, an open-source Next.js boilerplate I released alongside the thesis, instantiates the framework's conventions. A bounded feasibility pilot with five runs per condition produced measurable scores on real AI-generated code.
 
-Three directional predictions carried pre-registered verdicts. DP1, structural placement, confirmed directionally at 5/5 in Condition~A and 0/5 in Condition~B (mechanism partially attributed: structure + AGENTS.md bundled). DP3-A, centralized test path, confirmed directionally under the same rule (mechanism partially attributed). DP2, Type \& Contract Safety, confirmed directionally (5/5 vs 0/5 contrast observed) but mechanism remains unresolved (cannot separate structure from directive effects; component isolation is future work). DP3-B refuted: Condition~B placed test files at the repository root in all five runs, the opposite of the prediction (mechanism attributed to Cursor's default convention). See \autoref{sec:two-tier-verdict} for verdict category definitions.
+Three directional predictions carried pre-registered determinations. DP1, structural placement, confirmed directionally at 5/5 in Condition~A and 0/5 in Condition~B (mechanism partially attributed: structure + AGENTS.md bundled). DP3-A, centralized test path, confirmed directionally under the same rule (mechanism partially attributed). DP2, Type \& Contract Safety, confirmed directionally (5/5 vs 0/5 contrast observed) but mechanism remains unresolved (cannot separate structure from directive effects; component isolation is future work). DP3-B refuted: Condition~B placed test files at the repository root in all five runs, the opposite of the prediction (mechanism attributed to Cursor's default convention). See \autoref{sec:two-tier-verdict} for verdict category definitions.
 
 The pilot uses one tool, one feature, and five runs per condition; its scope and threats are set out in \autoref{sec:threats}.
 
@@ -412,8 +412,11 @@ pilot section.
   \item[Directional predictions (DP)] are falsifiable hypotheses about
     Condition~A versus Condition~B. Each prediction states which
     condition is expected to score higher on a given dimension. The
-    pilot assigns each prediction a binary verdict of
+    pilot assigns each prediction a binary classification of
     \emph{confirmed}, \emph{refuted}, or \emph{inconclusive}.
+    Section~6.2.5 subsequently distinguishes between directional verdicts
+    (whether the predicted pattern appeared) and mechanistic verdicts
+    (whether the mechanism can be attributed).
 \end{description}
 
 \paragraph{Framework properties (descriptive).} The pilot demonstrates
@@ -1255,7 +1258,7 @@ This section describes the pilot design: the two conditions being compared, the 
 \subsection{Pilot Design Overview}
 \label{sec:pilot-overview}
 
-The demonstration runs one task (generating a feature-flag utility) across two conditions, with five independent runs per condition. Each run produces a score on the 0--5 rubric. The verdict rule classifies the outcome as follows:
+The demonstration runs one task (generating a feature-flag utility) across two conditions, with five independent runs per condition. Each run produces a score on the 0--5 rubric. The classification rule classifies the outcome as follows:
 
 \begin{itemize}
     \item \textbf{Confirmed}: all five runs in a condition score $\geq 3/5$.
@@ -1263,7 +1266,7 @@ The demonstration runs one task (generating a feature-flag utility) across two c
     \item \textbf{Inconclusive}: one to four runs score $\geq 3/5$.
 \end{itemize}
 
-This binary verdict answers a feasibility question: can the framework detect a difference between the convention envelope and the convention-naive baseline? It does \emph{not} measure how large that difference is. The limits of this verdict are discussed in \autoref{sec:conclusion-validity}.
+This binary classification answers a feasibility question: can the framework detect a difference between the convention envelope and the convention-naive baseline? It does \emph{not} measure how large that difference is. The limits of this classification are discussed in \autoref{sec:conclusion-validity}.
 
 The representative feature (\code{isEnabled(flagKey, userId?)}) was selected because it exercises none of SmartKit's integrated services; this choice isolates the convention-encoding effect from service-specific patterns (see \autoref{sec:integrations-and-pilot}). The evaluation scenario measures AI-generated boilerplate quality directly: AI systems receive task descriptions, and the generated code is measured against the framework dimensions. The demonstration focuses on Cursor as the primary case study, consistent with the scope defined in the introduction. All evaluations use multiple runs to address non-determinism concerns raised by Ouyang et al.\ \parencite{ouyang2025nondeterminism}; the Cursor tool does not expose user-settable temperature (the snapshot used in the demonstration does not surface this control), so multi-run evaluation substitutes for temperature variation as the determinism-handling mechanism. Results report per-condition medians and ranges, plus pass rate ($k/n$) for dimensions where a binary threshold is defined.
 
@@ -1306,7 +1309,7 @@ Pilot feature
 \renewcommand{\arraystretch}{1}
 \end{table}
 
-\bigskip\noindent\textbf{Run numbering convention.} Throughout this chapter, runs are numbered by condition: Condition~B = Runs~1--5, Condition~A = Runs~6--10. Both arms are at adaptive-$N=5$ (the pre-registered stopping rule: collect exactly five runs per condition before applying the verdict rule). Run log cells are scored on the 0--5 rubric.
+\bigskip\noindent\textbf{Run numbering convention.} Throughout this chapter, runs are numbered by condition: Condition~B = Runs~1--5, Condition~A = Runs~6--10. Both arms are at adaptive-$N=5$ (the pre-registered stopping rule: collect exactly five runs per condition before applying the classification rule). Run log cells are scored on the 0--5 rubric.
 
 \medskip\noindent\textbf{Condition A (SmartKit).} See \autoref{tbl:condition-ab} for the full enumeration of conventions, folder layout, and AI tool context. Existing example features (\filename{features/auth/}, \filename{features/billing/}) are visible to the AI before it generates the pilot feature.
 
@@ -1365,7 +1368,7 @@ The same per-run pipeline was applied to all ten runs, with per-run scores plott
 \subsection{Run Schedule and Verdict Rule}
 \label{sec:pilot-schedule}
 
-The pilot followed a pre-registered adaptive schedule: five runs in Condition~B (Runs~1--5) and five runs in Condition~A (Runs~6--10). Both arms reached adaptive-$N=5$ to satisfy the binary verdict rule. The verdict rule in force classifies outcomes based on raw proportions ($k/n$): 5 out of 5 passing runs resolves as confirmed; 0 out of 5 resolves as refuted; 1 to 4 out of 5 resolves as inconclusive. The full schedule with tool snapshots, verdict counts, and timestamps is in the pilot audit trail released in the thesis GitHub repository.
+The pilot followed a pre-registered adaptive schedule: five runs in Condition~B (Runs~1--5) and five runs in Condition~A (Runs~6--10). Both arms reached adaptive-$N=5$ to satisfy the binary classification rule. The classification rule in force classifies outcomes based on raw proportions ($k/n$): 5 out of 5 passing runs resolves as confirmed; 0 out of 5 resolves as refuted; 1 to 4 out of 5 resolves as inconclusive. The full schedule with tool snapshots, classification counts, and timestamps is in the pilot audit trail released in the thesis GitHub repository.
 
 For a pilot of this scale ($n=5$ per condition), we report raw proportions ($k/n$) rather than confidence intervals. At $n=5$, formal confidence intervals provide limited inferential value; the observed contrasts (5/5 vs 0/5) are interpretable as directional feasibility signals. Results are reported as median [min, max] with pass rate ($k/n$) for dimensions where a binary threshold is defined.
 
@@ -1512,7 +1515,7 @@ E5 & AI assistant explicitly states it cannot complete the task due to missing d
 
 All 10 executed runs completed without triggering E1--E5; the criteria are documented for replication rather than retrospective use.
 
-The following section presents the pilot scores, evaluates the directional predictions against the binary verdict rule, and discusses the observed ceiling--floor pattern across the three rubric dimensions.
+The following section presents the pilot scores, evaluates the directional predictions against the binary classification rule, and discusses the observed ceiling--floor pattern across the three rubric dimensions.
 
 \section{Results}
 \label{sec:pilot-results}
@@ -1593,7 +1596,7 @@ Adjudicating between these two explanations requires the bundled-effect isolatio
 
 Across predictions, Condition A matched the predicted FSD placement for DP1 and DP3-A in all five runs and reinforced the Zod directive for DP2, whereas Condition B placed tests at the repository root, refuting DP3-B. I read the DP3-B refutation as evidence of the framework's discriminative capacity rather than as a contradiction; together these results support the framework while leaving the bundled mechanism unresolved.
 
-\paragraph{Scope of these verdicts.} The binary verdict rule is defined in \autoref{sec:pilot-schedule}. Attribution and measurement limits are assessed in \autoref{sec:threats}; the Coverage cap does not change the DP1 and DP3-A placement verdicts.
+\paragraph{Scope of these verdicts.} The binary classification rule is defined in \autoref{sec:pilot-schedule}. Attribution and measurement limits are assessed in \autoref{sec:threats}; the Coverage cap does not change the DP1 and DP3-A placement verdicts.
 
 \begin{table}[H]
 \centering
@@ -1648,7 +1651,7 @@ Yeti\c{s}tiren et al.\ report that GitHub Copilot generated valid code for 91.5\
 \subsection{Zero Within-Condition Variance}
 \label{sec:zero-variance}
 
-A notable pattern in the pilot results (\autoref{tbl:pilot-aggregate}) is zero within-condition variance on multiple dimensions: Condition A shows median [min, max] of $5\ [5, 5]$ for Structural Integrity, $4\ [4, 4]$ for Type \& Contract Safety, and $3\ [3, 3]$ for Coverage \& Completeness. Condition B shows zero variance on two dimensions: Structural Integrity $2\ [2, 2]$ and Coverage $0\ [0, 0]$ (Type \& Contract has range $[0, 3]$).
+A notable pattern in the pilot results (\autoref{tbl:pilot-aggregate}) is zero within-condition variance on multiple dimensions: Condition A shows median [min, max] of $5\ [5, 5]$ for Structural Integrity, $4\ [4, 4]$ for Type \& Contract Safety, and $3\ [3, 3]$ for Coverage \& Completeness. Condition B shows zero variance only on Structural Integrity ($2\ [2, 2]$); Type \& Contract has range $[0, 3]$ and Coverage has near-zero range $[0, 1]$.
 
 This pattern is consistent with deterministic generation when conventions are sufficiently explicit. Ouyang et al.\ documented non-determinism in LLM code generation, reporting variation across temperature settings and repeated sampling \parencite{ouyang2025nondeterminism}. However, their work focuses on algorithmic tasks where multiple valid solutions exist. The pilot's task---generating a feature-flag utility following explicit structural and type-safety conventions---may constrain the solution space enough that the AI assistant produces identical outputs across runs when the convention envelope is unambiguous.
 
@@ -1656,7 +1659,7 @@ The zero-variance pattern does not rule out session-level dependencies. The pilo
 
 The zero-variance finding is task-specific. The pilot tests a simple utility function (boolean flag lookup with caching); more complex features involving business logic, edge-case handling, or multi-component integration may exhibit variance even under explicit conventions. Future work should test whether the deterministic pattern generalizes to complex features or whether variance reappears as task complexity increases.
 
-\textbf{Interpretation.} Zero within-condition variance is not a weakness of the pilot; it is an observation about the interaction between convention explicitness and generation consistency. Explicit conventions may override the stochastic behavior documented in Ouyang et al.'s work, at least for simple boilerplate tasks. This finding raises a testable hypothesis for future research: convention-driven generation is more deterministic than algorithmic problem-solving, and the degree of determinism scales with convention explicitness.
+\textbf{Interpretation.} Zero within-condition variance is not necessarily a weakness of the pilot; it is an observation about the interaction between convention explicitness and generation consistency. Explicit conventions may override the stochastic behavior documented in Ouyang et al.'s work, at least for simple boilerplate tasks. This finding raises a testable hypothesis for future research: convention-driven generation is more deterministic than algorithmic problem-solving, and the degree of determinism scales with convention explicitness.
 
 The following section consolidates the pilot's limitations under a four-category threats-to-validity taxonomy, followed by a summary of contributions and future work directions.
 
@@ -1686,7 +1689,7 @@ Two distinct issues affect the Coverage \& Completeness dimension, and they are 
 
 \textit{Design-stage limitation.} The pilot feature was deliberately selected to exercise no SmartKit-integrated service (\autoref{sec:integrations-and-pilot}); that choice structurally excludes the per-user database override path required by the rubric's Levels 4--5 (\autoref{sec:pilot-rubric}). The Levels are not exercisable by this pilot feature, independent of any scoring implementation. The limitation is scope-bound, not an error.
 
-\textit{Measurement correction.} An earlier version of the automated Coverage scorer measured file presence only and did not check the Level 4 prerequisite, which allowed Condition A to register at the automated file-presence ceiling despite the prerequisite being unmet. The current scorer, \texttt{score-flag.ts}, detects a stubbed per-user override by a deterministic regex on the utility's body and caps the Coverage score at the level supported by the verified run artifacts. The correction is documented in the score JSON: every Condition A run reports \texttt{coverage\_cap\_applied: true}, the underlying raw file-presence score in \texttt{raw\_uncapped\_score\_if\_capped: 5}, and the cap reason as a string pointer to \autoref{sec:integrations-and-pilot}. The correction does not alter the pre-registered rubric definitions (\autoref{sec:pilot-rubric}), the verdict thresholds (\autoref{sec:pilot-overview}), or the binary DP3 verdict, since the corrected scores remain $\geq 3$ and the Condition B / Condition A contrast on test colocation (DP3-A, DP3-B) is unchanged.
+\textit{Measurement correction.} An earlier version of the automated Coverage scorer measured file presence only and did not check the Level 4 prerequisite, which allowed Condition A to register at the automated file-presence ceiling despite the prerequisite being unmet. The current scorer, \texttt{score-flag.ts}, detects a stubbed per-user override by a deterministic regex on the utility's body and caps the Coverage score at the level supported by the verified run artifacts. The correction is documented in the score JSON: every Condition A run reports \texttt{coverage\_cap\_applied: true}, the underlying raw file-presence score in \texttt{raw\_uncapped\_score\_if\_capped: 5}, and the cap reason as a string pointer to \autoref{sec:integrations-and-pilot}. The correction does not alter the pre-registered rubric definitions (\autoref{sec:pilot-rubric}), the classification thresholds (\autoref{sec:pilot-overview}), or the binary DP3 determination, since the corrected scores remain $\geq 3$ and the Condition B / Condition A contrast on test colocation (DP3-A, DP3-B) is unchanged.
 
 \subsection{Internal Validity}
 \label{sec:internal-validity}
@@ -1702,7 +1705,7 @@ Two distinct issues affect the Coverage \& Completeness dimension, and they are 
 
 \textbf{Alternative explanations.} The confirmed DP1 and DP2 verdicts cannot distinguish structural convention encoding from instruction-following reinforcement, because Condition~A bundles AGENTS.md directives with structural and sibling patterns. The same pattern may also depend on Cursor's context handling, while the five-run sample cannot exclude coincidental alignment. Component ablation, cross-tool replication, and validation-stage replication are specified in \autoref{sec:future-work} (items~1, 2, and 4).
 
-\textbf{Small sample size.} Each condition contains five runs, which supports the pre-registered binary feasibility verdict but provides limited precision for population-level proportions or effect sizes. Validation-stage replication at approximately 30 runs per arm is specified in \autoref{sec:future-work} (item~2).
+\textbf{Small sample size.} Each condition contains five runs, which supports the pre-registered binary feasibility classification but provides limited precision for population-level proportions or effect sizes. Validation-stage replication at approximately 30 runs per arm is specified in \autoref{sec:future-work} (item~2).
 
 \chapter{Conclusion and Future Work}
 \label{sec:conclusion}
@@ -1722,7 +1725,7 @@ The primary contribution is a three-dimensional framework for assessing AI-gener
 \section{Future Work}
 \label{sec:future-work}
 
-\textbf{(1)~Cross-tool replication.} Replicate the pilot using alternative AI coding assistants (GitHub Copilot, Claude Code) to assess whether the framework's dimensional scores are tool-specific or generalize across AI tools. The directional predictions (DP1--DP3) can be tested on each tool, producing a per-tool verdict table. This addresses the single-tool evaluation limitation disclosed in the abstract.
+\textbf{(1)~Cross-tool replication.} Replicate the pilot using alternative AI coding assistants (GitHub Copilot, Claude Code) to assess whether the framework's dimensional scores are tool-specific or generalize across AI tools. The directional predictions (DP1--DP3) can be tested on each tool, producing a per-tool determination table. This addresses the single-tool evaluation limitation disclosed in the abstract.
 
 \textbf{(2)~Validation-stage replication at $n \approx 30$ per arm.} Increase per-arm sample size to a validation-stage quantity (effect size $h = 0.5$, $\alpha = 0.05$, power $0.8$, two-proportion chi-squared approximation) so that the comparative Bonferroni 99\% CI on the $A-B$ difference provides inferential leverage rather than collapsing to a single point at the binary-rule stage.
 
