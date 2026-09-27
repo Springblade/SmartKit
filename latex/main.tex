@@ -429,7 +429,7 @@ that the framework operates on a real artifact:
     \item \textbf{FP2 (Type \& Contract Safety).} The framework can measure
     the dimension it targets on AI-generated Next.js code, yielding a
     per-run score on a representative feature by combining Type-Safety
-    and Contract-Safety sub-scores under the framework's weakest-link
+    and Contract-Safety sub-scores under the framework's lower-of
     combination rule. The pilot validates measurement at ecosystem level
     (bundled conventions); component-level attribution requires follow-up
     decomposition studies (\autoref{sec:future-work}, item~4).
@@ -1239,7 +1239,7 @@ Score & Structural Integrity \emph{[measured]} & Type \& Contract Safety \emph{[
 \subsection{Evaluation Design: Rationale and Trade-offs}
 \label{sec:design-rationale}
 
-The evaluation design prioritises a reproducible, feasible comparison. It uses a six-level (0--5) rubric for each dimension, with dimension-specific thresholds defined in the rubric tables; the cutoffs are design choices and have not been calibrated against developer-experience data. Type \& Contract Safety uses the lower sub-score as a weakest-link rule. The study focuses on Next.js to maintain depth over breadth, while the no-integration feature and matched dependency surface provide the control comparison. Remaining ecosystem, run-order, and tool-snapshot confounds are consolidated in \autoref{sec:threats}. The pilot uses automated scoring throughout; manual or LLM-as-judge assessment remains future work.
+The evaluation design prioritises a reproducible, feasible comparison. It uses a six-level (0--5) rubric for each dimension, with dimension-specific thresholds defined in the rubric tables; the cutoffs are design choices and have not been calibrated against developer-experience data. Type \& Contract Safety uses the lower sub-score as a lower-of rule. The study focuses on Next.js to maintain depth over breadth, while the no-integration feature and matched dependency surface provide the control comparison. Remaining ecosystem, run-order, and tool-snapshot confounds are consolidated in \autoref{sec:threats}. The pilot uses automated scoring throughout; manual or LLM-as-judge assessment remains future work.
 
 The control artifact therefore provides a baseline for isolating SmartKit's convention encoding from the underlying technology stack.
 
@@ -1425,7 +1425,7 @@ Structural Integrity is the measured dimension; the level definitions below spec
 
 \subsubsection{Dimension 2: Type \& Contract Safety (0--5)}
 
-Sub-score combination: the dimension score equals the lower of the two sub-scores (min aggregation, also called the \emph{weakest-link} rule) on the 0--5 scale. I chose this rule at design time without empirical validation of whether min or weighted-mean better predicts downstream type errors.
+Sub-score combination: the dimension score equals the lower of the two sub-scores using the lower-of rule (also called min aggregation) on the 0--5 scale. I chose this rule at design time without empirical validation of whether min or weighted-mean better predicts downstream type errors.
 
 \subsubsection{Type Safety sub-score}
 
